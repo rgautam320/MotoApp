@@ -1,5 +1,5 @@
 import Product from "../models/productModel.js";
-import ErrorHandler from "../utils/errorHandler.js";
+import ErrorHandler from "../middleware/error.js";
 import Catch from "../middleware/catch.js";
 import ProductFeature from "../features/productFeature.js";
 
@@ -14,6 +14,7 @@ export const getAllProducts = Catch(async (req, res) => {
 
 // Creating a Product - Admin
 export const createProduct = Catch(async (req, res) => {
+	req.body.user = req.user.id;
 	const data = req.body;
 
 	const product = await Product.create(data);
@@ -21,7 +22,7 @@ export const createProduct = Catch(async (req, res) => {
 });
 
 // Creating a Product - Admin
-export const updateProduct = Catch(async (req, res) => {
+export const updateProduct = Catch(async (req, res, next) => {
 	const { id } = req.params;
 	const data = req.body;
 	const product = await Product.findById(id);
@@ -35,7 +36,7 @@ export const updateProduct = Catch(async (req, res) => {
 });
 
 // Creating a Product - Admin
-export const deleteProduct = Catch(async (req, res) => {
+export const deleteProduct = Catch(async (req, res, next) => {
 	const { id } = req.params;
 	const product = await Product.findById(id);
 
