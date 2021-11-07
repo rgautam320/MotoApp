@@ -30,14 +30,14 @@ const userSchema = new mongoose.Schema({
 		url: { type: String, required: true },
 	},
 	role: { type: String, required: true, default: "user" },
-	resetPasswordToken: { type: String },
-	resetPasswordExpire: { type: Date },
+	resetPasswordToken: String,
+	resetPasswordExpire: Date,
 	createdAt: { type: Date, default: Date.now },
 });
 
 // Saving decrypted password
 userSchema.pre("save", async function (next) {
-	if (!this.isModified()) {
+	if (!this.isModified("password")) {
 		next();
 	}
 	this.password = await bcrypt.hash(this.password, 10);
@@ -56,7 +56,7 @@ userSchema.methods.comparePassword = async function (enteredPassword) {
 };
 
 // Generating Password Reset Token
-userSchema.methods.generatePasswordResetToken = async function () {
+userSchema.methods.generatePasswordResetToken = function () {
 	const resetToken = crypto.randomBytes(20).toString("hex");
 
 	this.resetPasswordToken = crypto.createHash("sha256").update(resetToken).digest("hex");

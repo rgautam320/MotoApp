@@ -16,7 +16,7 @@ export const Handler = (err, req, res, next) => {
 		const message = `Cast Error: Resource Not Found. Invalid: ${err.path}`;
 		err = new ErrorHandler(404, message);
 	}
-
+	console.log(err);
 	res.status(err.statusCode).json({
 		success: false,
 		message: err.message,

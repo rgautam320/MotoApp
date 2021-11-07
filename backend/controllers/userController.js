@@ -3,6 +3,7 @@ import Catch from "../middleware/catch.js";
 import ErrorHandler from "../middleware/error.js";
 import sendToken from "../utils/jwtToken.js";
 import sendEmail from "../utils/sendEmail.js";
+import crypto from "crypto";
 
 // Register a User
 export const registerUser = Catch(async (req, res, next) => {
@@ -54,8 +55,8 @@ export const logout = Catch(async (req, res, next) => {
 	res.status(200).json({ success: true, message: "Logged Out Successfully." });
 });
 
-// Reset Password
-export const resetPassword = Catch(async (req, res, next) => {
+// Forgot Password
+export const forgotPassword = Catch(async (req, res, next) => {
 	const { email } = req.body;
 	if (!email) {
 		return next(new ErrorHandler(401, "Please Enter Email Address."));
@@ -65,11 +66,12 @@ export const resetPassword = Catch(async (req, res, next) => {
 	if (!user) {
 		return next(new ErrorHandler(401, "User not Found."));
 	}
+
+	const resetToken = await user.generatePasswordResetToken();
+
 	await user.save({ validateBeforeSave: false });
 
-	const resetToken = user.generatePasswordResetToken();
-
-	const url = `${req.protocol}://${req.get("host")}/api/password/reset/${resetToken}`;
+	const url = `${req.protocol}://${req.get("host")}/api/auth/password/reset/${resetToken}`;
 	const message = `Your Password Reset Token is :- ${url}`;
 
 	try {
@@ -82,8 +84,34 @@ export const resetPassword = Catch(async (req, res, next) => {
 	} catch (error) {
 		user.resetPasswordToken = undefined;
 		user.resetPasswordExpire = undefined;
-
-		await user.save({ validateBeforeSave: false });
-		return next(new ErrorHandler(500, error.message));
+		console.log(error);
+		await user.save();
+		return next(new ErrorHandler(500, error));
 	}
+});
+
+// Reset Password
+export const resetPassword = Catch(async (req, res, next) => {
+	const { token } = req.params;
+	const { password, confirmPassword } = req.body;
+
+	const resetPasswordToken = crypto.createHash("sha256").update(token).digest("hex");
+
+	const user = await User.findOne({ resetPasswordToken: resetPasswordToken });
+
+	if (!user) {
+		return next(new ErrorHandler(400, "Reset Password Token is Invalid or Token has been expired."));
+	}
+
+	if (password !== confirmPassword) {
+		return next(new ErrorHandler(400, "Passwords don't match."));
+	}
+
+	user.password = password;
+	user.resetPasswordToken = undefined;
+	user.resetPasswordExpire = undefined;
+
+	await user.save();
+
+	sendToken(user, 200, res);
 });
