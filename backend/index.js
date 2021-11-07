@@ -2,14 +2,19 @@ import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
 
-import productRoutes from "./routes/productRoutes.js";
-
-import errorMiddleware from "./middleware/error.js";
+import { Handler } from "./middleware/error.js";
 
 import databaseConnection from "./utils/database.js";
 
+import productRoutes from "./routes/productRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
+
 const app = express();
+
+// Initializing config file
+dotenv.config();
 
 // Handling Uncaught Exception
 process.on("uncaughtException", (error) => {
@@ -19,19 +24,19 @@ process.on("uncaughtException", (error) => {
 	process.exit(1);
 });
 
-// Using bodyParser and cors
-app.use(bodyParser.json({ limit: "30mb", extended: true }));
-app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
+// Using bodyParser, cors, cookieParser etc.
+app.use(bodyParser.json({ limit: "50mb", extended: true }));
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 app.use(cors());
-
-// Initializing config file
-dotenv.config();
+app.use(express.json());
+app.use(cookieParser());
 
 // API Routes
 app.use("/api/products", productRoutes);
+app.use("/api/auth", userRoutes);
 
 // Using Error Middleware
-app.use(errorMiddleware);
+app.use(Handler);
 
 // Connecting Database
 databaseConnection();
