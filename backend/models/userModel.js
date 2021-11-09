@@ -37,6 +37,7 @@ const userSchema = new mongoose.Schema({
 		zip: { type: String, required: false },
 		state: { type: String, required: false },
 		country: { type: String, required: false, default: "India" },
+		phone: { type: String, required: true },
 	},
 	resetPasswordToken: String,
 	resetPasswordExpire: Date,
