@@ -1,0 +1,40 @@
+*,
+*::after,
+*::before {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+html {
+	scroll-behavior: smooth;
+}
+
+/* Scroll Bar */
+::-webkit-scrollbar {
+	width: 0.5rem;
+	background-color: $white;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	border-radius: 0.5rem;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	border-radius: 0.2rem;
+	background-color: $scroll-bar-color;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	background-color: $body-background;
+}
+
+a {
+	text-decoration: none;
+}

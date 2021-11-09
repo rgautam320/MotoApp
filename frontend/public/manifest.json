@@ -1,0 +1,22 @@
+{
+  "short_name": "Moto App",
+  "name": "Moto App",
+  "icons": [
+    {
+      "src": "logo.svg",
+      "type": "image/svg"
+    },
+    {
+      "src": "logo.png",
+      "type": "image/png"
+    },
+    {
+      "src": "logo.jpg",
+      "type": "image/jpg"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
