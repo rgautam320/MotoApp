@@ -59,3 +59,91 @@ export const getSingleProduct = Catch(async (req, res, next) => {
 
 	res.status(200).json({ success: true, message: "Product Found.", product: product });
 });
+
+// Create and Update Rating
+export const createUpdateReview = Catch(async (req, res, next) => {
+	const { _id, name } = req.user;
+	const { productId } = req.params;
+	const { comment, rating } = req.body;
+	console.log(_id);
+
+	if (!rating) {
+		return next(new ErrorHandler(404, "Rating is Required"));
+	}
+	if (!productId) {
+		return next(new ErrorHandler(404, "No Product Id Given"));
+	}
+
+	let product = await Product.findById(productId);
+
+	if (!product) {
+		return next(new ErrorHandler(404, "No Product Found"));
+	}
+
+	const isReviewed = product.reviews?.find((rev) => rev.user?.toString() === _id.toString());
+
+	if (isReviewed) {
+		product.reviews?.forEach((rev) => {
+			if (rev.user?.toString() === _id.toString()) {
+				rev.comment = comment;
+				rev.rating = rating;
+			}
+		});
+	} else {
+		product.reviews?.push({ user: _id, name, rating, comment });
+	}
+
+	let sum = 0;
+	product.reviews?.forEach((rev) => {
+		sum += rev.rating;
+	});
+	product.rating = sum / product.reviews?.length || 1;
+
+	await product.save({ validateBeforeSave: false });
+
+	res.status(200).json({ success: true, message: "Review Added/Modified" });
+});
+
+// Get All Reviews
+export const getAllReviews = Catch(async (req, res, next) => {
+	const { productId } = req.params;
+	if (!productId) {
+		return next(new ErrorHandler(404, "No Product Id Given"));
+	}
+
+	let product = await Product.findById(productId);
+
+	if (!product) {
+		return next(new ErrorHandler(404, "No Product Found"));
+	}
+
+	res.status(200).json({ success: true, reviews: product.reviews, numOfReviews: product.reviews.length });
+});
+
+// Delete a Review
+export const deleteReview = Catch(async (req, res, next) => {
+	const { id } = req.query;
+	const { productId } = req.params;
+	if (!productId) {
+		return next(new ErrorHandler(404, "No Product Id Given"));
+	}
+
+	let product = await Product.findById(productId);
+
+	if (!product) {
+		return next(new ErrorHandler(404, "No Product Found"));
+	}
+
+	const reviews = product.reviews?.filter((rev) => rev._id.toString() !== id.toString());
+
+	let sum = 0;
+	reviews?.forEach((rev) => {
+		sum += rev.rating;
+	});
+	product.rating = sum / reviews?.length || 1;
+	product.reviews = reviews;
+
+	await product.save();
+
+	res.status(200).json({ success: true, message: "Review Deleted", reviews: reviews, numOfReviews: reviews?.length });
+});

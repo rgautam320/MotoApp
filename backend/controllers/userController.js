@@ -84,7 +84,6 @@ export const forgotPassword = Catch(async (req, res, next) => {
 	} catch (error) {
 		user.resetPasswordToken = undefined;
 		user.resetPasswordExpire = undefined;
-		console.log(error);
 		await user.save();
 		return next(new ErrorHandler(500, error));
 	}
@@ -114,4 +113,95 @@ export const resetPassword = Catch(async (req, res, next) => {
 	await user.save();
 
 	sendToken(user, 200, res);
+});
+
+// Get User Details
+export const getUserDetails = Catch(async (req, res, next) => {
+	const { _id } = req.user;
+
+	if (!_id) {
+		return next(new ErrorHandler(400, "User with given id not found."));
+	}
+	const user = await User.findById(_id);
+
+	res.status(200).json({ success: true, user: user });
+});
+
+// Update Password
+export const updatePassword = Catch(async (req, res, next) => {
+	const { oldPassword, newPassword, confirmNewPassword } = req.body;
+	const { _id } = req.user;
+
+	const user = await User.findById(_id).select("+password");
+
+	if (newPassword === oldPassword) {
+		return next(new ErrorHandler(500, "Passwords cannot be same."));
+	}
+
+	const isPasswordCorrect = user.comparePassword(oldPassword);
+
+	if (!isPasswordCorrect) {
+		return next(new ErrorHandler(500, "Invalid Old Password."));
+	}
+
+	if (newPassword !== confirmNewPassword) {
+		return next(new ErrorHandler(500, "Passwords don't match."));
+	}
+
+	user.password = newPassword;
+
+	await user.save();
+
+	sendToken(user, 200, res);
+});
+
+// Update User Info
+export const updateUserDetails = Catch(async (req, res, next) => {
+	const { _id } = req.user;
+	const { name, email, address } = req.body;
+
+	const user = await User.findByIdAndUpdate(_id, { name, email, address }, { new: true, runValidators: true, useFindAndModify: false });
+
+	res.status(200).json({ success: true, message: "User Updated Successfully", user: user });
+});
+
+// Get All Users by Admin
+export const getAllUsers = Catch(async (req, res, next) => {
+	const users = await User.find();
+	const numOfUsers = await User.countDocuments();
+
+	res.status(200).json({ success: true, users: users, numOfUsers: numOfUsers });
+});
+
+// Get Single User by Admin
+export const getSingleUser = Catch(async (req, res, next) => {
+	const { id } = req.params;
+	const user = await User.findById(id);
+
+	res.status(200).json({ success: true, user: user });
+});
+
+// Update User by Admin
+export const updateUserByAdmin = Catch(async (req, res, next) => {
+	const { id } = req.params;
+	const { name, email, role, address } = req.body;
+
+	const user = await User.findByIdAndUpdate(id, { name, email, role, address }, { new: true, runValidators: true, useFindAndModify: false });
+
+	res.status(200).json({ success: true, message: "User Updated Successfully", user: user });
+});
+
+// Delete User by Admin
+export const deleteUser = Catch(async (req, res, next) => {
+	const { id } = req.params;
+
+	const user = User.findById(id);
+
+	if (!user) {
+		return next(new ErrorHandler(500, "No user found with the given id"));
+	}
+
+	user.remove();
+
+	res.status(200).json({ success: true, message: "User Deleted Successfully" });
 });
