@@ -10,7 +10,7 @@ const Error = () => {
 				<meta name="description" content="Moto App - Error Page" />
 			</Helmet>
 			<div className="container">
-				<h1 className="text-center error__class_404 py-3 mt-5">404</h1>
+				<h1 className="text-center error__class_404 py-3">404</h1>
 				<h2 className="text-center error__class_oops error__class_404 py-3">
 					<span className="error_res_oops">OOPS!</span> PAGE NOT FOUND
 				</h2>

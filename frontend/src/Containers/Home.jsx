@@ -9,7 +9,7 @@ const Home = () => {
 				<title>Moto App - Home</title>
 				<meta name="description" content="Moto App - Home Page" />
 			</Helmet>
-			<div className="home__home">
+			<div className="home">
 				<Hero />
 			</div>
 		</>
