@@ -1,6 +1,7 @@
 import React from "react";
-import Hero from "../Components/Hero/Hero";
+import Hero from "../Components/Home/Hero";
 import { Helmet } from "react-helmet";
+import Featured from "../Components/Home/Featured";
 
 const Home = () => {
 	return (
@@ -11,6 +12,7 @@ const Home = () => {
 			</Helmet>
 			<div className="home">
 				<Hero />
+				<Featured />
 			</div>
 		</>
 	);

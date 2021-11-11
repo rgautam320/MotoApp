@@ -12,6 +12,8 @@
 @import "./Containers/auth";
 
 // Importing Components
-@import "./Components/navbar";
-@import "./Components/hero";
-@import "./Components/footer";
+@import "./Components/Navbar/navbar";
+@import "./Components/Home/hero";
+@import "./Components/Home/featured";
+@import "./Components/Footer/footer";
+@import "./Components/Product/card";
