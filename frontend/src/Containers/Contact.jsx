@@ -1,13 +1,10 @@
 import React from "react";
-import { Helmet } from "react-helmet";
+import MetaData from "../HOCS/MetaData";
 
 const Contact = () => {
 	return (
 		<>
-			<Helmet>
-				<title>Moto App - Contact</title>
-				<meta name="description" content="Moto App - Contact Page" />
-			</Helmet>
+			<MetaData title="Moto App | Contact" />
 			<div className="container">
 				<div className="contact_contact">
 					<h1 className="text-center">Contact</h1>

@@ -30,8 +30,8 @@
 	&__h1 {
 		margin: 3vmax 0;
 		font-size: 3vmax;
-		text-shadow: 0.15rem 0.15rem $primary;
-		letter-spacing: 0.1rem;
+		font-weight: 750;
+		letter-spacing: 0.2rem;
 		background-image: linear-gradient(90deg, #ff00f2, #0059ff);
 		background-size: 100%;
 		background-clip: border-box;
@@ -42,8 +42,9 @@
 	}
 	&__h3 {
 		font-size: 2.3vmax 0;
-		text-shadow: 0.13rem 0.13rem $primary;
+		font-weight: 750;
 		letter-spacing: 0.1rem;
+		letter-spacing: 0.2rem;
 		background-image: linear-gradient(90deg, #ff00f2, #0059ff);
 		background-size: 100%;
 		background-clip: border-box;

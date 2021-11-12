@@ -1,14 +1,11 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { Helmet } from "react-helmet";
+import MetaData from "../HOCS/MetaData";
 
 const Error = () => {
 	return (
 		<>
-			<Helmet>
-				<title>Moto App - Error</title>
-				<meta name="description" content="Moto App - Error Page" />
-			</Helmet>
+			<MetaData title="Moto App | Error" />
 			<div className="container">
 				<h1 className="text-center error__class_404 py-3">404</h1>
 				<h2 className="text-center error__class_oops error__class_404 py-3">

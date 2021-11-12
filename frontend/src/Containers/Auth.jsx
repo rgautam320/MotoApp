@@ -1,13 +1,10 @@
 import React from "react";
-import { Helmet } from "react-helmet";
+import MetaData from "../HOCS/MetaData";
 
 const Auth = () => {
 	return (
 		<>
-			<Helmet>
-				<title>Moto App - Auth</title>
-				<meta name="description" content="Moto App - Auth Page" />
-			</Helmet>
+			<MetaData title="Moto App | Auth" />
 			<div className="container">
 				<div className="auth_auth">
 					<h1 className="text-center">Auth</h1>

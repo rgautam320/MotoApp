@@ -1,13 +1,10 @@
 import React from "react";
-import { Helmet } from "react-helmet";
+import MetaData from "../HOCS/MetaData";
 
 const Products = () => {
 	return (
 		<>
-			<Helmet>
-				<title>Moto App - Products</title>
-				<meta name="description" content="Moto App - Products Page" />
-			</Helmet>
+			<MetaData title="Moto App | Products" />
 			<div className="container">
 				<div className="products_products">
 					<h1 className="text-center">Products</h1>
