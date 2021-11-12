@@ -1,0 +1,23 @@
+@keyframes animate {
+	to {
+		transform: rotateZ(-360deg);
+	}
+}
+.loader {
+	&__loader {
+		width: 100vw;
+		height: 100vh;
+		background-color: $white;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		max-width: 100%;
+	}
+	&__innerLoader {
+		width: 10rem;
+		height: 10rem;
+		border-bottom: 0.4rem solid $grey;
+		border-radius: 50%;
+		animation: animate 0.6s linear infinite;
+	}
+}
