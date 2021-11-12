@@ -72,7 +72,6 @@ export const createUpdateReview = Catch(async (req, res, next) => {
 	const { _id, name } = req.user;
 	const { productId } = req.params;
 	const { comment, rating } = req.body;
-	console.log(_id);
 
 	if (!rating) {
 		return next(new ErrorHandler(404, "Rating is Required"));
