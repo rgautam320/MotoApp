@@ -1,0 +1,37 @@
+import React from "react";
+import ReactRatings from "react-rating-stars-component";
+
+import DefaultUser from "../../Assets/default-user.png";
+
+const Review = ({ review }) => {
+	const options = {
+		value: review.rating,
+		readOnly: true,
+		isHalf: true,
+		size: window.innerWidth > 768 ? 25 : 20,
+		edit: false,
+	};
+	return (
+		<div className="review">
+			<div className="review__review">
+				<div className="review__imageBox">
+					<img className="review__image" src={DefaultUser} alt="Default User" />
+				</div>
+				<div className="review__details">
+					<h3 className="sub-heading py-3 text-center">{review?.name}</h3>
+
+					<div className="d-flex justify-content-center">
+						<ReactRatings {...options} />
+					</div>
+
+					<hr />
+					<div className="review__comment">
+						<p className="review__comment__text p-3">{review?.comment}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
+};
+
+export default Review;

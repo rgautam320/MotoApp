@@ -1,0 +1,34 @@
+.heading {
+	letter-spacing: 0.1rem;
+	background-image: linear-gradient(90deg, #ff00f2, #0059ff);
+	background-size: 100%;
+	background-clip: border-box;
+	-webkit-background-clip: text;
+	-moz-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	-moz-text-fill-color: transparent;
+	text-shadow: 0.15rem 0.15rem $primary;
+}
+
+.sub-heading {
+	letter-spacing: 0.2rem;
+	background-image: linear-gradient(90deg, #ff00f2, #0059ff);
+	background-size: 100%;
+	background-clip: border-box;
+	-webkit-background-clip: text;
+	-moz-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	-moz-text-fill-color: transparent;
+}
+
+.btn {
+	border: none;
+	outline: none;
+	color: $white;
+	justify-content: center;
+	align-items: center;
+	&:focus {
+		border: none;
+		outline: none;
+	}
+}

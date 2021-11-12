@@ -9,6 +9,8 @@ import AlertTemplate from "react-alert-template-basic";
 import store from "./Data/store";
 
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import "react-multi-carousel/lib/styles.css";
 import "./SCSS/_main.scss";
 
 import Layout from "./HOCS/Layout";

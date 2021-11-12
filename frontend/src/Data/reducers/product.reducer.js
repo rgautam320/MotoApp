@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getAllProductsService, getFeaturedProductsService } from "../services/product.service";
+import { getAllProductsService, getFeaturedProductsService, getSingleProductService } from "../services/product.service";
 
 const initialState = {
 	products: [],
@@ -26,6 +26,14 @@ export const getFeaturedProducts = createAsyncThunk("product/getFeaturedProducts
 	return response;
 });
 
+export const getSingleProduct = createAsyncThunk("product/getSingleProduct", async (id) => {
+	const response = await getSingleProductService(id);
+	if (response?.error) {
+		return { error: response.error };
+	}
+	return response;
+});
+
 export const productSlice = createSlice({
 	name: "products",
 	initialState,
@@ -38,10 +46,14 @@ export const productSlice = createSlice({
 		[getAllProducts.fulfilled]: (state, action) => {
 			state.products = action.payload.products;
 			state.productsCount = action.payload?.productsCount;
-			if (action.payload?.error) {
-				state.error = action.payload?.error;
-			}
 			state.loading = false;
+
+			if (action.payload?.error) {
+				state.error = action.payload.error;
+				setTimeout(() => {
+					state.error = false;
+				}, 5000);
+			}
 		},
 		// Featured Products
 		[getFeaturedProducts.pending]: (state, action) => {
@@ -49,10 +61,29 @@ export const productSlice = createSlice({
 		},
 		[getFeaturedProducts.fulfilled]: (state, action) => {
 			state.featuredProducts = action.payload?.featuredProducts;
+			state.loading = false;
+
 			if (action.payload?.error) {
 				state.error = action.payload.error;
+				setTimeout(() => {
+					state.error = false;
+				}, 5000);
 			}
+		},
+		// Single Product
+		[getSingleProduct.pending]: (state, action) => {
+			state.loading = true;
+		},
+		[getSingleProduct.fulfilled]: (state, action) => {
+			state.singleProduct = action.payload?.product;
 			state.loading = false;
+
+			if (action.payload?.error) {
+				state.error = action.payload.error;
+				setTimeout(() => {
+					state.error = false;
+				}, 5000);
+			}
 		},
 	},
 });

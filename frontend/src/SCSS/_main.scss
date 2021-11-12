@@ -1,6 +1,7 @@
 // Importing Utilities
 @import "./Utilities/variables";
 @import "./Utilities/base";
+@import "./Utilities/style";
 
 // Importing Containers
 @import "./Containers/home";
@@ -10,6 +11,7 @@
 @import "./Containers/search";
 @import "./Containers/cart";
 @import "./Containers/auth";
+@import "./Containers/product";
 
 // Importing Components
 @import "./Components/Navbar/navbar";
@@ -17,6 +19,7 @@
 @import "./Components/Home/featured";
 @import "./Components/Footer/footer";
 @import "./Components/Product/card";
+@import "./Components/Product/review";
 
 // Importing Loader
 @import "./Utilities/loader";

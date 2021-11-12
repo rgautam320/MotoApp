@@ -8,6 +8,7 @@ import Products from "../Containers/Products";
 import Search from "../Containers/Search";
 import Cart from "../Containers/Cart";
 import Auth from "../Containers/Auth";
+import ProductDetails from "../Containers/ProductDetails";
 
 const Routes = () => {
 	return (
@@ -16,6 +17,7 @@ const Routes = () => {
 			<Route exact path="/about" component={About} />
 			<Route exact path="/contact" component={Contact} />
 			<Route exact path="/products" component={Products} />
+			<Route exact path="/product/:id" component={ProductDetails} />
 			<Route exact path="/Search" component={Search} />
 			<Route exact path="/Cart" component={Cart} />
 			<Route exact path="/Auth" component={Auth} />

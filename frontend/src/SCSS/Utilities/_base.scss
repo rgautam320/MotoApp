@@ -26,6 +26,18 @@ html {
 	background-color: $scroll-bar-color;
 }
 
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+	-moz-appearance: textfield;
+}
+
 body {
 	margin: 0;
 	padding: 0;
@@ -36,6 +48,25 @@ body {
 	font-family: "Roboto";
 }
 
+// Overriding Tags
 a {
 	text-decoration: none;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span {
+	margin: 0;
+}
+
+pre {
+	white-space: pre-wrap;
+	word-break: break-word;
+	font-family: "Roboto";
+	text-align: justify;
 }

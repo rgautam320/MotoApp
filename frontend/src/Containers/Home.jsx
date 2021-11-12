@@ -18,6 +18,10 @@ const Home = () => {
 		}
 		dispatch(getFeaturedProducts());
 	}, [dispatch, alert, error]);
+
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, []);
 	return (
 		<>
 			<MetaData title="Moto App | Home" />
