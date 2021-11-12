@@ -12,6 +12,13 @@ export const getAllProducts = Catch(async (req, res) => {
 	res.status(200).json({ success: true, products: products, productsCount: productCount });
 });
 
+// Getting Featured Products - Public
+export const getFeaturedProducts = Catch(async (req, res) => {
+	const page = 2;
+	const products = await Product.find({ featured: true }).limit(page);
+	res.status(200).json({ success: true, message: "Featured Product", featuredProducts: products });
+});
+
 // Creating a Product - Admin
 export const createProduct = Catch(async (req, res) => {
 	req.body.user = req.user.id;

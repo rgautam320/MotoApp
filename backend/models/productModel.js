@@ -13,6 +13,7 @@ const productSchema = new mongoose.Schema({
 	],
 	rating: { type: Number, default: 0 },
 	stock: { type: Number, required: [true, "Please Enter Product Stock"], maxLength: [4, "Stock cannot exceed 4 characters"], default: 1 },
+	featured: { type: Boolean, default: false },
 	reviews: [
 		{
 			user: { type: mongoose.Schema.ObjectId, ref: "User", required: true },

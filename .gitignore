@@ -1,4 +1,6 @@
 # Ignoring files and folders
 node_modules
 build
+dist
 .env
+.vscode

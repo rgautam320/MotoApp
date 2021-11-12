@@ -1,6 +1,6 @@
 import express from "express";
 
-import { getAllProducts, createProduct, updateProduct, deleteProduct, getSingleProduct, createUpdateReview, getAllReviews, deleteReview } from "../controllers/productController.js";
+import { getAllProducts, createProduct, updateProduct, deleteProduct, getSingleProduct, createUpdateReview, getAllReviews, deleteReview, getFeaturedProducts } from "../controllers/productController.js";
 import { isAuthenticated, isAdmin } from "../middleware/auth.js";
 
 const router = express.Router();
@@ -9,6 +9,7 @@ const router = express.Router();
 router.get("/getAllProducts", getAllProducts);
 router.get("/getProduct/:id", getSingleProduct);
 router.get("/getProductReview/:productId", getAllReviews);
+router.get("/getFeaturedProducts", getFeaturedProducts);
 
 // Admin Routes
 router.post("/createProduct", isAuthenticated, isAdmin(), createProduct);
