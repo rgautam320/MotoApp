@@ -65,8 +65,8 @@ const ProductDetails = ({ match }) => {
 							<Carousel>
 								{singleProduct &&
 									singleProduct?.images?.map((image, ind) => (
-										<div className="product__imageBox">
-											<img key={ind} className="product__image" src={image?.url} alt={`${ind} Slide`} />
+										<div className="product__imageBox" key={ind}>
+											<img className="product__image" src={image?.url} alt={`${ind} Slide`} />
 										</div>
 									))}
 							</Carousel>
@@ -84,7 +84,7 @@ const ProductDetails = ({ match }) => {
 							<div className="product__quantityBox">
 								<div className="product__quantity">
 									<button className="btn product__quantity__btn">-</button>
-									<input className="product__quantity__input" type="number" value={1} />
+									<input className="product__quantity__input" type="number" defaultValue={1} />
 									<button className="btn product__quantity__btn">+</button>
 								</div>
 								<div className="product__add">

@@ -2,14 +2,6 @@ import React from "react";
 import Loader from "../../Utils/Loader";
 import Card from "../Product/Card";
 
-const product = {
-	name: "Product Name",
-	image: [{ url: "https://picsum.photos/200/300" }],
-	price: 1200,
-	rating: 4.5,
-	ratings: 150,
-};
-
 const Featured = ({ products, loading }) => {
 	return (
 		<section id="featured">
