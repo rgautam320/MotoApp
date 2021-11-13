@@ -6,13 +6,14 @@ const initialState = {
 	featuredProducts: [],
 	singleProduct: {},
 	productsCount: 0,
+	filteredProductCount: 0,
 	page: 1,
 	loading: false,
 	error: false,
 };
 
 export const getAllProducts = createAsyncThunk("product/getAllProducts", async (payload) => {
-	const response = await getAllProductsService(payload.keyword, payload.currentPage);
+	const response = await getAllProductsService(payload.keyword, payload.currentPage, payload.price, payload.category, payload.rating);
 	if (response?.error) {
 		return { error: response.error };
 	}
@@ -48,13 +49,11 @@ export const productSlice = createSlice({
 			state.products = action.payload.products;
 			state.productsCount = action.payload?.productsCount;
 			state.page = action.payload?.page;
+			state.filteredProductCount = action.payload?.filteredProductCount;
 			state.loading = false;
 
 			if (action.payload?.error) {
 				state.error = action.payload.error;
-				setTimeout(() => {
-					state.error = false;
-				}, 5000);
 			}
 		},
 		// Featured Products
@@ -67,9 +66,6 @@ export const productSlice = createSlice({
 
 			if (action.payload?.error) {
 				state.error = action.payload.error;
-				setTimeout(() => {
-					state.error = false;
-				}, 5000);
 			}
 		},
 		// Single Product
@@ -82,9 +78,6 @@ export const productSlice = createSlice({
 
 			if (action.payload?.error) {
 				state.error = action.payload.error;
-				setTimeout(() => {
-					state.error = false;
-				}, 5000);
 			}
 		},
 	},

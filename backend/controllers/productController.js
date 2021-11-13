@@ -7,9 +7,14 @@ import ProductFeature from "../features/productFeature.js";
 export const getAllProducts = Catch(async (req, res) => {
 	const page = 6;
 	const productCount = await Product.countDocuments();
-	const Products = new ProductFeature(Product.find(), req.query).search().filter().pagination(page);
-	const products = await Products.query;
-	res.status(200).json({ success: true, products: products, productsCount: productCount, page: page });
+	const Products = new ProductFeature(Product.find(), req.query).search().filter();
+
+	let products = await Products.query;
+	const filteredProductCount = products.length;
+	Products.pagination(page);
+	products = await Products.query.clone();
+
+	res.status(200).json({ success: true, products: products, productsCount: productCount, page: page, filteredProductCount: filteredProductCount });
 });
 
 // Getting Featured Products - Public

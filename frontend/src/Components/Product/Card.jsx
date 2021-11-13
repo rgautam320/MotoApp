@@ -2,7 +2,7 @@ import React from "react";
 import ReactRatings from "react-rating-stars-component";
 import { NavLink } from "react-router-dom";
 
-const Card = ({ product, style }) => {
+const Card = ({ product, styles }) => {
 	const options = {
 		value: product.rating,
 		readOnly: true,
@@ -11,7 +11,7 @@ const Card = ({ product, style }) => {
 		edit: false,
 	};
 	return (
-		<div className={style}>
+		<div className={styles}>
 			<div className="card__card">
 				<NavLink exact to={`/product/${product?._id}`}>
 					<img className="card__card__img" src={product?.images[0]?.url} alt={product?.name} />

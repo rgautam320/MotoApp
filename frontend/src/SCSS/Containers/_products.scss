@@ -22,4 +22,48 @@
 		background-color: $grey;
 		color: $white;
 	}
+	&__priceFilter {
+		border: 0.1rem solid $light-shadow;
+		padding: 0.6rem 1rem;
+		margin-top: 2rem;
+		border-radius: 0.6rem;
+		h5 {
+			font-weight: bold;
+		}
+	}
+	&__category {
+		margin-top: 2rem;
+		padding: 0.6rem 1rem;
+		h5 {
+			font-weight: bold;
+			padding: 0.5rem 0;
+		}
+		button {
+			border: none;
+			outline: none;
+			padding-left: 1rem;
+			height: 2rem;
+			transition: all 1s;
+			background-color: transparent;
+			display: block;
+			&:hover {
+				color: $secondary;
+				transition-duration: 1s;
+				cursor: pointer;
+				border: none;
+				outline: none;
+			}
+		}
+	}
+	&__ratingFilter {
+		margin: 1rem 0;
+		border: 0.1rem solid $light-shadow;
+		padding: 0.6rem 1rem;
+		margin-top: 2rem;
+		border-radius: 0.6rem;
+		h5 {
+			font-weight: bold;
+			padding: 0.5rem 0;
+		}
+	}
 }

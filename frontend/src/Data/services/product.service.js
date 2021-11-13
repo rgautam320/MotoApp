@@ -1,8 +1,8 @@
 import { getAllProductsAPI, getFeaturedProductsAPI, getSingleProductAPI } from "../api";
 
-export const getAllProductsService = async (keyword, page) => {
+export const getAllProductsService = async (keyword, page, price, category, rating) => {
 	try {
-		const response = await getAllProductsAPI(keyword, page);
+		const response = await getAllProductsAPI(keyword, page, price, category, rating);
 		return response.data;
 	} catch (error) {
 		console.log(error);
