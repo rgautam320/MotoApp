@@ -6,12 +6,13 @@ const initialState = {
 	featuredProducts: [],
 	singleProduct: {},
 	productsCount: 0,
+	page: 1,
 	loading: false,
 	error: false,
 };
 
-export const getAllProducts = createAsyncThunk("product/getAllProducts", async () => {
-	const response = await getAllProductsService();
+export const getAllProducts = createAsyncThunk("product/getAllProducts", async (payload) => {
+	const response = await getAllProductsService(payload.keyword, payload.currentPage);
 	if (response?.error) {
 		return { error: response.error };
 	}
@@ -46,6 +47,7 @@ export const productSlice = createSlice({
 		[getAllProducts.fulfilled]: (state, action) => {
 			state.products = action.payload.products;
 			state.productsCount = action.payload?.productsCount;
+			state.page = action.payload?.page;
 			state.loading = false;
 
 			if (action.payload?.error) {

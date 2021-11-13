@@ -12,6 +12,6 @@ API.interceptors.request.use((req) => {
 });
 
 // Product APIs
-export const getAllProductsAPI = () => API.post("/products/createProduct");
+export const getAllProductsAPI = (keyword, page) => API.get(`/products/getAllProducts?keyword=${keyword}&page=${page}`);
 export const getFeaturedProductsAPI = () => API.get("/products/getFeaturedProducts");
 export const getSingleProductAPI = (id) => API.get(`/products/getProduct/${id}`);

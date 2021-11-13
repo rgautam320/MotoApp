@@ -33,6 +33,8 @@ const options = {
 	nav4justifyContent: "flex-start",
 
 	searchIconColor: "rgba(35, 35, 35,0.8)",
+	searchIconColorHover: "#eb4034",
+	searchIconUrl: "/products",
 
 	cartIconColor: "rgba(35, 35, 35,0.8)",
 	cartIconColorHover: "#eb4034",
@@ -41,7 +43,6 @@ const options = {
 	profileIconUrl: "/login",
 	profileIconColor: "rgba(35, 35, 35,0.8)",
 	profileIconColorHover: "#eb4034",
-	searchIconColorHover: "#eb4034",
 };
 
 const Appbar = () => {

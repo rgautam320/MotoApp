@@ -5,16 +5,16 @@ import ProductFeature from "../features/productFeature.js";
 
 // Getting all products - Public
 export const getAllProducts = Catch(async (req, res) => {
-	const page = 4;
+	const page = 6;
 	const productCount = await Product.countDocuments();
 	const Products = new ProductFeature(Product.find(), req.query).search().filter().pagination(page);
 	const products = await Products.query;
-	res.status(200).json({ success: true, products: products, productsCount: productCount });
+	res.status(200).json({ success: true, products: products, productsCount: productCount, page: page });
 });
 
 // Getting Featured Products - Public
 export const getFeaturedProducts = Catch(async (req, res) => {
-	const page = 8;
+	const page = 6;
 	const products = await Product.find({ featured: true }).limit(page);
 	res.status(200).json({ success: true, message: "Featured Product", featuredProducts: products });
 });
