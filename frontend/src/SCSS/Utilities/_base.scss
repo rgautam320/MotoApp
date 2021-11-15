@@ -73,7 +73,7 @@ pre {
 
 // Overriding Bootstrap
 .MuiInputLabel-outlined.MuiInputLabel-shrink {
-	background-color: $auth-background;
+	background-color: $body-background;
 	transform: translate(1rem, -0.55rem) scale(0.75) !important;
 	padding: 0 0.5rem;
 }

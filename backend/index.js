@@ -3,6 +3,8 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
+import cloudinary from "cloudinary";
+import fileUpload from "express-fileupload";
 
 import { Handler } from "./middleware/error.js";
 
@@ -31,6 +33,7 @@ app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
+app.use(fileUpload());
 
 // API Routes
 app.use("/api/products", productRoutes);
@@ -42,6 +45,13 @@ app.use(Handler);
 
 // Connecting Database
 databaseConnection();
+
+// Cloudinary
+cloudinary.config({
+	cloud_name: process.env.CLOUDINARY_NAME,
+	api_key: process.env.CLOUDINARY_API_KEY,
+	api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 // Starting Server
 const server = app.listen(process.env.PORT, () => console.log(`Server Running on Port: ${process.env.PORT}`));

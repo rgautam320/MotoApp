@@ -1,9 +1,17 @@
 import React, { useEffect, useState } from "react";
-import MetaData from "../HOCS/MetaData";
 import { AccountCircle, EmailRounded, Lock } from "@material-ui/icons";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+
+import MetaData from "../HOCS/MetaData";
 import Input from "../Components/Auth/Input";
+import { login, register } from "../Data/reducers/user.reducer";
 
 const Auth = () => {
+	const dispatch = useDispatch();
+	const history = useHistory();
+	const { user, isAuthenticated, loading, error } = useSelector((state) => state.user);
+
 	const [isLogin, setIsLogin] = useState(true);
 	const [avatar, setAvatar] = useState("/logo.png");
 	const [avatarPreview, setAvatarPreview] = useState("/logo.png");
@@ -15,7 +23,7 @@ const Auth = () => {
 		email: "",
 		password: "",
 	});
-	const [user, setUser] = useState({
+	const [userInfo, setUserInfo] = useState({
 		name: "",
 		email: "",
 		password: "",
@@ -27,20 +35,23 @@ const Auth = () => {
 
 	const onLogin = (e) => {
 		e.preventDefault();
-		console.log(loginData);
+		dispatch(login(loginData));
 	};
 
 	const registerSubmit = (e) => {
 		e.preventDefault();
-
-		console.log(user);
-		console.log(avatar);
+		const payload = {
+			email: userInfo.email,
+			name: userInfo.name,
+			avatar: avatar,
+			password: userInfo.password,
+		};
+		dispatch(register(payload));
 	};
 
 	const registerDataChange = (e) => {
 		if (e.target.name === "avatar") {
 			const reader = new FileReader();
-
 			reader.onload = () => {
 				if (reader.readyState === 2) {
 					setAvatarPreview(reader.result);
@@ -49,13 +60,16 @@ const Auth = () => {
 			};
 			reader.readAsDataURL(e.target.files[0]);
 		} else {
-			setUser({ ...user, [e.target.name]: e.target.value });
+			setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
 		}
 	};
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
-	}, []);
+		if (isAuthenticated) {
+			history.push("/");
+		}
+	}, [isAuthenticated, history]);
 	return (
 		<>
 			<MetaData title="Moto App | Auth" />
@@ -94,22 +108,13 @@ const Auth = () => {
 						<>
 							<form noValidate autoComplete="off" onSubmit={registerSubmit}>
 								<div className="auth__input">
-									<Input name="email" type="email" label="Email" value={user.email} icon={<EmailRounded />} handleChange={registerDataChange} />
+									<Input name="email" type="email" label="Email" value={userInfo.email} icon={<EmailRounded />} handleChange={registerDataChange} />
 								</div>
 								<div className="auth__input">
-									<Input name="name" type="text" label="Name" value={user.name} icon={<AccountCircle />} handleChange={registerDataChange} />
+									<Input name="name" type="text" label="Name" value={userInfo.name} icon={<AccountCircle />} handleChange={registerDataChange} />
 								</div>
 								<div className="auth__input">
-									<Input
-										name="password"
-										label="Password"
-										value={user.password}
-										icon={<Lock />}
-										handleChange={registerDataChange}
-										type={showPassword ? "text" : "password"}
-										handleShowPassword={handleShowPassword}
-										handleChange={onLoginChange}
-									/>
+									<Input name="password" label="Password" value={userInfo.password} icon={<Lock />} handleChange={registerDataChange} type={showPassword ? "text" : "password"} handleShowPassword={handleShowPassword} />
 								</div>
 								<div className="auth__registerImage">
 									<img src={avatarPreview} alt="Avatar Preview" />

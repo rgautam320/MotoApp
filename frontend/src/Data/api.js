@@ -2,11 +2,14 @@ import axios from "axios";
 
 // Setting Up API
 const API = axios.create({ baseURL: `${process.env.REACT_APP_API}/api` });
-const token = `Bearer ${JSON.parse(localStorage.getItem("token"))}`;
+const token = `${localStorage.getItem("token")}`;
+// const token = `Bearer ${localStorage.getItem("token")}`;
+
+console.log(localStorage.getItem("token"));
 
 API.interceptors.request.use((req) => {
 	if (token) {
-		req.headers.Authorization = token;
+		req.cookies = token;
 	}
 	return req;
 });
@@ -21,3 +24,8 @@ export const getAllProductsAPI = (keyword, page, price, category, rating) => {
 };
 export const getFeaturedProductsAPI = () => API.get("/products/getFeaturedProducts");
 export const getSingleProductAPI = (id) => API.get(`/products/getProduct/${id}`);
+
+// Authentication APIs
+export const loginAPI = (email, password) => API.post("/auth/login", { email, password });
+export const registerAPI = (email, name, avatar, password) => API.post("/auth/register", { email, name, avatar, password });
+export const loadAPI = () => API.get("/auth/me", { token });

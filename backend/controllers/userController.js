@@ -4,9 +4,16 @@ import ErrorHandler from "../middleware/error.js";
 import sendToken from "../utils/jwtToken.js";
 import sendEmail from "../utils/sendEmail.js";
 import crypto from "crypto";
+import cloudinary from "cloudinary";
 
 // Register a User
 export const registerUser = Catch(async (req, res, next) => {
+	const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+		folder: "MotoApp/profile",
+		width: 150,
+		crop: "scale",
+	});
+
 	const { name, email, password } = req.body;
 
 	if ((!name, !email, !password)) {
@@ -16,7 +23,7 @@ export const registerUser = Catch(async (req, res, next) => {
 		name,
 		email,
 		password,
-		avatar: { public_id: "publicid", url: "url" },
+		avatar: { public_id: myCloud.public_id, url: myCloud.secure_url },
 	});
 
 	sendToken(user, 200, res);
