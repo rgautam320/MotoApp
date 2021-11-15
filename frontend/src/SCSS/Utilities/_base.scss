@@ -70,3 +70,10 @@ pre {
 	font-family: "Roboto";
 	text-align: justify;
 }
+
+// Overriding Bootstrap
+.MuiInputLabel-outlined.MuiInputLabel-shrink {
+	background-color: $auth-background;
+	transform: translate(1rem, -0.55rem) scale(0.75) !important;
+	padding: 0 0.5rem;
+}

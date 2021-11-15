@@ -40,7 +40,7 @@ const options = {
 	cartIconColorHover: "#eb4034",
 	cartIconMargin: "1vmax",
 
-	profileIconUrl: "/login",
+	profileIconUrl: "/auth",
 	profileIconColor: "rgba(35, 35, 35,0.8)",
 	profileIconColorHover: "#eb4034",
 };
