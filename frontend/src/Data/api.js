@@ -25,4 +25,5 @@ export const getSingleProductAPI = (id) => API.get(`/products/getProduct/${id}`)
 // Authentication APIs
 export const loginAPI = (email, password) => API.post("/auth/login", { email, password });
 export const registerAPI = (email, name, avatar, password) => API.post("/auth/register", { email, name, avatar, password });
-export const loadAPI = () => API.get("/auth/me");
+export const loadAPI = () => API.post("/auth/me", { token: localStorage.getItem("token") });
+export const logoutAPI = () => API.get("/auth/logout");

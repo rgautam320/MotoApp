@@ -1,4 +1,4 @@
-import { loadAPI, loginAPI, registerAPI } from "../api";
+import { loadAPI, loginAPI, logoutAPI, registerAPI } from "../api";
 
 export const loginService = async (email, password) => {
 	try {
@@ -23,6 +23,16 @@ export const registerService = async (email, name, avatar, password) => {
 export const loadService = async () => {
 	try {
 		const response = await loadAPI();
+		return response.data;
+	} catch (error) {
+		console.log(error);
+		return { error: error.response.data.message };
+	}
+};
+
+export const logoutService = async () => {
+	try {
+		const response = await logoutAPI();
 		return response.data;
 	} catch (error) {
 		console.log(error);

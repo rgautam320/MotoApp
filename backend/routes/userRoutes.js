@@ -13,7 +13,7 @@ router.post("/password/forgot", forgotPassword);
 router.put("/password/reset/:token", resetPassword);
 
 // Authenticated Routes
-router.get("/me", isAuthenticated, getUserDetails);
+router.post("/me", isAuthenticated, getUserDetails);
 router.put("/updatePassword", isAuthenticated, updatePassword);
 router.put("/updateUserDetails", isAuthenticated, updateUserDetails);
 

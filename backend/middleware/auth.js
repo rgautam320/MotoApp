@@ -4,8 +4,13 @@ import Catch from "./catch.js";
 import ErrorHandler from "./error.js";
 
 export const isAuthenticated = Catch(async (req, res, next) => {
-	const token = req.headers?.authorization?.split(" ")[1];
-	console.log(token);
+	// const token = req.headers?.authorization?.split(" ")[1];
+	const { token } = req.body;
+
+	if (token === "null") {
+		console.log("OKAY");
+	}
+
 	if (!token) {
 		return next(new ErrorHandler(401, "Unauthorized: Please Login"));
 	}

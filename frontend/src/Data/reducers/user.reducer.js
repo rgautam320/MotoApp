@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { loadService, loginService, registerService } from "../services/user.service";
+import { loadService, loginService, logoutService, registerService } from "../services/user.service";
 
 const initialState = {
 	user: {},
@@ -37,6 +37,15 @@ export const load = createAsyncThunk("user/load", async () => {
 	if (response?.error) {
 		return { error: response.error };
 	}
+	return response;
+});
+
+export const logout = createAsyncThunk("user/logout", async () => {
+	const response = await logoutService();
+	if (response?.error) {
+		return { error: response.error };
+	}
+	localStorage.clear();
 	return response;
 });
 
@@ -88,6 +97,23 @@ export const userSlice = createSlice({
 		[load.fulfilled]: (state, action) => {
 			state.user = action.payload?.user;
 			state.isAuthenticated = action.payload?.success;
+			state.loading = false;
+			if (action.payload?.error) {
+				state.error = action.payload.error;
+			} else {
+				state.success = action.payload?.message;
+			}
+		},
+
+		// Logout
+		[logout.pending]: (state, action) => {
+			state.loading = true;
+			state.error = null;
+			state.success = null;
+		},
+		[logout.fulfilled]: (state, action) => {
+			state.user = null;
+			state.isAuthenticated = false;
 			state.loading = false;
 			if (action.payload?.error) {
 				state.error = action.payload.error;
