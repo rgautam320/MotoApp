@@ -11,7 +11,7 @@ README.md
 
 ## MotoApp - Frontend
 
-## Step to Run the App
+### Step to Run the App
 
 ###### npm install
 
@@ -44,7 +44,7 @@ frontend
 
 ## MotoApp - Backend
 
-## Step to Run the App
+### Step to Run the App
 
 ###### npm install
 
