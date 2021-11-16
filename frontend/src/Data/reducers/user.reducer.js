@@ -174,10 +174,9 @@ export const userSlice = createSlice({
 			state.user = null;
 			state.isAuthenticated = false;
 			state.loading = false;
+			state.success = false;
 			if (action.payload?.error) {
 				state.error = action.payload.error;
-			} else {
-				state.success = action.payload?.message;
 			}
 		},
 	},

@@ -46,6 +46,7 @@ const Auth = () => {
 	};
 
 	const onRegisterChange = (e) => {
+		setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
 		if (e.target.name === "avatar") {
 			const reader = new FileReader();
 			reader.onload = () => {
@@ -55,8 +56,6 @@ const Auth = () => {
 				}
 			};
 			reader.readAsDataURL(e.target.files[0]);
-		} else {
-			setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
 		}
 	};
 
@@ -86,7 +85,7 @@ const Auth = () => {
 			alert.success(success);
 			dispatch(load());
 		}
-	}, [isAuthenticated, history, alert, error, success]);
+	}, [isAuthenticated, history, alert, error, success, dispatch]);
 
 	return (
 		<>
@@ -105,10 +104,18 @@ const Auth = () => {
 						<>
 							<form noValidate autoComplete="off" onSubmit={onLogin}>
 								<div className="auth__input">
-									<Input name="email" type="email" label="Email" value={loginData.email} icon={<AccountCircle />} handleChange={onLoginChange} />
+									<Input name="email" type="email" label="Email" defaultValue={loginData.email} icon={<AccountCircle />} handleChange={onLoginChange} />
 								</div>
 								<div className="auth__input">
-									<Input name="password" label="Password" value={loginData.password} icon={<Lock />} type={showPassword ? "text" : "password"} handleShowPassword={() => setShowPassword(!showPassword)} handleChange={onLoginChange} />
+									<Input
+										name="password"
+										label="Password"
+										defaultValue={loginData.password}
+										icon={<Lock />}
+										type={showPassword ? "text" : "password"}
+										handleShowPassword={() => setShowPassword(!showPassword)}
+										handleChange={onLoginChange}
+									/>
 								</div>
 								<div className="auth__forgot">
 									Forgot Password? &nbsp; <button onClick={() => setIsLogin(false)}>Reset</button>
@@ -132,16 +139,16 @@ const Auth = () => {
 						<>
 							<form noValidate autoComplete="off" onSubmit={onRegister}>
 								<div className="auth__input">
-									<Input name="email" type="email" label="Email" value={userInfo.email} icon={<EmailRounded />} handleChange={onRegisterChange} />
+									<Input name="email" type="email" label="Email" defaultValue={userInfo.email} icon={<EmailRounded />} handleChange={onRegisterChange} />
 								</div>
 								<div className="auth__input">
-									<Input name="name" type="text" label="Name" value={userInfo.name} icon={<AccountCircle />} handleChange={onRegisterChange} />
+									<Input name="name" type="text" label="Name" defaultValue={userInfo.name} icon={<AccountCircle />} handleChange={onRegisterChange} />
 								</div>
 								<div className="auth__input">
 									<Input
 										name="password"
 										label="Password"
-										value={userInfo.password}
+										defaultValue={userInfo.password}
 										icon={<Lock />}
 										handleChange={onRegisterChange}
 										type={showPassword ? "text" : "password"}

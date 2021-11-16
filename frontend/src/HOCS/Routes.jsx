@@ -35,9 +35,9 @@ const Routes = () => {
 
 			{token ? (
 				<>
-					<Route exact path="/cart" component={Cart} />
-					<Route exact path="/account" component={Account} />
-					<Route exact path="/orders" component={Orders} />
+					<Route exact path="/cart" component={loading ? Loader : Cart} />
+					<Route exact path="/account" component={loading ? Loader : Account} />
+					<Route exact path="/orders" component={loading ? Loader : Orders} />
 					<Route exact path="/profile" component={loading ? Loader : Profile} />
 					<Route exact path="/profile/update" component={loading ? Loader : UpdateProfile} />
 					<Route exact path="/profile/change-password" component={loading ? Loader : ChangePassword} />
@@ -51,7 +51,7 @@ const Routes = () => {
 			<Route exact path="/admin/dashboard" component={Dashboard} />
 
 			{/* Error Route */}
-			<Route component={loading ? null : Error} />
+			<Route component={Error} />
 		</Switch>
 	);
 };
