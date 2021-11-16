@@ -1,6 +1,6 @@
 import React from "react";
 
-import Loader from "../../Utils/Loader";
+import { Loader } from "../../Utils/Loader";
 import Card from "../Product/Card";
 
 const Featured = ({ products, loading }) => {

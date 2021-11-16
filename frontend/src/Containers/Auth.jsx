@@ -2,22 +2,23 @@ import React, { useEffect, useState } from "react";
 import { AccountCircle, EmailRounded, Lock } from "@material-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { useAlert } from "react-alert";
 
 import MetaData from "../HOCS/MetaData";
 import Input from "../Components/Auth/Input";
+import { SmallLoader } from "../Utils/Loader";
 import { login, register } from "../Data/reducers/user.reducer";
 
 const Auth = () => {
 	const dispatch = useDispatch();
 	const history = useHistory();
-	const { user, isAuthenticated, loading, error } = useSelector((state) => state.user);
+	const alert = useAlert();
 
 	const [isLogin, setIsLogin] = useState(true);
 	const [avatar, setAvatar] = useState("/logo.png");
 	const [avatarPreview, setAvatarPreview] = useState("/logo.png");
 
 	const [showPassword, setShowPassword] = useState(false);
-	const handleShowPassword = () => setShowPassword(!showPassword);
 
 	const [loginData, setLoginData] = useState({
 		email: "",
@@ -29,27 +30,22 @@ const Auth = () => {
 		password: "",
 	});
 
+	const { isAuthenticated, loading, success, error } = useSelector((state) => state.user);
+
 	const onLoginChange = (e) => {
 		setLoginData({ ...loginData, [e.target.name]: e.target.value });
 	};
 
 	const onLogin = (e) => {
 		e.preventDefault();
-		dispatch(login(loginData));
+		if (loginData.email && loginData.password) {
+			dispatch(login(loginData));
+		} else {
+			alert.error("Email and Password are mandatory fields.");
+		}
 	};
 
-	const registerSubmit = (e) => {
-		e.preventDefault();
-		const payload = {
-			email: userInfo.email,
-			name: userInfo.name,
-			avatar: avatar,
-			password: userInfo.password,
-		};
-		dispatch(register(payload));
-	};
-
-	const registerDataChange = (e) => {
+	const onRegisterChange = (e) => {
 		if (e.target.name === "avatar") {
 			const reader = new FileReader();
 			reader.onload = () => {
@@ -64,22 +60,43 @@ const Auth = () => {
 		}
 	};
 
+	const onRegister = (e) => {
+		e.preventDefault();
+		const payload = {
+			email: userInfo.email,
+			name: userInfo.name,
+			avatar: avatar,
+			password: userInfo.password,
+		};
+		if (payload.email && payload.name && payload.password) {
+			dispatch(register(payload));
+		} else {
+			alert.error("Email, Name, Password and Avatar are mandatory fields.");
+		}
+	};
+
 	useEffect(() => {
 		window.scrollTo(0, 0);
 		if (isAuthenticated) {
 			history.push("/");
 		}
-	}, [isAuthenticated, history]);
+		if (error) {
+			alert.error(error);
+		} else if (success) {
+			alert.success(success);
+		}
+	}, [isAuthenticated, history, alert, error, success]);
+
 	return (
 		<>
 			<MetaData title="Moto App | Auth" />
 			<div className="container my-5">
 				<div className="auth__auth">
-					<div className="d-flex justify-content-around">
-						<button onClick={() => setIsLogin(true)} className={`auth__toggle ${isLogin ? "auth__true" : ""}`}>
+					<div className="d-flex justify-content-around auth__toggleBox">
+						<button onClick={() => setIsLogin(true)} className={`auth__toggleBox__toggle ${isLogin ? "auth__toggleBox__true" : ""}`}>
 							Login
 						</button>
-						<button onClick={() => setIsLogin(false)} className={`auth__toggle ${!isLogin ? "auth__true" : ""}`}>
+						<button onClick={() => setIsLogin(false)} className={`auth__toggleBox__toggle ${!isLogin ? "auth__toggleBox__true" : ""}`}>
 							Signup
 						</button>
 					</div>
@@ -90,7 +107,7 @@ const Auth = () => {
 									<Input name="email" type="email" label="Email" value={loginData.email} icon={<AccountCircle />} handleChange={onLoginChange} />
 								</div>
 								<div className="auth__input">
-									<Input name="password" label="Password" value={loginData.password} icon={<Lock />} type={showPassword ? "text" : "password"} handleShowPassword={handleShowPassword} handleChange={onLoginChange} />
+									<Input name="password" label="Password" value={loginData.password} icon={<Lock />} type={showPassword ? "text" : "password"} handleShowPassword={() => setShowPassword(!showPassword)} handleChange={onLoginChange} />
 								</div>
 								<div className="auth__forgot">
 									Forgot Password? &nbsp; <button onClick={() => setIsLogin(false)}>Reset</button>
@@ -99,30 +116,50 @@ const Auth = () => {
 								<div className="auth__forgot">
 									Don't have an account? &nbsp; <button onClick={() => setIsLogin(false)}> Signup</button>
 								</div>
-								<button type="submit" className="auth__button">
-									Login
-								</button>
+								{loading ? (
+									<center>
+										<SmallLoader />
+									</center>
+								) : (
+									<button type="submit" className="auth__button">
+										Login
+									</button>
+								)}
 							</form>
 						</>
 					) : (
 						<>
-							<form noValidate autoComplete="off" onSubmit={registerSubmit}>
+							<form noValidate autoComplete="off" onSubmit={onRegister}>
 								<div className="auth__input">
-									<Input name="email" type="email" label="Email" value={userInfo.email} icon={<EmailRounded />} handleChange={registerDataChange} />
+									<Input name="email" type="email" label="Email" value={userInfo.email} icon={<EmailRounded />} handleChange={onRegisterChange} />
 								</div>
 								<div className="auth__input">
-									<Input name="name" type="text" label="Name" value={userInfo.name} icon={<AccountCircle />} handleChange={registerDataChange} />
+									<Input name="name" type="text" label="Name" value={userInfo.name} icon={<AccountCircle />} handleChange={onRegisterChange} />
 								</div>
 								<div className="auth__input">
-									<Input name="password" label="Password" value={userInfo.password} icon={<Lock />} handleChange={registerDataChange} type={showPassword ? "text" : "password"} handleShowPassword={handleShowPassword} />
+									<Input
+										name="password"
+										label="Password"
+										value={userInfo.password}
+										icon={<Lock />}
+										handleChange={onRegisterChange}
+										type={showPassword ? "text" : "password"}
+										handleShowPassword={() => setShowPassword(!showPassword)}
+									/>
 								</div>
 								<div className="auth__registerImage">
 									<img src={avatarPreview} alt="Avatar Preview" />
-									<input type="file" name="avatar" accept="image/*" onChange={registerDataChange} />
+									<input type="file" name="avatar" accept="image/*" onChange={onRegisterChange} />
 								</div>
-								<button type="submit" className="auth__button">
-									Signup
-								</button>
+								{loading ? (
+									<center>
+										<SmallLoader />
+									</center>
+								) : (
+									<button type="submit" className="auth__button">
+										Signup
+									</button>
+								)}
 							</form>
 						</>
 					)}

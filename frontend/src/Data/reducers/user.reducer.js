@@ -5,12 +5,12 @@ const initialState = {
 	user: {},
 	isAuthenticated: false,
 	loading: false,
-	error: false,
+	success: null,
+	error: null,
 };
 
 export const login = createAsyncThunk("user/login", async (payload) => {
 	const response = await loginService(payload.email, payload.password);
-	console.log(response);
 	if (response?.token) {
 		localStorage.setItem("token", response?.token);
 	}
@@ -23,6 +23,9 @@ export const login = createAsyncThunk("user/login", async (payload) => {
 export const register = createAsyncThunk("user/register", async (payload) => {
 	const response = await registerService(payload.email, payload.name, payload.avatar, payload.password);
 	console.log(response);
+	if (response?.token) {
+		localStorage.setItem("token", response?.token);
+	}
 	if (response?.error) {
 		return { error: response.error };
 	}
@@ -31,7 +34,6 @@ export const register = createAsyncThunk("user/register", async (payload) => {
 
 export const load = createAsyncThunk("user/load", async () => {
 	const response = await loadService();
-	console.log(response);
 	if (response?.error) {
 		return { error: response.error };
 	}
@@ -46,39 +48,51 @@ export const userSlice = createSlice({
 		// Login
 		[login.pending]: (state, action) => {
 			state.loading = true;
+			state.error = null;
+			state.success = null;
 		},
 		[login.fulfilled]: (state, action) => {
 			state.user = action.payload?.user;
 			state.isAuthenticated = action.payload?.success;
 			state.loading = false;
 			if (action.payload?.error) {
-				state.error = action.payload.error;
+				state.error = action.payload?.error;
+			} else {
+				state.success = action.payload?.message;
 			}
 		},
 
 		// Register
 		[register.pending]: (state, action) => {
 			state.loading = true;
+			state.error = null;
+			state.success = null;
 		},
 		[register.fulfilled]: (state, action) => {
 			state.user = action.payload?.user;
-			state.isAuthenticated = action.payload?.status;
+			state.isAuthenticated = action.payload?.success;
 			state.loading = false;
 			if (action.payload?.error) {
 				state.error = action.payload.error;
+			} else {
+				state.success = action.payload?.message;
 			}
 		},
 
 		// Register
 		[load.pending]: (state, action) => {
 			state.loading = true;
+			state.error = null;
+			state.success = null;
 		},
 		[load.fulfilled]: (state, action) => {
 			state.user = action.payload?.user;
-			state.isAuthenticated = action.payload?.status;
+			state.isAuthenticated = action.payload?.success;
 			state.loading = false;
 			if (action.payload?.error) {
 				state.error = action.payload.error;
+			} else {
+				state.success = action.payload?.message;
 			}
 		},
 	},

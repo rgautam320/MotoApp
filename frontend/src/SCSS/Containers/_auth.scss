@@ -8,37 +8,51 @@
 		border-radius: 0.8rem;
 		box-shadow: 0.2rem 0.2rem 0.5rem 0.2rem $grey;
 	}
+	@media (max-width: 576px) {
+		&__auth {
+			width: 100%;
+			max-width: 100%;
+		}
+	}
 	&__input {
 		margin: 2rem 0;
 	}
 	&__button {
 		width: 100%;
 		font-size: 1.3rem;
-		color: $black;
-		padding: 0.4rem 0.8rem;
-		border: 0.1rem solid $secondary;
+		color: $white;
+		padding: 0.6rem 0.8rem;
+		margin-top: 0.8rem;
+		background-color: $blue;
 		outline: none;
+		border: none;
 		cursor: pointer;
 		border-radius: 0.6rem;
 		transition: all 0.5s;
 		&:hover {
-			background-color: $primary;
-			color: $white;
+			background-color: $dark-blue;
+			transform: scale(1.02);
 		}
 	}
-	&__toggle {
-		width: 100%;
-		font-size: 1.3rem;
-		color: $black;
-		padding: 0.4rem 0.8rem;
-		border: 0.1rem solid $primary;
-		outline: none;
-		cursor: pointer;
+	&__toggleBox {
+		border-radius: 0.2rem;
+		overflow: hidden;
+		margin-bottom: 3rem;
+		&__toggle {
+			width: 100%;
+			font-size: 1.3rem;
+			color: $black;
+			padding: 0.4rem 0.8rem;
+			border: 0.1rem solid $dark-blue;
+			outline: none;
+			cursor: pointer;
+		}
+		&__true {
+			color: $white;
+			background-color: $dark-blue;
+		}
 	}
-	&__true {
-		color: $white;
-		background-color: $dark-blue;
-	}
+
 	&__registerImage {
 		display: flex;
 		margin-bottom: 2rem;
@@ -59,19 +73,20 @@
 			height: 4rem;
 			border: none;
 			border-radius: 0.8rem;
-			margin: 0%;
-			font: 500 0.8vmax cursive;
+			background-color: $loader-background;
 			transition: all 0.5s;
 			padding: 0 1vmax;
 			color: $black;
-			background-color: $light-shadow;
+			&:hover {
+				background-color: $light-shadow;
+			}
 		}
 	}
 
 	&__forgot {
 		display: flex;
 		justify-content: flex-end;
-		margin-bottom: 1rem;
+		margin-bottom: 1.5rem;
 		button {
 			border: none;
 			outline: none;

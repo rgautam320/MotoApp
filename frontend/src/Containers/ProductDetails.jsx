@@ -3,7 +3,7 @@ import { useAlert } from "react-alert";
 import Carousel from "react-material-ui-carousel";
 import { useDispatch, useSelector } from "react-redux";
 import ReactRatings from "react-rating-stars-component";
-import Loader from "../Utils/Loader";
+import { Loader } from "../Utils/Loader";
 import ReviewCarousel from "react-multi-carousel";
 
 import { getSingleProduct } from "../Data/reducers/product.reducer";

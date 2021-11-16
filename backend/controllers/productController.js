@@ -21,6 +21,7 @@ export const getAllProducts = Catch(async (req, res) => {
 export const getFeaturedProducts = Catch(async (req, res) => {
 	const page = 6;
 	const products = await Product.find({ featured: true }).limit(page);
+
 	res.status(200).json({ success: true, message: "Featured Product", featuredProducts: products });
 });
 

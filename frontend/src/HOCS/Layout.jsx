@@ -7,9 +7,12 @@ import Routes from "./Routes";
 
 const Layout = () => {
 	const dispatch = useDispatch();
+	const token = localStorage.getItem("token");
 	useEffect(() => {
-		dispatch(load());
-	}, [dispatch]);
+		if (token) {
+			dispatch(load());
+		}
+	}, [dispatch, token]);
 	return (
 		<>
 			<Navbar />

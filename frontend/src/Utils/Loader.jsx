@@ -1,6 +1,6 @@
 import React from "react";
 
-const Loader = () => {
+export const Loader = () => {
 	return (
 		<div className="loader__loader">
 			<div className="loader__innerLoader"></div>
@@ -8,4 +8,10 @@ const Loader = () => {
 	);
 };
 
-export default Loader;
+export const SmallLoader = () => {
+	return (
+		<div className="smallLoader__loader">
+			<div className="smallLoader__innerLoader"></div>
+		</div>
+	);
+};
