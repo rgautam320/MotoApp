@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import MetaData from "../HOCS/MetaData";
+import MetaData from "../../HOCS/MetaData";
 
 const Error = () => {
 	return (

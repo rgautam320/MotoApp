@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useAlert } from "react-alert";
 
-import Hero from "../Components/Home/Hero";
-import Featured from "../Components/Home/Featured";
-import MetaData from "../HOCS/MetaData";
-import { getFeaturedProducts } from "../Data/reducers/product.reducer";
+import Hero from "../../Components/Home/Hero";
+import Featured from "../../Components/Home/Featured";
+import MetaData from "../../HOCS/MetaData";
+import { getFeaturedProducts } from "../../Data/reducers/product.reducer";
 
 const Home = () => {
 	const dispatch = useDispatch();

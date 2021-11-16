@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import { useAlert } from "react-alert";
 
 import MetaData from "../../HOCS/MetaData";
-import Input from "../../Components/Auth/Input";
+import Input from "../../Components/Shared/Input";
 import { updateProfile, userActions } from "../../Data/reducers/user.reducer";
 
 const Auth = () => {

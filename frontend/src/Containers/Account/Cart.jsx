@@ -1,5 +1,5 @@
 import React from "react";
-import MetaData from "../HOCS/MetaData";
+import MetaData from "../../HOCS/MetaData";
 
 const Cart = () => {
 	return (

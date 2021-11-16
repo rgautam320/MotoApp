@@ -4,19 +4,18 @@
 @import "./Utilities/style";
 
 // Importing Containers
-@import "./Containers/home";
-@import "./Containers/error";
-@import "./Containers/about";
-@import "./Containers/products";
-@import "./Containers/search";
-@import "./Containers/cart";
+@import "./Containers/Home/home";
+@import "./Containers/Error/error";
+@import "./Containers/About/about";
+@import "./Containers/Product/products";
+@import "./Containers/Account/cart";
+@import "./Containers/Account/account";
+@import "./Containers/Account/orders";
 @import "./Containers/Auth/auth";
 @import "./Containers/Auth/profile";
 @import "./Containers/Auth/updateProfile";
 @import "./Containers/Auth/changePassword";
-@import "./Containers/product";
-@import "./Containers/account";
-@import "./Containers/orders";
+@import "./Containers/Product/product";
 @import "./Containers/Admin/dashboard";
 
 // Importing Components

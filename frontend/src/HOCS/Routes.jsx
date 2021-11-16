@@ -1,21 +1,22 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router";
-import Home from "../Containers/Home";
-import Error from "../Containers/Error";
-import About from "../Containers/About";
-import Contact from "../Containers/Contact";
-import Products from "../Containers/Products";
-import Cart from "../Containers/Cart";
-import Auth from "../Containers/Auth/Auth";
-import ProductDetails from "../Containers/ProductDetails";
-import Account from "../Containers/Account";
-import Dashboard from "../Containers/Admin/Dashboard";
-import Orders from "../Containers/Orders";
 import { useSelector } from "react-redux";
-import { Loader } from "../Utils/Loader";
+
+import Home from "../Containers/Home/Home";
+import Error from "../Containers/Error/Error";
+import About from "../Containers/About/About";
+import Contact from "../Containers/Contact/Contact";
+import Products from "../Containers/Product/Products";
+import Auth from "../Containers/Auth/Auth";
+import ProductDetails from "../Containers/Product/ProductDetails";
+import Cart from "../Containers/Account/Cart";
+import Account from "../Containers/Account/Account";
+import Orders from "../Containers/Account/Orders";
+import Dashboard from "../Containers/Admin/Dashboard";
 import Profile from "../Containers/Auth/Profile";
 import UpdateProfile from "../Containers/Auth/UpdateProfile";
 import ChangePassword from "../Containers/Auth/ChangePassword";
+import { Loader } from "../Utils/Loader";
 
 const Routes = () => {
 	const token = localStorage.getItem("token");
