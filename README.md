@@ -3,11 +3,13 @@
 ## Folder Structure
 
 ```
+backend
+frontend
 .gitignore
 README.md
 ```
 
-# MotoApp - Frontend
+## MotoApp - Frontend
 
 ## Step to Run the App
 
@@ -40,7 +42,7 @@ frontend
 |   package-lock.json
 ```
 
-# MotoApp - Backend
+## MotoApp - Backend
 
 ## Step to Run the App
 
