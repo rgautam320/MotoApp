@@ -1,0 +1,68 @@
+.updateProfile {
+	min-height: 75vh;
+	&__updateProfile {
+		width: 30rem;
+		height: 30rem;
+		margin: 2rem auto;
+		padding: 2rem;
+		padding-top: 3rem;
+		background-color: transparent;
+		border-radius: 0.8rem;
+		box-shadow: 0.2rem 0.2rem 0.5rem 0.2rem $grey;
+	}
+	@media (max-width: 576px) {
+		&__updateProfile {
+			width: 100%;
+			max-width: 100%;
+		}
+	}
+	&__input {
+		margin: 2rem 0;
+	}
+	&__button {
+		width: 100%;
+		font-size: 1.3rem;
+		color: $white;
+		padding: 0.6rem 0.8rem;
+		margin-top: 0.8rem;
+		background-color: $blue;
+		outline: none;
+		border: none;
+		cursor: pointer;
+		border-radius: 0.6rem;
+		transition: all 0.5s;
+		&:hover {
+			background-color: $dark-blue;
+			transform: scale(1.02);
+		}
+	}
+	&__registerImage {
+		display: flex;
+		margin-bottom: 2rem;
+		img {
+			width: 4rem;
+			height: 4rem;
+			border-radius: 50%;
+			cursor: pointer;
+		}
+		input {
+			width: 100%;
+			height: 4rem;
+		}
+		input::file-selector-button {
+			cursor: pointer;
+			width: 100%;
+			z-index: 2;
+			height: 4rem;
+			border: none;
+			border-radius: 0.8rem;
+			background-color: $loader-background;
+			transition: all 0.5s;
+			padding: 0 1vmax;
+			color: $black;
+			&:hover {
+				background-color: $light-shadow;
+			}
+		}
+	}
+}

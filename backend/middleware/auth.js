@@ -4,11 +4,11 @@ import Catch from "./catch.js";
 import ErrorHandler from "./error.js";
 
 export const isAuthenticated = Catch(async (req, res, next) => {
-	// const token = req.headers?.authorization?.split(" ")[1];
-	const { token } = req.body;
+	let token = req.headers?.authorization?.split(" ")[1];
+	const { tok } = req.body;
 
 	if (token === "null") {
-		console.log("OKAY");
+		token = tok;
 	}
 
 	if (!token) {

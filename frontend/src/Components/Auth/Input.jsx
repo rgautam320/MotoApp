@@ -3,7 +3,7 @@ import { TextField, Grid, InputAdornment, IconButton } from "@material-ui/core";
 
 import { Lock, VisibilityOff, Visibility } from "@material-ui/icons";
 
-const Input = ({ name, handleChange, label, half, type, handleShowPassword, icon }) => (
+const Input = ({ name, handleChange, label, half, type, handleShowPassword, icon, value }) => (
 	<Grid item xs={12} sm={half ? 6 : 12}>
 		<TextField
 			name={name}
@@ -13,8 +13,9 @@ const Input = ({ name, handleChange, label, half, type, handleShowPassword, icon
 			fullWidth
 			label={label}
 			type={type}
+			defaultValue={value}
 			InputProps={
-				name === "password"
+				name === "password" || name === "oldPassword" || name === "confirmPassword"
 					? {
 							endAdornment: (
 								<InputAdornment position="end">

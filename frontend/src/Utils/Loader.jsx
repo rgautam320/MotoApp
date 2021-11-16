@@ -1,10 +1,16 @@
 import React from "react";
+import Backdrop from "@material-ui/core/Backdrop";
+import { useSelector } from "react-redux";
 
 export const Loader = () => {
+	const { loading } = useSelector((state) => state.user);
 	return (
-		<div className="loader__loader">
-			<div className="loader__innerLoader"></div>
-		</div>
+		<>
+			<Backdrop open={loading} style={{ zIndex: "10" }} />
+			<div className="loader__loader">
+				<div className="loader__innerLoader"></div>
+			</div>
+		</>
 	);
 };
 

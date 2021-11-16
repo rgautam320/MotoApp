@@ -10,7 +10,7 @@ import UserOptions from "../Components/Navbar/UserOptions";
 const Layout = () => {
 	const dispatch = useDispatch();
 	const token = localStorage.getItem("token");
-	const { isAuthenticated, user } = useSelector((state) => state.user);
+	const { isAuthenticated, user, loading } = useSelector((state) => state.user);
 	useEffect(() => {
 		if (token) {
 			dispatch(load());
@@ -21,7 +21,7 @@ const Layout = () => {
 			{isAuthenticated && <UserOptions user={user} />}
 			<Navbar />
 			<Routes />
-			<Footer />
+			{!loading && <Footer />}
 		</>
 	);
 };

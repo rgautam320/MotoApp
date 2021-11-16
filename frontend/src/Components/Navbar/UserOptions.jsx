@@ -48,7 +48,7 @@ const UserOptions = ({ user }) => {
 		handleClose();
 	}
 	function account() {
-		history.push("/account");
+		history.push("/profile");
 		handleClose();
 	}
 	function cart() {
@@ -57,8 +57,8 @@ const UserOptions = ({ user }) => {
 	}
 	function logoutUser() {
 		dispatch(logout());
-		history.push("/");
 		alert.success("Logout Successfully");
+		history.push("/");
 		handleClose();
 	}
 

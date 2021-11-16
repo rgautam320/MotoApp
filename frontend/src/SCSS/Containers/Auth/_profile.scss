@@ -1,0 +1,61 @@
+.profile {
+	min-height: 75vh;
+	&__heading {
+		font-size: 3vmax;
+		text-align: center;
+		width: 60%;
+		margin: 0 auto;
+		padding-bottom: 2rem;
+		border-bottom: 0.15rem solid $black;
+		border-color: $grey;
+		margin-bottom: 2rem;
+	}
+	&__imageBox {
+		width: 100%;
+		height: auto;
+		img {
+			width: 19rem;
+			height: 19rem;
+			border-radius: 50%;
+		}
+	}
+	&__updateButton {
+		width: 50%;
+		margin: 1.8rem auto;
+		border: none;
+		background-color: $secondary;
+		text-align: center;
+		padding: 0.6rem;
+		color: $white;
+		text-transform: uppercase;
+		letter-spacing: 0.15rem;
+		font-weight: 500;
+		font-size: 1.4rem;
+		border-radius: 0.6rem;
+		transition: all 0.5s;
+		&:hover {
+			background-color: $dark-blue;
+			color: $white;
+		}
+	}
+	&__info {
+		padding: 1.1rem 0;
+		h4 {
+			font-size: 1.3rem;
+			letter-spacing: 0.2rem;
+			font-weight: 600;
+		}
+		p {
+			padding: 0.6rem 0;
+			font-size: 1.1rem;
+		}
+	}
+	@media (max-width: 768px) {
+		&__updateButton {
+			width: 80%;
+		}
+		&__info {
+			text-align: center;
+		}
+	}
+}

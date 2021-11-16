@@ -4,10 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useAlert } from "react-alert";
 
-import MetaData from "../HOCS/MetaData";
-import Input from "../Components/Auth/Input";
-import { SmallLoader } from "../Utils/Loader";
-import { login, register } from "../Data/reducers/user.reducer";
+import MetaData from "../../HOCS/MetaData";
+import Input from "../../Components/Auth/Input";
+import { SmallLoader } from "../../Utils/Loader";
+import { load, login, register } from "../../Data/reducers/user.reducer";
 
 const Auth = () => {
 	const dispatch = useDispatch();
@@ -84,6 +84,7 @@ const Auth = () => {
 			alert.error(error);
 		} else if (success) {
 			alert.success(success);
+			dispatch(load());
 		}
 	}, [isAuthenticated, history, alert, error, success]);
 

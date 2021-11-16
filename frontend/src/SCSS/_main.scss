@@ -10,7 +10,10 @@
 @import "./Containers/products";
 @import "./Containers/search";
 @import "./Containers/cart";
-@import "./Containers/auth";
+@import "./Containers/Auth/auth";
+@import "./Containers/Auth/profile";
+@import "./Containers/Auth/updateProfile";
+@import "./Containers/Auth/changePassword";
 @import "./Containers/product";
 @import "./Containers/account";
 @import "./Containers/orders";
