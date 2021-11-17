@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import { SpeedDial, SpeedDialAction } from "@material-ui/lab";
 import { Dashboard, Person, ExitToApp, ListAlt, ShoppingCart } from "@material-ui/icons";
-import { useAlert } from "react-alert";
 import { useHistory } from "react-router";
 import { useDispatch } from "react-redux";
-import { logout } from "../../Data/reducers/user.reducer";
+import { logout, userActions } from "../../Data/reducers/user.reducer";
 
 const UserOptions = ({ user }) => {
-	const alert = useAlert();
 	const history = useHistory();
 	const dispatch = useDispatch();
 
@@ -55,10 +53,8 @@ const UserOptions = ({ user }) => {
 		history.push("/cart");
 		handleClose();
 	}
-	async function logoutUser() {
-		await dispatch(logout());
-		alert.success("Logout Successfully");
-		history.push("/auth");
+	function logoutUser() {
+		dispatch(logout());
 		handleClose();
 	}
 

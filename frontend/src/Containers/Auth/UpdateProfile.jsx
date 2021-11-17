@@ -7,13 +7,14 @@ import { useAlert } from "react-alert";
 import MetaData from "../../HOCS/MetaData";
 import Input from "../../Components/Shared/Input";
 import { updateProfile, userActions } from "../../Data/reducers/user.reducer";
+import { SmallLoader, Loader } from "../../Utils/Loader";
 
 const Auth = () => {
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const alert = useAlert();
 
-	const { isUpdated, error, user, isAuthenticated } = useSelector((state) => state.user);
+	const { isUpdated, error, user, loading, success } = useSelector((state) => state.user);
 
 	const [avatar, setAvatar] = useState(user?.avatar?.url);
 	const [avatarPreview, setAvatarPreview] = useState(user?.avatar?.url);
@@ -55,15 +56,12 @@ const Auth = () => {
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
-		if (!isAuthenticated) {
-			history.push("/");
-		}
 		if (error) {
 			alert.error(error);
 		} else {
-			if (isUpdated) {
+			if (isUpdated && success) {
+				alert.success(success);
 				history.push("/profile");
-				alert.success("Profile Updated Successfully.");
 				dispatch(userActions.reset());
 			}
 		}
@@ -71,14 +69,13 @@ const Auth = () => {
 			name: user?.name,
 			email: user?.email,
 		});
-	}, [alert, error, user, dispatch, history, isUpdated, isAuthenticated]);
+	}, [alert, error, user, dispatch, history, isUpdated]);
 
 	return (
 		<>
 			<MetaData title="Moto App | Auth" />
 			<div className="container my-5 auth">
 				<h1 className="heading auth__heading">Update Profile</h1>
-
 				<div className="auth__box">
 					<form noValidate autoComplete="off" onSubmit={onUpdateProfile}>
 						<div className="auth__input">

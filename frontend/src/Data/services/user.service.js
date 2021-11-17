@@ -1,4 +1,4 @@
-import { changePasswordAPI, loadAPI, loginAPI, logoutAPI, registerAPI, updateProfileAPI } from "../api";
+import { changePasswordAPI, forgotPasswordAPI, loadAPI, loginAPI, logoutAPI, registerAPI, resetPasswordAPI, updateProfileAPI } from "../api";
 
 export const loginService = async (email, password) => {
 	try {
@@ -43,6 +43,26 @@ export const updateProfileService = async (info) => {
 export const changePasswordService = async (passwords) => {
 	try {
 		const response = await changePasswordAPI(passwords);
+		return response.data;
+	} catch (error) {
+		console.log(error);
+		return { error: error.response.data.message };
+	}
+};
+
+export const forgotPasswordService = async (email) => {
+	try {
+		const response = await forgotPasswordAPI(email);
+		return response.data;
+	} catch (error) {
+		console.log(error);
+		return { error: error.response.data.message };
+	}
+};
+
+export const resetPasswordService = async (token, passwords) => {
+	try {
+		const response = await resetPasswordAPI(token, passwords);
 		return response.data;
 	} catch (error) {
 		console.log(error);

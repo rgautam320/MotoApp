@@ -1,12 +1,13 @@
 import React, { Fragment } from "react";
 import { useSelector } from "react-redux";
 import { Redirect, Route } from "react-router-dom";
+import { Loader } from "../Utils/Loader";
 
 const ProtectedRoute = ({ isAdmin, component: Component, ...rest }) => {
 	const { loading, isAuthenticated, user } = useSelector((state) => state.user);
 	return (
 		<Fragment>
-			{loading === false && (
+			{loading === false ? (
 				<Route
 					{...rest}
 					render={(props) => {
@@ -19,6 +20,8 @@ const ProtectedRoute = ({ isAdmin, component: Component, ...rest }) => {
 						return <Component {...props} />;
 					}}
 				/>
+			) : (
+				<Loader />
 			)}
 		</Fragment>
 	);

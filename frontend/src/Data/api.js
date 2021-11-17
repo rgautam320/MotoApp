@@ -28,4 +28,6 @@ export const registerAPI = (email, name, avatar, password) => API.post("/auth/re
 export const loadAPI = () => API.get(`/auth/me`);
 export const updateProfileAPI = (info) => API.put("/auth/updateUserDetails", info);
 export const changePasswordAPI = (passwords) => API.put("/auth/updatePassword", passwords);
+export const forgotPasswordAPI = (email) => API.post("/auth/password/forgot", { email });
+export const resetPasswordAPI = (token, passwords) => API.put(`/auth/password/reset/${token}`, passwords);
 export const logoutAPI = () => API.get("/auth/logout");

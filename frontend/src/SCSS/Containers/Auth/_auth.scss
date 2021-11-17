@@ -1,5 +1,5 @@
 .auth {
-	min-height: 75vh;
+	min-height: 80vh;
 	&__auth {
 		width: 30rem;
 		height: 36rem;
@@ -27,7 +27,6 @@
 		font-size: 1.3rem;
 		color: $white;
 		padding: 0.6rem 0.8rem;
-		margin-top: 0.8rem;
 		background-color: $blue;
 		outline: none;
 		border: none;
@@ -107,8 +106,11 @@
 		background-color: transparent;
 		border-radius: 0.8rem;
 		box-shadow: 0.2rem 0.2rem 0.5rem 0.2rem $grey;
+		&__medium {
+			height: 22rem;
+		}
 		&__small {
-			height: 20rem;
+			height: 16rem;
 		}
 	}
 	@media (max-width: 576px) {

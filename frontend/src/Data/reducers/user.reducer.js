@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { changePasswordService, loadService, loginService, logoutService, registerService, updateProfileService } from "../services/user.service";
+import { changePasswordService, forgotPasswordService, loadService, loginService, logoutService, registerService, resetPasswordService, updateProfileService } from "../services/user.service";
 
 const initialState = {
-	user: {},
+	user: null,
 	isAuthenticated: false,
 	isUpdated: false,
 	loading: undefined,
@@ -51,6 +51,22 @@ export const changePassword = createAsyncThunk("user/changePassword", async (pay
 	return response;
 });
 
+export const forgotPassword = createAsyncThunk("user/forgotPassword", async (payload) => {
+	const response = await forgotPasswordService(payload);
+	if (response?.error) {
+		return { error: response.error };
+	}
+	return response;
+});
+
+export const resetPassword = createAsyncThunk("user/resetPassword", async (payload) => {
+	const response = await resetPasswordService(payload.token, payload.passwords);
+	if (response?.error) {
+		return { error: response.error };
+	}
+	return response;
+});
+
 export const logout = createAsyncThunk("user/logout", async () => {
 	const response = await logoutService();
 	if (response?.error) {
@@ -66,6 +82,9 @@ export const userSlice = createSlice({
 	reducers: {
 		reset: (state, action) => {
 			state.isUpdated = false;
+			state.success = null;
+			state.error = null;
+			state.loading = undefined;
 		},
 	},
 	extraReducers: {
@@ -74,11 +93,13 @@ export const userSlice = createSlice({
 			state.loading = true;
 			state.error = null;
 			state.success = null;
+			state.isUpdated = false;
 		},
 		[login.fulfilled]: (state, action) => {
 			state.user = action.payload?.user;
 			state.isAuthenticated = action.payload?.success ? action.payload?.success : false;
 			state.loading = false;
+			state.isUpdated = action.payload?.success;
 			if (action.payload?.error) {
 				state.error = action.payload?.error;
 			} else {
@@ -91,11 +112,13 @@ export const userSlice = createSlice({
 			state.loading = true;
 			state.error = null;
 			state.success = null;
+			state.isUpdated = false;
 		},
 		[register.fulfilled]: (state, action) => {
 			state.user = action.payload?.user;
 			state.isAuthenticated = action.payload?.success ? action.payload?.success : false;
 			state.loading = false;
+			state.isUpdated = action.payload?.success;
 			if (action.payload?.error) {
 				state.error = action.payload.error;
 			} else {
@@ -103,14 +126,16 @@ export const userSlice = createSlice({
 			}
 		},
 
-		// Register
+		// Loading
 		[load.pending]: (state, action) => {
 			state.loading = true;
 			state.error = null;
 			state.success = null;
+			state.isUpdated = false;
 		},
 		[load.fulfilled]: (state, action) => {
 			state.user = action.payload?.user;
+			state.isUpdated = action.payload?.success;
 			state.isAuthenticated = action.payload?.success ? action.payload?.success : false;
 			state.loading = false;
 		},
@@ -132,7 +157,7 @@ export const userSlice = createSlice({
 			}
 		},
 
-		// Update Profile
+		// Change Password
 		[changePassword.pending]: (state, action) => {
 			state.loading = true;
 			state.error = null;
@@ -140,7 +165,40 @@ export const userSlice = createSlice({
 			state.isUpdated = false;
 		},
 		[changePassword.fulfilled]: (state, action) => {
-			state.user = action.payload?.user;
+			state.loading = false;
+			state.isUpdated = action.payload?.success;
+			if (action.payload?.error) {
+				state.error = action.payload.error;
+			} else if (action.payload?.success) {
+				state.success = action.payload?.message;
+			}
+		},
+
+		// Forgot Password
+		[forgotPassword.pending]: (state, action) => {
+			state.loading = true;
+			state.error = null;
+			state.success = null;
+			state.isUpdated = false;
+		},
+		[forgotPassword.fulfilled]: (state, action) => {
+			state.loading = false;
+			state.isUpdated = action.payload?.success;
+			if (action.payload?.error) {
+				state.error = action.payload.error;
+			} else if (action.payload?.success) {
+				state.success = action.payload?.message;
+			}
+		},
+
+		// Reset Password
+		[resetPassword.pending]: (state, action) => {
+			state.loading = true;
+			state.error = null;
+			state.success = null;
+			state.isUpdated = false;
+		},
+		[resetPassword.fulfilled]: (state, action) => {
 			state.loading = false;
 			state.isUpdated = action.payload?.success;
 			if (action.payload?.error) {
@@ -153,13 +211,15 @@ export const userSlice = createSlice({
 		// Logout
 		[logout.pending]: (state, action) => {
 			state.error = null;
+			state.error = null;
 			state.success = null;
+			state.isUpdated = false;
 		},
 		[logout.fulfilled]: (state, action) => {
 			state.user = null;
 			state.isAuthenticated = false;
 			state.loading = false;
-			state.success = false;
+			state.isUpdated = action.payload?.success;
 			if (action.payload?.error) {
 				state.error = action.payload.error;
 			} else {

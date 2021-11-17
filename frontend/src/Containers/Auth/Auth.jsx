@@ -7,7 +7,7 @@ import { useAlert } from "react-alert";
 import MetaData from "../../HOCS/MetaData";
 import Input from "../../Components/Shared/Input";
 import { SmallLoader } from "../../Utils/Loader";
-import { load, login, register } from "../../Data/reducers/user.reducer";
+import { login, register, userActions } from "../../Data/reducers/user.reducer";
 
 const Auth = () => {
 	const dispatch = useDispatch();
@@ -30,7 +30,7 @@ const Auth = () => {
 		password: "",
 	});
 
-	const { isAuthenticated, loading, success, error } = useSelector((state) => state.user);
+	const { isAuthenticated, loading, success, error, isUpdated } = useSelector((state) => state.user);
 
 	const onLoginChange = (e) => {
 		setLoginData({ ...loginData, [e.target.name]: e.target.value });
@@ -77,16 +77,15 @@ const Auth = () => {
 	useEffect(() => {
 		window.scrollTo(0, 0);
 		if (isAuthenticated) {
-			history.push("/");
+			history.push("/profile");
 		}
 		if (error) {
 			alert.error(error);
-		} else if (success) {
+		} else if (isUpdated && success) {
 			alert.success(success);
-			dispatch(load());
-			history.push("/profile");
 		}
-	}, [isAuthenticated, history, alert, error, success, dispatch]);
+		dispatch(userActions.reset());
+	}, [isAuthenticated, history, alert, error, success, dispatch, isUpdated]);
 
 	return (
 		<>

@@ -6,21 +6,22 @@ import { useAlert } from "react-alert";
 
 import MetaData from "../../HOCS/MetaData";
 import Input from "../../Components/Shared/Input";
-import { userActions } from "../../Data/reducers/user.reducer";
+import { forgotPassword, userActions } from "../../Data/reducers/user.reducer";
+import { SmallLoader } from "../../Utils/Loader";
 
 const ForgotPassword = () => {
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const alert = useAlert();
 
-	const { error, isUpdated } = useSelector((state) => state.user);
+	const { error, isUpdated, success, loading } = useSelector((state) => state.user);
 
 	const [email, setEmail] = useState("");
 
 	const onSubmitEmail = (e) => {
 		e.preventDefault();
 		if (email) {
-			// Dispatch
+			dispatch(forgotPassword(email));
 		} else {
 			alert.error("Email is Mandatory.");
 		}
@@ -30,14 +31,11 @@ const ForgotPassword = () => {
 		window.scrollTo(0, 0);
 		if (error) {
 			alert.error(error);
-		} else {
-			if (isUpdated) {
-				history.push("/profile");
-				alert.success(`An Email has been sent to ${email}.`);
-				dispatch(userActions.reset());
-			}
+		} else if (isUpdated && success) {
+			alert.success(success);
 		}
-	}, [alert, error, dispatch, history, isUpdated]);
+		dispatch(userActions.reset());
+	}, [alert, error, dispatch, history, isUpdated, success]);
 
 	return (
 		<>
@@ -49,9 +47,13 @@ const ForgotPassword = () => {
 						<div className="auth__input">
 							<Input name="email" type="email" label="Email" value={email} icon={<EmailRounded />} handleChange={(e) => setEmail(e.target.value)} />
 						</div>
-						<button type="submit" className="auth__button">
-							Forgot Password
-						</button>
+						{loading ? (
+							<SmallLoader />
+						) : (
+							<button type="submit" className="auth__button">
+								Forgot Password
+							</button>
+						)}
 					</form>
 				</div>
 			</div>

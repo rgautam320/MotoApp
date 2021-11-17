@@ -65,6 +65,7 @@ export const logout = Catch(async (req, res, next) => {
 // Forgot Password
 export const forgotPassword = Catch(async (req, res, next) => {
 	const { email } = req.body;
+
 	if (!email) {
 		return next(new ErrorHandler(401, "Please Enter Email Address."));
 	}
@@ -78,7 +79,7 @@ export const forgotPassword = Catch(async (req, res, next) => {
 
 	await user.save({ validateBeforeSave: false });
 
-	const url = `${req.protocol}://${req.get("host")}/api/auth/password/reset/${resetToken}`;
+	const url = `${process.env.FRONTEND_URL}/profile/password-reset/${resetToken}`;
 	const message = `Your Password Reset Token is :- ${url}`;
 
 	try {
@@ -100,7 +101,7 @@ export const forgotPassword = Catch(async (req, res, next) => {
 export const resetPassword = Catch(async (req, res, next) => {
 	const { token } = req.params;
 	const { password, confirmPassword } = req.body;
-
+	console.log(req.body);
 	const resetPasswordToken = crypto.createHash("sha256").update(token).digest("hex");
 
 	const user = await User.findOne({ resetPasswordToken: resetPasswordToken });
@@ -142,17 +143,17 @@ export const updatePassword = Catch(async (req, res, next) => {
 	const user = await User.findById(_id).select("+password");
 
 	if (newPassword === oldPassword) {
-		return next(new ErrorHandler(500, "Passwords cannot be same."));
+		return next(new ErrorHandler(302, "Passwords cannot be same."));
 	}
 
 	const isPasswordCorrect = await user.comparePassword(oldPassword);
 
 	if (!isPasswordCorrect) {
-		return next(new ErrorHandler(500, "Invalid Old Password."));
+		return next(new ErrorHandler(302, "Invalid Old Password."));
 	}
 
 	if (newPassword !== confirmNewPassword) {
-		return next(new ErrorHandler(500, "Passwords don't match."));
+		return next(new ErrorHandler(302, "Passwords don't match."));
 	}
 
 	user.password = newPassword;

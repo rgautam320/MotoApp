@@ -3,8 +3,10 @@
 	&__footer {
 		width: 100%;
 		padding: 1rem 0;
-		background-color: $footer-background;
 		color: $white;
+		position: relative;
+		bottom: 0;
+		background-color: $footer-background;
 	}
 
 	&__logo {

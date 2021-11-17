@@ -17,6 +17,7 @@ import UpdateProfile from "../Containers/Auth/UpdateProfile";
 import ChangePassword from "../Containers/Auth/ChangePassword";
 import ForgotPassword from "../Containers/Auth/ForgotPassword";
 import ProtectedRoute from "./ProtectedRoute";
+import ResetPassword from "../Containers/Auth/ResetPassword";
 
 const Routes = () => {
 	return (
@@ -29,6 +30,7 @@ const Routes = () => {
 			<Route exact path="/product/:id" component={ProductDetails} />
 			<Route exact path="/auth" component={Auth} />
 			<Route exact path="/profile/forgot-password" component={ForgotPassword} />
+			<Route exact path="/profile/password-reset/:token" component={ResetPassword} />
 
 			{/* Authenticated Routes */}
 

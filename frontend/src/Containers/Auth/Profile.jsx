@@ -17,7 +17,7 @@ const Profile = () => {
 						</div>
 						<div className="d-flex justify-content-center">
 							<NavLink className="profile__updateButton" to="/profile/update">
-								Update Profile{" "}
+								Update Profile
 							</NavLink>
 						</div>
 					</div>
