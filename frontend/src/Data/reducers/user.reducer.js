@@ -5,16 +5,14 @@ const initialState = {
 	user: {},
 	isAuthenticated: false,
 	isUpdated: false,
-	loading: false,
+	loading: undefined,
 	success: null,
 	error: null,
 };
 
 export const login = createAsyncThunk("user/login", async (payload) => {
 	const response = await loginService(payload.email, payload.password);
-	if (response?.token) {
-		localStorage.setItem("token", response?.token);
-	}
+
 	if (response?.error) {
 		return { error: response.error };
 	}
@@ -23,9 +21,6 @@ export const login = createAsyncThunk("user/login", async (payload) => {
 
 export const register = createAsyncThunk("user/register", async (payload) => {
 	const response = await registerService(payload.email, payload.name, payload.avatar, payload.password);
-	if (response?.token) {
-		localStorage.setItem("token", response?.token);
-	}
 	if (response?.error) {
 		return { error: response.error };
 	}
@@ -34,9 +29,6 @@ export const register = createAsyncThunk("user/register", async (payload) => {
 
 export const load = createAsyncThunk("user/load", async () => {
 	const response = await loadService();
-	if (response?.token) {
-		localStorage.setItem("token", response?.token);
-	}
 	if (response?.error) {
 		return { error: response.error };
 	}
@@ -85,7 +77,7 @@ export const userSlice = createSlice({
 		},
 		[login.fulfilled]: (state, action) => {
 			state.user = action.payload?.user;
-			state.isAuthenticated = action.payload?.success;
+			state.isAuthenticated = action.payload?.success ? action.payload?.success : false;
 			state.loading = false;
 			if (action.payload?.error) {
 				state.error = action.payload?.error;
@@ -102,7 +94,7 @@ export const userSlice = createSlice({
 		},
 		[register.fulfilled]: (state, action) => {
 			state.user = action.payload?.user;
-			state.isAuthenticated = action.payload?.success;
+			state.isAuthenticated = action.payload?.success ? action.payload?.success : false;
 			state.loading = false;
 			if (action.payload?.error) {
 				state.error = action.payload.error;
@@ -119,13 +111,8 @@ export const userSlice = createSlice({
 		},
 		[load.fulfilled]: (state, action) => {
 			state.user = action.payload?.user;
-			state.isAuthenticated = action.payload?.success;
+			state.isAuthenticated = action.payload?.success ? action.payload?.success : false;
 			state.loading = false;
-			if (action.payload?.error) {
-				state.error = action.payload.error;
-			} else {
-				state.success = action.payload?.message;
-			}
 		},
 
 		// Update Profile
@@ -165,10 +152,8 @@ export const userSlice = createSlice({
 
 		// Logout
 		[logout.pending]: (state, action) => {
-			state.loading = true;
 			state.error = null;
 			state.success = null;
-			state.isUpdated = false;
 		},
 		[logout.fulfilled]: (state, action) => {
 			state.user = null;
@@ -177,6 +162,8 @@ export const userSlice = createSlice({
 			state.success = false;
 			if (action.payload?.error) {
 				state.error = action.payload.error;
+			} else {
+				state.success = action.payload?.message;
 			}
 		},
 	},

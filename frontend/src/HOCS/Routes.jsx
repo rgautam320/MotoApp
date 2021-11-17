@@ -1,6 +1,5 @@
 import React from "react";
-import { Switch, Route, Redirect } from "react-router";
-import { useSelector } from "react-redux";
+import { Switch, Route } from "react-router";
 
 import Home from "../Containers/Home/Home";
 import Error from "../Containers/Error/Error";
@@ -16,12 +15,10 @@ import Dashboard from "../Containers/Admin/Dashboard";
 import Profile from "../Containers/Auth/Profile";
 import UpdateProfile from "../Containers/Auth/UpdateProfile";
 import ChangePassword from "../Containers/Auth/ChangePassword";
-import { Loader } from "../Utils/Loader";
+import ForgotPassword from "../Containers/Auth/ForgotPassword";
+import ProtectedRoute from "./ProtectedRoute";
 
 const Routes = () => {
-	const token = localStorage.getItem("token");
-	const { loading } = useSelector((state) => state.user);
-
 	return (
 		<Switch>
 			{/* Normal Routes */}
@@ -31,25 +28,20 @@ const Routes = () => {
 			<Route exact path="/products" component={Products} />
 			<Route exact path="/product/:id" component={ProductDetails} />
 			<Route exact path="/auth" component={Auth} />
+			<Route exact path="/profile/forgot-password" component={ForgotPassword} />
 
 			{/* Authenticated Routes */}
 
-			{token ? (
-				<>
-					<Route exact path="/cart" component={loading ? Loader : Cart} />
-					<Route exact path="/account" component={loading ? Loader : Account} />
-					<Route exact path="/orders" component={loading ? Loader : Orders} />
-					<Route exact path="/profile" component={loading ? Loader : Profile} />
-					<Route exact path="/profile/update" component={loading ? Loader : UpdateProfile} />
-					<Route exact path="/profile/change-password" component={loading ? Loader : ChangePassword} />
-				</>
-			) : (
-				<Redirect to="/" />
-			)}
+			<ProtectedRoute exact path="/cart" component={Cart} />
+			<ProtectedRoute exact path="/account" component={Account} />
+			<ProtectedRoute exact path="/orders" component={Orders} />
+			<ProtectedRoute exact path="/profile" component={Profile} />
+			<ProtectedRoute exact path="/profile/update" component={UpdateProfile} />
+			<ProtectedRoute exact path="/profile/change-password" component={ChangePassword} />
 
 			{/* Admin Routes */}
 
-			<Route exact path="/admin/dashboard" component={Dashboard} />
+			<ProtectedRoute exact path="/admin/dashboard" component={Dashboard} />
 
 			{/* Error Route */}
 			<Route component={Error} />

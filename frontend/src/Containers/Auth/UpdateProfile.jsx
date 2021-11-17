@@ -13,7 +13,7 @@ const Auth = () => {
 	const history = useHistory();
 	const alert = useAlert();
 
-	const { isUpdated, error, user } = useSelector((state) => state.user);
+	const { isUpdated, error, user, isAuthenticated } = useSelector((state) => state.user);
 
 	const [avatar, setAvatar] = useState(user?.avatar?.url);
 	const [avatarPreview, setAvatarPreview] = useState(user?.avatar?.url);
@@ -55,7 +55,9 @@ const Auth = () => {
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
-
+		if (!isAuthenticated) {
+			history.push("/");
+		}
 		if (error) {
 			alert.error(error);
 		} else {
@@ -69,27 +71,27 @@ const Auth = () => {
 			name: user?.name,
 			email: user?.email,
 		});
-	}, [alert, error, user, dispatch, history, isUpdated]);
+	}, [alert, error, user, dispatch, history, isUpdated, isAuthenticated]);
 
 	return (
 		<>
 			<MetaData title="Moto App | Auth" />
-			<div className="container my-5 updateProfile">
-				<h1 className="heading profile__heading">Update Profile</h1>
+			<div className="container my-5 auth">
+				<h1 className="heading auth__heading">Update Profile</h1>
 
-				<div className="updateProfile__updateProfile">
+				<div className="auth__box">
 					<form noValidate autoComplete="off" onSubmit={onUpdateProfile}>
-						<div className="updateProfile__input">
+						<div className="auth__input">
 							<Input name="email" type="email" label="Email" value={userInfo.email} icon={<EmailRounded />} handleChange={onUpdateChange} />
 						</div>
-						<div className="updateProfile__input">
+						<div className="auth__input">
 							<Input name="name" type="text" label="Name" value={userInfo.name} icon={<AccountCircle />} handleChange={onUpdateChange} />
 						</div>
-						<div className="updateProfile__registerImage">
+						<div className="auth__registerImage">
 							<img src={avatarPreview} alt="Avatar Preview" />
 							<input type="file" name="avatar" accept="image/*" onChange={onUpdateChange} />
 						</div>
-						<button type="submit" className="updateProfile__button">
+						<button type="submit" className="auth__button">
 							Update
 						</button>
 					</form>

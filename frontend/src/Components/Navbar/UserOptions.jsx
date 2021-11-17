@@ -55,10 +55,10 @@ const UserOptions = ({ user }) => {
 		history.push("/cart");
 		handleClose();
 	}
-	function logoutUser() {
-		dispatch(logout());
+	async function logoutUser() {
+		await dispatch(logout());
 		alert.success("Logout Successfully");
-		history.push("/");
+		history.push("/auth");
 		handleClose();
 	}
 

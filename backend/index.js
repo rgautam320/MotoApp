@@ -28,11 +28,11 @@ process.on("uncaughtException", (error) => {
 });
 
 // Using bodyParser, cors, cookieParser etc.
+app.use(cookieParser());
 app.use(bodyParser.json({ limit: "50mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 app.use(cors());
 app.use(express.json());
-app.use(cookieParser());
 app.use(fileUpload());
 
 // API Routes

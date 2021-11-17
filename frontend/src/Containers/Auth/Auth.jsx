@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { AccountCircle, EmailRounded, Lock } from "@material-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { useAlert } from "react-alert";
 
 import MetaData from "../../HOCS/MetaData";
@@ -84,13 +84,14 @@ const Auth = () => {
 		} else if (success) {
 			alert.success(success);
 			dispatch(load());
+			history.push("/profile");
 		}
 	}, [isAuthenticated, history, alert, error, success, dispatch]);
 
 	return (
 		<>
 			<MetaData title="Moto App | Auth" />
-			<div className="container my-5">
+			<div className="container my-5 auth">
 				<div className="auth__auth">
 					<div className="d-flex justify-content-around auth__toggleBox">
 						<button onClick={() => setIsLogin(true)} className={`auth__toggleBox__toggle ${isLogin ? "auth__toggleBox__true" : ""}`}>
@@ -118,7 +119,10 @@ const Auth = () => {
 									/>
 								</div>
 								<div className="auth__forgot">
-									Forgot Password? &nbsp; <button onClick={() => setIsLogin(false)}>Reset</button>
+									Forgot Password? &nbsp;{" "}
+									<NavLink exact to="/profile/forgot-password" onClick={() => setIsLogin(false)}>
+										Reset
+									</NavLink>
 								</div>
 
 								<div className="auth__forgot">

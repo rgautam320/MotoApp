@@ -67,9 +67,9 @@ const ChangePassword = () => {
 	return (
 		<>
 			<MetaData title="Moto App | Auth" />
-			<div className="container my-5 changePassword">
-				<h1 className="heading profile__heading">Update Profile</h1>
-				<div className="changePassword__changePassword">
+			<div className="container my-5 auth">
+				<h1 className="heading auth__heading">Update Profile</h1>
+				<div className="auth__box">
 					<form noValidate autoComplete="off" onSubmit={onUpdatePassword}>
 						<div className="auth__input">
 							<Input
@@ -96,7 +96,7 @@ const ChangePassword = () => {
 								handleChange={onUpdateChange}
 							/>
 						</div>
-						<button type="submit" className="changePassword__button">
+						<button type="submit" className="auth__button">
 							Change Password
 						</button>
 					</form>

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // Setting Up API
-const API = axios.create({ baseURL: `${process.env.REACT_APP_API}/api` });
+const API = axios.create({ baseURL: `/api` });
 const token = `Bearer ${localStorage.getItem("token")}`;
 
 API.interceptors.request.use((req) => {
@@ -25,7 +25,7 @@ export const getSingleProductAPI = (id) => API.get(`/products/getProduct/${id}`)
 // Authentication APIs
 export const loginAPI = (email, password) => API.post("/auth/login", { email, password });
 export const registerAPI = (email, name, avatar, password) => API.post("/auth/register", { email, name, avatar, password });
-export const loadAPI = () => API.post("/auth/me", { tok: localStorage.getItem("token") });
+export const loadAPI = () => API.get(`/auth/me`);
 export const updateProfileAPI = (info) => API.put("/auth/updateUserDetails", info);
 export const changePasswordAPI = (passwords) => API.put("/auth/updatePassword", passwords);
 export const logoutAPI = () => API.get("/auth/logout");

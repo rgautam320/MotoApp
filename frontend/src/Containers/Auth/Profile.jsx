@@ -9,7 +9,7 @@ const Profile = () => {
 		<div className="container my-5 profile">
 			<h1 className="heading profile__heading">Profile</h1>
 
-			<div className="row">
+			<div className="row py-3">
 				<div className="col-md-6 col-12 mx-auto">
 					<div className="profile__imageBox my-3">
 						<div className="d-flex justify-content-center">

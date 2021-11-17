@@ -5,7 +5,6 @@ import aos from "aos";
 import webfont from "webfontloader";
 import { positions, transitions, Provider as AlertProvider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
-
 import store from "./Data/store";
 
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
@@ -14,6 +13,7 @@ import "react-multi-carousel/lib/styles.css";
 import "./SCSS/_main.scss";
 
 import Layout from "./HOCS/Layout";
+import { load } from "./Data/reducers/user.reducer";
 
 aos.init();
 
@@ -24,6 +24,7 @@ const App = () => {
 				families: ["Roboto", "sans-serif"],
 			},
 		});
+		store.dispatch(load());
 	}, []);
 
 	const options = {
