@@ -14,7 +14,7 @@ const Auth = () => {
 	const history = useHistory();
 	const alert = useAlert();
 
-	const { isUpdated, error, user, loading, success } = useSelector((state) => state.user);
+	const { isUpdated, error, user, success, cart } = useSelector((state) => state.user);
 
 	const [avatar, setAvatar] = useState(user?.avatar?.url);
 	const [avatarPreview, setAvatarPreview] = useState(user?.avatar?.url);
@@ -38,6 +38,7 @@ const Auth = () => {
 			setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
 		}
 	};
+	console.log(cart);
 
 	const onUpdateProfile = (e) => {
 		e.preventDefault();
@@ -46,6 +47,7 @@ const Auth = () => {
 			name: userInfo.name,
 			address: user?.address,
 			avatar: { public_id: user?.avatar?.public_id, url: avatar },
+			cart: cart,
 		};
 		if (payload.email && payload.name && payload.avatar) {
 			dispatch(updateProfile(payload));

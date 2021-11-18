@@ -166,9 +166,9 @@ export const updatePassword = Catch(async (req, res, next) => {
 // Update User Info
 export const updateUserDetails = Catch(async (req, res, next) => {
 	const { _id } = req.user;
-	const { name, email, avatar, address } = req.body;
+	const { name, email, avatar, address, cart } = req.body;
 
-	const user = await User.findByIdAndUpdate(_id, { name, email, avatar, address }, { new: true, runValidators: true, useFindAndModify: false });
+	const user = await User.findByIdAndUpdate(_id, { name, email, avatar, address, cart }, { new: true, runValidators: true, useFindAndModify: false });
 
 	res.status(200).json({ success: true, message: "User Updated Successfully", user: user });
 });

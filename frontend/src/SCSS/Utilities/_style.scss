@@ -22,14 +22,19 @@
 }
 
 .btn {
-	border: none;
-	outline: none;
-	color: $white;
-	justify-content: center;
-	align-items: center;
+	border: none !important;
+	outline: none !important;
+	color: $white !important;
+	justify-content: center !important;
+	align-items: center !important;
 	&:focus {
-		border: none;
-		outline: none;
+		border: none !important;
+		outline: none !important;
+		box-shadow: none !important;
+	}
+	&:active {
+		border: none !important;
+		outline: none !important;
 	}
 }
 

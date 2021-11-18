@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useAlert } from "react-alert";
 import Carousel from "react-material-ui-carousel";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,6 +8,7 @@ import ReviewCarousel from "react-multi-carousel";
 
 import { getSingleProduct } from "../../Data/reducers/product.reducer";
 import Review from "../../Components/Product/Review";
+import { userActions } from "../../Data/reducers/user.reducer";
 
 const responsive = {
 	desktop: {
@@ -43,6 +44,34 @@ const ProductDetails = ({ match }) => {
 		isHalf: true,
 		size: window.innerWidth > 768 ? 25 : 20,
 		edit: false,
+	};
+
+	const [quantity, setQuantity] = useState(1);
+
+	const increaseItem = () => {
+		if (singleProduct?.stock === quantity) {
+			setQuantity(singleProduct?.stock);
+		} else {
+			setQuantity(quantity + 1);
+		}
+	};
+	const decreaseItem = () => {
+		if (quantity === 1) {
+			setQuantity(1);
+		} else {
+			setQuantity(quantity - 1);
+		}
+	};
+
+	const addToCart = () => {
+		const payload = {
+			product: id,
+			name: singleProduct?.name,
+			price: singleProduct?.price,
+			quantity: quantity,
+			image: singleProduct?.images[0]?.url,
+		};
+		dispatch(userActions.cart(payload));
 	};
 
 	useEffect(() => {
@@ -83,12 +112,18 @@ const ProductDetails = ({ match }) => {
 							</div>
 							<div className="product__quantityBox">
 								<div className="product__quantity">
-									<button className="btn product__quantity__btn">-</button>
-									<input className="product__quantity__input" type="number" defaultValue={1} />
-									<button className="btn product__quantity__btn">+</button>
+									<button className="btn product__quantity__btn" onClick={decreaseItem}>
+										-
+									</button>
+									<input className="product__quantity__input" type="number" readOnly defaultValue={1} value={quantity} />
+									<button className="btn product__quantity__btn" onClick={increaseItem}>
+										+
+									</button>
 								</div>
 								<div className="product__add">
-									<button className="btn product__add__btn">Add to Cart</button>
+									<button className="btn product__add__btn" onClick={addToCart}>
+										Add to Cart
+									</button>
 								</div>
 							</div>
 							<div className="product__status">
