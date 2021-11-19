@@ -77,3 +77,18 @@ pre {
 	transform: translate(1rem, -0.55rem) scale(0.75) !important;
 	padding: 0 0.5rem;
 }
+
+// Checkout Steps
+.MuiStepConnector-line {
+	display: none !important;
+}
+
+.MuiStepConnector-root {
+	height: 0.1rem;
+	background-color: rgba(0, 0, 0, 0.349);
+}
+
+.MuiStepConnector-active,
+.MuiStepConnector-completed {
+	background-color: $tomato;
+}

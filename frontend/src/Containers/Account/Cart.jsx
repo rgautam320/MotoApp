@@ -64,6 +64,11 @@ const Cart = () => {
 										<div className="col-5">₹ {Math.round(cart.reduce((acc, item) => acc + item?.quantity * item?.price, 0) - cart.reduce((acc, item) => acc + item?.quantity * item?.price, 0) * 0.05 + 50)} </div>
 									</h5>
 								</div>
+								<div className="cart__btns cart__btns__saveBox w-100">
+									<button className="btn cart__btns__save" onClick={onSave}>
+										Save Your Cart
+									</button>
+								</div>
 								<div className="cart__btns">
 									<button className="btn cart__btns__checkout">Checkout</button>
 								</div>
@@ -81,7 +86,7 @@ const Cart = () => {
 						</div>
 					</center>
 				)}
-				{user?.cart?.length > 1 && (
+				{user?.cart?.length > 0 && cart?.length === 0 && (
 					<div className="cart__btns cart__btns__saveBox">
 						<button className="btn cart__btns__save" onClick={onSave}>
 							Save Your Cart

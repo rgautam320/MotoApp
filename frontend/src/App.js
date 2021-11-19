@@ -29,7 +29,7 @@ const App = () => {
 
 	const options = {
 		timeout: 5000,
-		position: positions.TOP_RIGHT,
+		position: positions.BOTTOM_RIGHT,
 		transition: transitions.FADE,
 	};
 	return (
