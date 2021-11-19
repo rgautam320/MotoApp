@@ -62,7 +62,7 @@ const ResetPassword = ({ match }) => {
 				dispatch(userActions.reset());
 			}
 		}
-	}, [alert, error, dispatch, history, isUpdated]);
+	}, [alert, error, dispatch, history, isUpdated, success]);
 
 	return (
 		<>

@@ -7,7 +7,6 @@ import { useAlert } from "react-alert";
 import MetaData from "../../HOCS/MetaData";
 import Input from "../../Components/Shared/Input";
 import { updateProfile, userActions } from "../../Data/reducers/user.reducer";
-import { SmallLoader, Loader } from "../../Utils/Loader";
 
 const Auth = () => {
 	const dispatch = useDispatch();
@@ -71,7 +70,7 @@ const Auth = () => {
 			name: user?.name,
 			email: user?.email,
 		});
-	}, [alert, error, user, dispatch, history, isUpdated]);
+	}, [alert, error, user, dispatch, history, isUpdated, success]);
 
 	return (
 		<>

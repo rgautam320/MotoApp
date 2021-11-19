@@ -88,8 +88,16 @@
 		&__checkout {
 			background-color: $secondary;
 		}
+		&__saveBox {
+			width: 40%;
+			margin: 2rem auto;
+		}
 		&__save {
 			background-color: $blue;
+		}
+		&__product {
+			background-color: $secondary;
+			padding: 0.6rem 2rem;
 		}
 	}
 	@media (max-width: 576px) {

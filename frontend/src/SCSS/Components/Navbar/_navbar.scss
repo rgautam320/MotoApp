@@ -2,14 +2,21 @@
 
 // Overriding CSS
 .menuBurger {
-	height: 3.5vmax !important;
+	background-color: $primary;
+	border-radius: 50%;
+	width: 4vmax !important;
+	height: 4vmax !important;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .user {
 	&__options {
-		position: absolute;
+		position: fixed;
 		top: 2rem;
 		right: 2rem;
+		z-index: 1000;
 	}
 	&__speedDialIcon {
 		width: 50px;

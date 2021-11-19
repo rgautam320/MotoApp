@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { EmailRounded, Lock } from "@material-ui/icons";
+import { EmailRounded } from "@material-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useAlert } from "react-alert";

@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import { useAlert } from "react-alert";
 import { useDispatch } from "react-redux";
 import { userActions } from "../../Data/reducers/user.reducer";
 
 const CartItem = ({ cart }) => {
 	const disptach = useDispatch();
+	const alert = useAlert();
 	const [quantity, setQuantity] = useState(cart?.quantity);
 
 	const increaseItem = () => {
@@ -38,6 +40,7 @@ const CartItem = ({ cart }) => {
 	};
 	const onRemove = () => {
 		disptach(userActions.cartRemove(cart?.product));
+		alert.success("Product removed from cart.");
 	};
 	return (
 		<>

@@ -37,6 +37,7 @@ export const load = createAsyncThunk("user/load", async () => {
 });
 
 export const updateProfile = createAsyncThunk("user/updateProfile", async (payload) => {
+	console.log(payload);
 	const response = await updateProfileService(payload);
 	if (response?.error) {
 		return { error: response.error };
@@ -85,7 +86,6 @@ export const userSlice = createSlice({
 			state.isUpdated = false;
 			state.success = null;
 			state.error = null;
-			state.loading = undefined;
 		},
 		cart: (state, action) => {
 			const isExist = state.cart.find((item) => item?.product === action.payload?.product);
@@ -97,7 +97,6 @@ export const userSlice = createSlice({
 			localStorage.setItem("cart", JSON.stringify(state.cart));
 		},
 		cartRemove: (state, action) => {
-			console.log(action.payload);
 			state.cart = state.cart.filter((item) => item.product !== action.payload);
 			localStorage.setItem("cart", JSON.stringify(state.cart));
 		},
@@ -112,6 +111,7 @@ export const userSlice = createSlice({
 		},
 		[login.fulfilled]: (state, action) => {
 			state.user = action.payload?.user;
+			state.cart = action.payload?.user?.cart;
 			state.isAuthenticated = action.payload?.success ? action.payload?.success : false;
 			state.loading = false;
 			state.isUpdated = action.payload?.success;
@@ -131,6 +131,7 @@ export const userSlice = createSlice({
 		},
 		[register.fulfilled]: (state, action) => {
 			state.user = action.payload?.user;
+			state.cart = action.payload?.user?.cart;
 			state.isAuthenticated = action.payload?.success ? action.payload?.success : false;
 			state.loading = false;
 			state.isUpdated = action.payload?.success;
@@ -150,6 +151,7 @@ export const userSlice = createSlice({
 		},
 		[load.fulfilled]: (state, action) => {
 			state.user = action.payload?.user;
+			state.cart = action.payload?.user?.cart;
 			state.isUpdated = action.payload?.success;
 			state.isAuthenticated = action.payload?.success ? action.payload?.success : false;
 			state.loading = false;
@@ -163,6 +165,7 @@ export const userSlice = createSlice({
 		},
 		[updateProfile.fulfilled]: (state, action) => {
 			state.user = action.payload?.user;
+			state.cart = action.payload?.user?.cart;
 			state.loading = false;
 			state.isUpdated = action.payload?.success;
 			if (action.payload?.error) {
@@ -232,6 +235,7 @@ export const userSlice = createSlice({
 		},
 		[logout.fulfilled]: (state, action) => {
 			state.user = null;
+			state.cart = null;
 			state.isAuthenticated = false;
 			state.loading = false;
 			state.isUpdated = action.payload?.success;

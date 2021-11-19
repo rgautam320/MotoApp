@@ -20,11 +20,12 @@
 		content: "";
 		width: 100vw;
 		height: 100vmin;
-		background-color: $white;
+		// background-color: $light-shadow;
+		background: rgba($color: $white, $alpha: 0.9);
 		position: absolute;
 		top: 0%;
 		left: 0;
-		clip-path: polygon(0 91%, 100% 63%, 100% 100%, 0% 100%);
+		clip-path: polygon(0 95%, 100% 63%, 100% 100%, 0% 100%);
 		max-width: 100%;
 	}
 	&__h1 {
@@ -48,10 +49,57 @@
 		transition: 0.1s all;
 		transition-duration: 0.5s;
 		font-size: 1.2vmax;
+		&__search {
+			width: 30%;
+			margin: 0;
+			padding: 0;
+			height: 2.8rem;
+			background-color: $primary;
+			opacity: 1;
+			padding: 0.5rem;
+			svg {
+				width: 1.2rem;
+				height: 1.2rem;
+			}
+		}
 		&:hover {
 			background-color: $grey;
 			color: $white;
 			transform: scale(1.02);
+		}
+	}
+	&__searchBox {
+		width: 32%;
+	}
+	&__search {
+		height: 2.8rem;
+		outline: none !important;
+		border: none !important;
+		border-radius: 0.2rem;
+		width: 70%;
+		&:focus {
+			border: none !important;
+		}
+	}
+	@media (max-width: 1024px) {
+		&__searchBox {
+			width: 60%;
+		}
+	}
+	@media (max-width: 768px) {
+		&__hero {
+			height: 80vh !important;
+		}
+		&__searchBox {
+			width: 80%;
+		}
+		&__hero::after {
+			background: none;
+		}
+	}
+	@media (max-width: 576px) {
+		&__searchBox {
+			width: 90%;
 		}
 	}
 }

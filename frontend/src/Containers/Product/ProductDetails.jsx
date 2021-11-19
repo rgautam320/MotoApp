@@ -72,6 +72,7 @@ const ProductDetails = ({ match }) => {
 			image: singleProduct?.images[0]?.url,
 		};
 		dispatch(userActions.cart(payload));
+		alert.success("Product added to cart.");
 	};
 
 	useEffect(() => {

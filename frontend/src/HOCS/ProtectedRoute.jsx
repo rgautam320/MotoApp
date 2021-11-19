@@ -5,10 +5,9 @@ import { Loader } from "../Utils/Loader";
 
 const ProtectedRoute = ({ isAdmin, component: Component, ...rest }) => {
 	const { loading, isAuthenticated, user } = useSelector((state) => state.user);
-	console.log(loading);
 	return (
 		<Fragment>
-			{loading === false || loading === undefined ? (
+			{loading === false ? (
 				<Route
 					{...rest}
 					render={(props) => {

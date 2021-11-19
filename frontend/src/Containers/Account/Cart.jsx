@@ -6,6 +6,7 @@ import { RemoveShoppingCart } from "@material-ui/icons";
 import { updateProfile, userActions } from "../../Data/reducers/user.reducer";
 import { useHistory } from "react-router";
 import { useAlert } from "react-alert";
+import { NavLink } from "react-router-dom";
 
 const Cart = () => {
 	const { cart, user, error, isUpdated, success } = useSelector((state) => state.user);
@@ -16,10 +17,6 @@ const Cart = () => {
 
 	const onSave = () => {
 		const payload = {
-			email: user?.email,
-			name: user?.name,
-			address: user?.address,
-			avatar: { public_id: user?.avatar?.public_id, url: user?.avatar?.url },
 			cart: cart,
 		};
 		dispatch(updateProfile(payload));
@@ -35,7 +32,7 @@ const Cart = () => {
 				dispatch(userActions.reset());
 			}
 		}
-	}, [alert, error, user, dispatch, history, isUpdated]);
+	}, [alert, error, user, dispatch, history, isUpdated, success]);
 
 	return (
 		<>
@@ -68,11 +65,6 @@ const Cart = () => {
 									</h5>
 								</div>
 								<div className="cart__btns">
-									<button className="btn cart__btns__save" onClick={onSave}>
-										Save Your Cart
-									</button>
-								</div>
-								<div className="cart__btns">
 									<button className="btn cart__btns__checkout">Checkout</button>
 								</div>
 							</div>
@@ -82,7 +74,19 @@ const Cart = () => {
 					<center className="pt-5">
 						<RemoveShoppingCart style={{ fontSize: 60 }} color="secondary" />
 						<h1 className="cart__noItem">No Items in Cart</h1>
+						<div className="cart__btns cart__btns__saveBox">
+							<NavLink to="/products" className="btn cart__btns__product">
+								View More Products
+							</NavLink>
+						</div>
 					</center>
+				)}
+				{user?.cart?.length > 1 && (
+					<div className="cart__btns cart__btns__saveBox">
+						<button className="btn cart__btns__save" onClick={onSave}>
+							Save Your Cart
+						</button>
+					</div>
 				)}
 			</div>
 		</>

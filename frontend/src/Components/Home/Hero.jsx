@@ -1,7 +1,9 @@
-import React from "react";
-import { CgMouse } from "react-icons/all";
+import React, { useState } from "react";
+import { CgMouse, FaSearch } from "react-icons/all";
+import { NavLink } from "react-router-dom";
 
 const Hero = () => {
+	const [keyword, setKeyword] = useState("");
 	return (
 		<>
 			<section id="hero">
@@ -13,6 +15,12 @@ const Hero = () => {
 							Scroll <CgMouse />
 						</button>
 					</a>
+					<div className="d-flex hero__searchBox mt-5">
+						<input className="products__search hero__search" type="text" placeholder="Search" value={keyword} onChange={(e) => setKeyword(e.target.value)} />
+						<NavLink to={`/products?search=${keyword}`} className="hero__button hero__button__search">
+							<FaSearch />
+						</NavLink>
+					</div>
 				</div>
 			</section>
 		</>

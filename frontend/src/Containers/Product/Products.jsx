@@ -9,7 +9,7 @@ import Card from "../../Components/Product/Card";
 import { Loader } from "../../Utils/Loader";
 import { getAllProducts } from "../../Data/reducers/product.reducer";
 
-const Products = () => {
+const Products = ({ location }) => {
 	const dispatch = useDispatch();
 	const alert = useAlert();
 
@@ -17,7 +17,7 @@ const Products = () => {
 
 	const { products, page, loading, error, filteredProductCount } = useSelector((state) => state.product);
 
-	const [keyword, setKeyword] = useState("");
+	const [keyword, setKeyword] = useState(location?.search?.split("?search=")[1] || "");
 	const [currentPage, setCurrentPage] = useState(1);
 	const [value, setValue] = useState([0, 99999]);
 	const [category, setCategory] = useState("");

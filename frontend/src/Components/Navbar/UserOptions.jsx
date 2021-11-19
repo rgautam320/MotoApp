@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import { SpeedDial, SpeedDialAction } from "@material-ui/lab";
-import { Dashboard, Person, ExitToApp, ListAlt, ShoppingCart } from "@material-ui/icons";
+import { Dashboard, Person, ExitToApp, ListAlt, ShoppingCart, RemoveShoppingCart } from "@material-ui/icons";
 import { useHistory } from "react-router";
-import { useDispatch } from "react-redux";
-import { logout, userActions } from "../../Data/reducers/user.reducer";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../Data/reducers/user.reducer";
+import { Backdrop } from "@material-ui/core";
 
 const UserOptions = ({ user }) => {
 	const history = useHistory();
 	const dispatch = useDispatch();
 
 	const [open, setOpen] = useState(false);
+	const { cart } = useSelector((state) => state.user);
 
 	const handleOpen = () => {
 		setOpen(true);
@@ -23,9 +25,9 @@ const UserOptions = ({ user }) => {
 		{ icon: <ListAlt />, name: "Orders", func: orders },
 		{ icon: <Person />, name: "Profile", func: account },
 		{
-			icon: <ShoppingCart />,
-			name: `Cart`,
-			func: cart,
+			icon: cart?.length ? <ShoppingCart style={{ color: "tomato" }} /> : <RemoveShoppingCart />,
+			name: `Cart (${cart?.length})`,
+			func: cartFunc,
 		},
 		{ icon: <ExitToApp />, name: "Logout", func: logoutUser },
 	];
@@ -49,7 +51,7 @@ const UserOptions = ({ user }) => {
 		history.push("/profile");
 		handleClose();
 	}
-	function cart() {
+	function cartFunc() {
 		history.push("/cart");
 		handleClose();
 	}
@@ -61,6 +63,7 @@ const UserOptions = ({ user }) => {
 	return (
 		<>
 			<div className="user__options">
+				<Backdrop open={open} />
 				<SpeedDial
 					ariaLabel="SpeedDial"
 					className="user__speedDial"
@@ -71,7 +74,7 @@ const UserOptions = ({ user }) => {
 					open={open}
 				>
 					{actions.map((action) => (
-						<SpeedDialAction key={action.name} icon={action.icon} tooltipTitle={action.name} onClick={action.func} />
+						<SpeedDialAction key={action.name} tooltipOpen={window.innerWidth <= 600 ? true : false} icon={action.icon} tooltipTitle={action.name} onClick={action.func} />
 					))}
 				</SpeedDial>
 			</div>
