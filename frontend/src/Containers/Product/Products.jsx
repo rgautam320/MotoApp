@@ -81,7 +81,7 @@ const Products = ({ location }) => {
 									<div className="row my-4">
 										<h4 className="py-2">{filteredProductCount} Products Available</h4>
 										{products?.map((product, ind) => (
-											<Card product={product} key={ind} styles="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 my-3" />
+											<Card product={product} key={ind} styles="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 my-3" />
 										))}
 									</div>
 									{filteredProductCount > page && (

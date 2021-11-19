@@ -116,7 +116,7 @@ const ProductDetails = ({ match }) => {
 									<button className="btn product__quantity__btn" onClick={decreaseItem}>
 										-
 									</button>
-									<input className="product__quantity__input" type="number" readOnly defaultValue={1} value={quantity} />
+									<input className="product__quantity__input" type="number" readOnly value={quantity} />
 									<button className="btn product__quantity__btn" onClick={increaseItem}>
 										+
 									</button>
