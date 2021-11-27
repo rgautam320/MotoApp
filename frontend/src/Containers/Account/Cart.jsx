@@ -70,7 +70,9 @@ const Cart = () => {
 									</button>
 								</div>
 								<div className="cart__btns">
-									<button className="btn cart__btns__checkout">Checkout</button>
+									<button onClick={() => history.push("/profile/shipping")} className="btn cart__btns__checkout">
+										Checkout
+									</button>
 								</div>
 							</div>
 						</div>
