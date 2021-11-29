@@ -33,8 +33,8 @@ const Profile = () => {
 							<p>{user?.email}</p>
 						</div>
 						<div className="profile__info">
-							<h4>User Since:</h4>
-							<p>{user?.createdAt?.substr(0, 10)}</p>
+							<h4>Address:</h4>
+							<p>{`${user?.name}, ${user?.address?.phone}, ${user?.address?.street}, ${user?.address?.city}, ${user?.address?.zip}, ${user?.address?.state}, ${user?.address?.country}`}</p>
 						</div>
 						<div className="d-flex justify-content-center">
 							<NavLink to="/profile/change-password" className="profile__updateButton">

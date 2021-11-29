@@ -19,6 +19,10 @@
 		border-color: $grey;
 		margin-bottom: 2rem;
 	}
+	&__subheading {
+		font-size: 1.8rem;
+		text-align: center;
+	}
 	&__input {
 		margin: 2rem 0;
 	}
@@ -111,6 +115,42 @@
 		}
 		&__small {
 			height: 16rem;
+		}
+		&__updateBox {
+			height: 45rem;
+			width: 60rem;
+			max-width: 100%;
+		}
+		@media (max-width: 768px) {
+			&__updateBox {
+				height: 68rem;
+			}
+		}
+	}
+	&__CountryState {
+		position: relative;
+		svg {
+			position: absolute;
+			left: 1.75rem;
+			top: 1.2rem;
+			width: 1.5rem;
+			height: 1.5rem;
+			color: $grey;
+		}
+	}
+	&__countryState {
+		width: 100%;
+		padding: 1.2rem;
+		padding-left: 4rem;
+		margin-bottom: 1rem;
+		border: 0.05rem solid $light-shadow;
+		background-color: transparent;
+		border-radius: 0.3rem;
+		&:hover {
+			border-color: $black;
+		}
+		&:focus {
+			border: 0.1rem solid $blue !important;
 		}
 	}
 	@media (max-width: 576px) {

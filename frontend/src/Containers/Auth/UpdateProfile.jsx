@@ -3,10 +3,15 @@ import { AccountCircle, EmailRounded } from "@material-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useAlert } from "react-alert";
+import { Country, State } from "country-state-city";
 
 import MetaData from "../../HOCS/MetaData";
 import Input from "../../Components/Shared/Input";
 import { updateProfile, userActions } from "../../Data/reducers/user.reducer";
+import { MdOutlineDriveFileRenameOutline, MdPinDrop, MdPublic, MdTransferWithinAStation } from "react-icons/md";
+import { BiStreetView } from "react-icons/bi";
+import { FaCity } from "react-icons/fa";
+import { AiFillPhone } from "react-icons/ai";
 
 const Auth = () => {
 	const dispatch = useDispatch();
@@ -21,6 +26,14 @@ const Auth = () => {
 	const [userInfo, setUserInfo] = useState({
 		name: user?.name,
 		email: user?.email,
+	});
+	const [address, setAddress] = useState({
+		street: user?.address?.street,
+		city: user?.address?.city,
+		zip: user?.address?.zip,
+		country: user?.address?.country,
+		state: user?.address?.state,
+		phone: user?.address?.phone,
 	});
 
 	const onUpdateChange = (e) => {
@@ -37,14 +50,17 @@ const Auth = () => {
 			setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
 		}
 	};
-	console.log(cart);
+
+	const onAddressChange = (e) => {
+		setAddress({ ...address, [e.target.name]: e.target.value });
+	};
 
 	const onUpdateProfile = (e) => {
 		e.preventDefault();
 		const payload = {
 			email: userInfo.email,
 			name: userInfo.name,
-			address: user?.address,
+			address: address,
 			avatar: { public_id: user?.avatar?.public_id, url: avatar },
 			cart: cart,
 		};
@@ -77,18 +93,67 @@ const Auth = () => {
 			<MetaData title="Moto App | Auth" />
 			<div className="container my-5 auth">
 				<h1 className="heading auth__heading">Update Profile</h1>
-				<div className="auth__box">
+				<div className="auth__box auth__box__updateBox">
 					<form noValidate autoComplete="off" onSubmit={onUpdateProfile}>
-						<div className="auth__input">
-							<Input name="email" type="email" label="Email" value={userInfo.email} icon={<EmailRounded />} handleChange={onUpdateChange} />
+						<div className="row">
+							<div className="col-md-6 col-12">
+								<h1 className="sub-heading auth__subheading">User Info</h1>
+								<hr />
+								<div className="auth__input">
+									<Input name="email" type="email" label="Email" value={userInfo.email} icon={<EmailRounded />} handleChange={onUpdateChange} />
+								</div>
+								<div className="auth__input">
+									<Input name="name" type="text" label="Name" value={userInfo.name} icon={<AccountCircle />} handleChange={onUpdateChange} />
+								</div>
+								<div className="auth__registerImage">
+									<img src={avatarPreview} alt="Avatar Preview" />
+									<input type="file" name="avatar" accept="image/*" onChange={onUpdateChange} />
+								</div>
+							</div>
+							<div className="col-md-6 col-12">
+								<h1 className="sub-heading auth__subheading">Address Details</h1>
+								<hr />
+								<div className="auth__input">
+									<Input name="street" type="text" label="Street" value={address?.street} icon={<BiStreetView />} handleChange={onAddressChange} />
+								</div>
+								<div className="auth__input">
+									<Input name="city" type="text" label="City" value={address?.city} icon={<FaCity />} handleChange={onAddressChange} />
+								</div>
+								<div className="auth__input">
+									<Input name="zip" type="text" label="Zip Code" value={address?.zip} icon={<MdPinDrop />} handleChange={onAddressChange} />
+								</div>
+								<div className="auth__input">
+									<Input name="phone" type="text" label="Phone Number" value={address?.phone} icon={<AiFillPhone />} handleChange={onAddressChange} />
+								</div>
+
+								<div className="auth__CountryState">
+									<MdPublic />
+									<select className="auth__countryState" defaultValue={address?.country} onBlur={(e) => setAddress({ ...address, country: e.target.value })}>
+										{Country &&
+											Country.getAllCountries().map((item) => (
+												<option key={item.isoCode} value={item.isoCode}>
+													{item.name}
+												</option>
+											))}
+									</select>
+								</div>
+
+								{address?.country && (
+									<div className="auth__CountryState">
+										<MdTransferWithinAStation />
+										<select className="auth__countryState" defaultValue={address?.state} onBlur={(e) => setAddress({ ...address, state: e.target.value })}>
+											{State &&
+												State.getStatesOfCountry(address?.country).map((item) => (
+													<option key={item.isoCode} value={item.isoCode}>
+														{item.name}
+													</option>
+												))}
+										</select>
+									</div>
+								)}
+							</div>
 						</div>
-						<div className="auth__input">
-							<Input name="name" type="text" label="Name" value={userInfo.name} icon={<AccountCircle />} handleChange={onUpdateChange} />
-						</div>
-						<div className="auth__registerImage">
-							<img src={avatarPreview} alt="Avatar Preview" />
-							<input type="file" name="avatar" accept="image/*" onChange={onUpdateChange} />
-						</div>
+
 						<button type="submit" className="auth__button">
 							Update
 						</button>

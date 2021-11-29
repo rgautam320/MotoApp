@@ -31,7 +31,6 @@ const userSchema = new mongoose.Schema({
 	},
 	role: { type: String, required: true, default: "user" },
 	address: {
-		name: { type: String, required: false, default: "Home Address" },
 		street: { type: String, required: false },
 		city: { type: String, required: false },
 		zip: { type: String, required: false },
