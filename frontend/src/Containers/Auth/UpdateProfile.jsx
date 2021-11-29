@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { AccountCircle, EmailRounded } from "@material-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useAlert } from "react-alert";
 import { Country, State } from "country-state-city";
-import MetaData from "../../HOCS/MetaData";
-import Input from "../../Components/Shared/Input";
+
 import { updateProfile, userActions } from "../../Data/reducers/user.reducer";
+
+import { MdEmail, MdAccountCircle } from "react-icons/md";
 import { MdPinDrop, MdPublic, MdTransferWithinAStation } from "react-icons/md";
 import { BiStreetView } from "react-icons/bi";
 import { FaCity } from "react-icons/fa";
 import { AiFillPhone } from "react-icons/ai";
+
+import MetaData from "../../HOCS/MetaData";
+import Input from "../../Components/Shared/Input";
 
 const Auth = () => {
 	const dispatch = useDispatch();
@@ -99,10 +102,10 @@ const Auth = () => {
 								<h1 className="sub-heading auth__subheading">User Info</h1>
 								<hr />
 								<div className="auth__input">
-									<Input name="email" type="email" label="Email" value={userInfo.email} icon={<EmailRounded />} handleChange={onUpdateChange} />
+									<Input name="email" type="email" label="Email" value={userInfo.email} icon={<MdEmail />} handleChange={onUpdateChange} />
 								</div>
 								<div className="auth__input">
-									<Input name="name" type="text" label="Name" value={userInfo.name} icon={<AccountCircle />} handleChange={onUpdateChange} />
+									<Input name="name" type="text" label="Name" value={userInfo.name} icon={<MdAccountCircle />} handleChange={onUpdateChange} />
 								</div>
 								<div className="auth__registerImage">
 									<img src={avatarPreview} alt="Avatar Preview" />

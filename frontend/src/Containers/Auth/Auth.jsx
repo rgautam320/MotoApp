@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { AccountCircle, EmailRounded, Lock } from "@material-ui/icons";
+import { RiAccountCircleFill } from "react-icons/ri";
+import { FaLock } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 import { useAlert } from "react-alert";
@@ -105,14 +107,14 @@ const Auth = () => {
 						<>
 							<form noValidate autoComplete="off" onSubmit={onLogin}>
 								<div className="auth__input">
-									<Input name="email" type="email" label="Email" defaultValue={loginData.email} icon={<AccountCircle />} handleChange={onLoginChange} />
+									<Input name="email" type="email" label="Email" defaultValue={loginData.email} icon={<RiAccountCircleFill />} handleChange={onLoginChange} />
 								</div>
 								<div className="auth__input">
 									<Input
 										name="password"
 										label="Password"
 										defaultValue={loginData.password}
-										icon={<Lock />}
+										icon={<FaLock />}
 										type={showPassword ? "text" : "password"}
 										handleShowPassword={() => setShowPassword(!showPassword)}
 										handleChange={onLoginChange}
@@ -143,17 +145,17 @@ const Auth = () => {
 						<>
 							<form noValidate autoComplete="off" onSubmit={onRegister}>
 								<div className="auth__input">
-									<Input name="email" type="email" label="Email" defaultValue={userInfo.email} icon={<EmailRounded />} handleChange={onRegisterChange} />
+									<Input name="email" type="email" label="Email" defaultValue={userInfo.email} icon={<MdEmail />} handleChange={onRegisterChange} />
 								</div>
 								<div className="auth__input">
-									<Input name="name" type="text" label="Name" defaultValue={userInfo.name} icon={<AccountCircle />} handleChange={onRegisterChange} />
+									<Input name="name" type="text" label="Name" defaultValue={userInfo.name} icon={<RiAccountCircleFill />} handleChange={onRegisterChange} />
 								</div>
 								<div className="auth__input">
 									<Input
 										name="password"
 										label="Password"
 										defaultValue={userInfo.password}
-										icon={<Lock />}
+										icon={<FaLock />}
 										handleChange={onRegisterChange}
 										type={showPassword ? "text" : "password"}
 										handleShowPassword={() => setShowPassword(!showPassword)}

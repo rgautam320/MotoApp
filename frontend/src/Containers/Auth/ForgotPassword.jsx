@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { EmailRounded } from "@material-ui/icons";
+import { MdEmail } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useAlert } from "react-alert";
@@ -45,7 +45,7 @@ const ForgotPassword = () => {
 				<div className="auth__box auth__box__small">
 					<form noValidate autoComplete="off" onSubmit={onSubmitEmail}>
 						<div className="auth__input">
-							<Input name="email" type="email" label="Email" value={email} icon={<EmailRounded />} handleChange={(e) => setEmail(e.target.value)} />
+							<Input name="email" type="email" label="Email" value={email} icon={<MdEmail />} handleChange={(e) => setEmail(e.target.value)} />
 						</div>
 						{loading ? (
 							<SmallLoader />

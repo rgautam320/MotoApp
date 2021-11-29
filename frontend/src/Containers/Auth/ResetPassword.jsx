@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Lock } from "@material-ui/icons";
+import { FaLock } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useAlert } from "react-alert";
@@ -72,14 +72,22 @@ const ResetPassword = ({ match }) => {
 				<div className="auth__box auth__box__medium">
 					<form noValidate autoComplete="off" onSubmit={onUpdatePassword}>
 						<div className="auth__input">
-							<Input name="password" label="New Password" value={passwords.password} icon={<Lock />} type={showPassword1 ? "text" : "password"} handleShowPassword={() => setShowPassword1(!showPassword1)} handleChange={onUpdateChange} />
+							<Input
+								name="password"
+								label="New Password"
+								value={passwords.password}
+								icon={<FaLock />}
+								type={showPassword1 ? "text" : "password"}
+								handleShowPassword={() => setShowPassword1(!showPassword1)}
+								handleChange={onUpdateChange}
+							/>
 						</div>
 						<div className="auth__input">
 							<Input
 								name="confirmPassword"
 								label="Confirm Password"
 								value={passwords.confirmPassword}
-								icon={<Lock />}
+								icon={<FaLock />}
 								type={showPassword2 ? "text" : "password"}
 								handleShowPassword={() => setShowPassword2(!showPassword2)}
 								handleChange={onUpdateChange}

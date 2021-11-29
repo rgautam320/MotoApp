@@ -12,6 +12,7 @@ import { AiFillPhone } from "react-icons/ai";
 import CheckoutSteps from "../../Components/Cart/CheckoutSteps";
 import Input from "../../Components/Shared/Input";
 import { updateProfile, userActions } from "../../Data/reducers/user.reducer";
+import MetaData from "../../HOCS/MetaData";
 
 const Shipping = () => {
 	const history = useHistory();
@@ -54,6 +55,7 @@ const Shipping = () => {
 	}, [alert, error, dispatch, history, isUpdated, success]);
 	return (
 		<>
+			<MetaData title="Moto App | Shipping" />
 			<CheckoutSteps activeStep={0} />
 			<div className="container">
 				<div className="checkout__box checkout__box__updateBox">

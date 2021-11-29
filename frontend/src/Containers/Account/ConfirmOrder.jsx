@@ -6,6 +6,7 @@ import { useHistory } from "react-router";
 import CartItem from "../../Components/Cart/CartItem";
 import CheckoutSteps from "../../Components/Cart/CheckoutSteps";
 import { updateProfile, userActions } from "../../Data/reducers/user.reducer";
+import MetaData from "../../HOCS/MetaData";
 
 const ConfirmOrder = () => {
 	const history = useHistory();
@@ -36,6 +37,7 @@ const ConfirmOrder = () => {
 	}, [alert, error, dispatch, history, isUpdated, success]);
 	return (
 		<>
+			<MetaData title="Moto App | Confirm Order" />
 			<CheckoutSteps activeStep={1} />
 			<div className="container">
 				<div className="row pt-5">
