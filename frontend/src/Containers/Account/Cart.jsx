@@ -40,40 +40,44 @@ const Cart = () => {
 			<div className="container cart my-5">
 				<h1 className="heading cart__heading">Cart</h1>
 				{cart?.length > 0 ? (
-					<div className="cart__cart">
-						<div className="row m-0">
-							<div className="col-lg-7 col-md-12 col-12">{cart && cart?.map((val, id) => <CartItem cart={val} key={id} />)}</div>
-							<div className="col-lg-5 col-md-12 col-12 ">
-								<div className="cart__priceBreakup p-3">
-									<h1 className="sub-heading text-center">Price Breakup</h1>
-									<hr />
-									<h5 className="cart__priceBreakup__lines row">
-										<div className="col-7">Price ({cart?.length} Items): </div> <div className="col-5">₹ {cart.reduce((acc, item) => acc + item?.quantity * item?.price, 0)}</div>
-									</h5>
-									<h5 className="cart__priceBreakup__lines row">
-										<div className="col-7">Discount: </div>
-										<div className="col-5">₹ {Math.round(cart.reduce((acc, item) => acc + item?.quantity * item?.price, 0) - cart.reduce((acc, item) => acc + item?.quantity * item?.price, 0) * 0.95)}</div>
-									</h5>
-									<h5 className="cart__priceBreakup__lines row">
-										<div className="col-7">Delivery Charges: </div>
-										<div className="col-5">₹ 50</div>
-									</h5>
-									<hr />
-									<h5 className="cart__priceBreakup__lines row">
-										<div className="col-7">Total: </div>{" "}
-										<div className="col-5">₹ {Math.round(cart.reduce((acc, item) => acc + item?.quantity * item?.price, 0) - cart.reduce((acc, item) => acc + item?.quantity * item?.price, 0) * 0.05 + 50)} </div>
-									</h5>
-								</div>
-								<div className="cart__btns cart__btns__saveBox w-100">
-									<button className="btn cart__btns__save" onClick={onSave}>
-										Save Your Cart
-									</button>
-								</div>
-								<div className="cart__btns">
-									<button onClick={() => history.push("/profile/shipping")} className="btn cart__btns__checkout">
-										Checkout
-									</button>
-								</div>
+					<div className="row m-0 p-0">
+						<div className="col-lg-7 col-md-12 col-12">{cart && cart?.map((val, id) => <CartItem cart={val} key={id} />)}</div>
+						<div className="col-lg-5 col-md-12 col-12">
+							<div className="cart__priceBreakup p-3">
+								<h1 className="sub-heading text-center">Price Breakup</h1>
+								<hr />
+								<h5 className="cart__priceBreakup__lines row">
+									<div className="col-7">Price ({cart?.length} Items): </div> <div className="col-5">₹ {cart.reduce((acc, item) => acc + item?.quantity * item?.price, 0)}</div>
+								</h5>
+								<h5 className="cart__priceBreakup__lines row">
+									<div className="col-7">Discount: </div>
+									<div className="col-5">₹ {Math.round(cart.reduce((acc, item) => acc + item?.quantity * item?.price, 0) - cart.reduce((acc, item) => acc + item?.quantity * item?.price, 0) * 0.95)}</div>
+								</h5>
+								<h5 className="cart__priceBreakup__lines row">
+									<div className="col-7">Delivery Charges: </div>
+									<div className="col-5">₹ 50</div>
+								</h5>
+								<hr />
+								<h5 className="cart__priceBreakup__lines row">
+									<div className="col-7">Total: </div>{" "}
+									<div className="col-5">₹ {Math.round(cart.reduce((acc, item) => acc + item?.quantity * item?.price, 0) - cart.reduce((acc, item) => acc + item?.quantity * item?.price, 0) * 0.05 + 50)} </div>
+								</h5>
+							</div>
+							<div className="cart__btns cart__btns__saveBox w-100">
+								<button className="btn cart__btns__save" onClick={onSave}>
+									Save Your Cart
+								</button>
+							</div>
+							<div className="cart__btns cart__btns__saveBox w-100">
+								<button
+									onClick={() => {
+										onSave();
+										history.push("/profile/shipping");
+									}}
+									className="btn cart__btns__checkout"
+								>
+									Checkout
+								</button>
 							</div>
 						</div>
 					</div>

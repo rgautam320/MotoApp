@@ -63,7 +63,7 @@ const UserOptions = ({ user }) => {
 	return (
 		<>
 			<div className="user__options">
-				<Backdrop open={open} />
+				<Backdrop open={open ? open : false} />
 				<SpeedDial
 					ariaLabel="SpeedDial"
 					className="user__speedDial"
@@ -71,7 +71,7 @@ const UserOptions = ({ user }) => {
 					icon={<img className="user__speedDialIcon" src={user?.avatar?.url ? user?.avatar?.url : "/logo.png"} alt="Profile" />}
 					onOpen={handleOpen}
 					onClose={handleClose}
-					open={open}
+					open={open ? open : false}
 				>
 					{actions.map((action) => (
 						<SpeedDialAction key={action.name} tooltipOpen={window.innerWidth <= 600 ? true : false} icon={action.icon} tooltipTitle={action.name} onClick={action.func} />

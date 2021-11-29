@@ -4,11 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useAlert } from "react-alert";
 import { Country, State } from "country-state-city";
-
 import MetaData from "../../HOCS/MetaData";
 import Input from "../../Components/Shared/Input";
 import { updateProfile, userActions } from "../../Data/reducers/user.reducer";
-import { MdOutlineDriveFileRenameOutline, MdPinDrop, MdPublic, MdTransferWithinAStation } from "react-icons/md";
+import { MdPinDrop, MdPublic, MdTransferWithinAStation } from "react-icons/md";
 import { BiStreetView } from "react-icons/bi";
 import { FaCity } from "react-icons/fa";
 import { AiFillPhone } from "react-icons/ai";

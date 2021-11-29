@@ -6,7 +6,7 @@ import { userActions } from "../../Data/reducers/user.reducer";
 const CartItem = ({ cart }) => {
 	const disptach = useDispatch();
 	const alert = useAlert();
-	const [quantity, setQuantity] = useState(cart?.quantity);
+	const [quantity, setQuantity] = useState(cart?.quantity || 1);
 
 	const increaseItem = () => {
 		if (quantity >= 6) {
@@ -52,7 +52,7 @@ const CartItem = ({ cart }) => {
 							<button className="btn product__quantity__btn" onClick={decreaseItem}>
 								-
 							</button>
-							<input className="product__quantity__input mx-2" type="number" readOnly defaultValue={1} value={quantity} />
+							<input className="product__quantity__input mx-2" type="number" readOnly value={quantity} />
 							<button className="btn product__quantity__btn" onClick={increaseItem}>
 								+
 							</button>

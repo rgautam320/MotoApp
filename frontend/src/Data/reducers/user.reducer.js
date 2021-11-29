@@ -37,7 +37,6 @@ export const load = createAsyncThunk("user/load", async () => {
 });
 
 export const updateProfile = createAsyncThunk("user/updateProfile", async (payload) => {
-	console.log(payload);
 	const response = await updateProfileService(payload);
 	if (response?.error) {
 		return { error: response.error };

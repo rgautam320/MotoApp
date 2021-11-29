@@ -91,6 +91,7 @@ const Auth = () => {
 		<>
 			<MetaData title="Moto App | Auth" />
 			<div className="container my-5 auth">
+				<h1 className="heading auth__heading">{isLogin ? "Login" : "Signup"}</h1>
 				<div className="auth__auth">
 					<div className="d-flex justify-content-around auth__toggleBox">
 						<button onClick={() => setIsLogin(true)} className={`auth__toggleBox__toggle ${isLogin ? "auth__toggleBox__true" : ""}`}>

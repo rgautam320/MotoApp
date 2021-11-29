@@ -2,8 +2,8 @@
 	min-height: 80vh;
 	&__auth {
 		width: 30rem;
-		height: 36rem;
-		margin: 2rem auto;
+		height: 34rem;
+		margin: auto;
 		padding: 2rem;
 		background-color: transparent;
 		border-radius: 0.8rem;
@@ -24,7 +24,7 @@
 		text-align: center;
 	}
 	&__input {
-		margin: 2rem 0;
+		margin: 1.5rem 0;
 	}
 	&__button {
 		width: 100%;
@@ -106,7 +106,6 @@
 		height: 30rem;
 		margin: 2rem auto;
 		padding: 2rem;
-		padding-top: 3rem;
 		background-color: transparent;
 		border-radius: 0.8rem;
 		box-shadow: 0.2rem 0.2rem 0.5rem 0.2rem $grey;
@@ -117,7 +116,7 @@
 			height: 16rem;
 		}
 		&__updateBox {
-			height: 45rem;
+			height: 42rem;
 			width: 60rem;
 			max-width: 100%;
 		}
