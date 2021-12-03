@@ -18,23 +18,26 @@ const Payment = () => {
 			<MetaData title="Moto App | Payment" />
 			<CheckoutSteps activeStep={2} />
 			<div className="container">
-				<div className="checkout__box">
+				<div className="checkout__box checkout__box__medium">
 					<div className="row pt-5">
-						<form className="paymentForm" onSubmit={(e) => submitHandler(e)}>
-							<h5>Card Info</h5>
-							<div>
+						<form className="checkout__payment" onSubmit={(e) => submitHandler(e)}>
+							<h3>Card Info</h3>
+							<hr />
+							<div className="checkout__payment__inputBox">
 								<AiOutlineCreditCard />
-								<CardNumberElement className="paymentInput" />
+								<CardNumberElement className="checkout__payment__input" />
 							</div>
-							<div>
+							<div className="checkout__payment__inputBox">
 								<BsCalendarEvent />
-								<CardExpiryElement className="paymentInput" />
+								<CardExpiryElement className="checkout__payment__input" />
 							</div>
-							<div>
+							<div className="checkout__payment__inputBox">
 								<MdVpnKey />
-								<CardCvcElement className="paymentInput" />
+								<CardCvcElement className="checkout__payment__input" />
 							</div>
-							<input type="submit" value={`Pay - ₹${1299}`} className="paymentFormBtn" />
+							<div className="checkout__payment__buttonBox">
+								<input type="submit" value={`Pay - ₹${1299}`} className="checkout__payment__button" />
+							</div>
 						</form>
 					</div>
 				</div>
