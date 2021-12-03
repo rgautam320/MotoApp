@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router";
 
-import { BsFillCheckCircleFill } from "react-icons/bs";
+import { BsFillCheckCircleFill } from "react-icons/all";
 
 const OrderSuccess = () => {
 	const history = useHistory();

@@ -31,3 +31,6 @@ export const changePasswordAPI = (passwords) => API.put("/auth/updatePassword", 
 export const forgotPasswordAPI = (email) => API.post("/auth/password/forgot", { email });
 export const resetPasswordAPI = (token, passwords) => API.put(`/auth/password/reset/${token}`, passwords);
 export const logoutAPI = () => API.get("/auth/logout");
+
+// Payment
+export const getStripeKeyAPI = () => API.get("/payment/stripeapikey");

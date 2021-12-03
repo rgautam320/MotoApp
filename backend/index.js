@@ -13,6 +13,7 @@ import databaseConnection from "./utils/database.js";
 import productRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
+import paymentRoutes from "./routes/paymentRoutes.js";
 
 const app = express();
 
@@ -39,6 +40,7 @@ app.use(fileUpload());
 app.use("/api/products", productRoutes);
 app.use("/api/auth", userRoutes);
 app.use("/api/order", orderRoutes);
+app.use("/api/payment", paymentRoutes);
 
 // Using Error Middleware
 app.use(Handler);

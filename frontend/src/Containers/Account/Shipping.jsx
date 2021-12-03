@@ -4,10 +4,7 @@ import { useHistory } from "react-router";
 import { useAlert } from "react-alert";
 
 import { Country, State } from "country-state-city";
-import { MdPinDrop, MdPublic, MdTransferWithinAStation } from "react-icons/md";
-import { BiStreetView } from "react-icons/bi";
-import { FaCity } from "react-icons/fa";
-import { AiFillPhone } from "react-icons/ai";
+import { MdPinDrop, MdPublic, MdTransferWithinAStation, BiStreetView, FaCity, AiFillPhone } from "react-icons/all";
 
 import CheckoutSteps from "../../Components/Cart/CheckoutSteps";
 import Input from "../../Components/Shared/Input";
