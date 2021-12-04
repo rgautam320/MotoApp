@@ -8,9 +8,10 @@ import { useHistory } from "react-router";
 import { useAlert } from "react-alert";
 import { NavLink } from "react-router-dom";
 import { orderActions } from "../../Data/reducers/order.reducer";
+import { SmallLoader } from "../../Utils/Loader";
 
 const Cart = () => {
-	const { cart, user, error, isUpdated, success } = useSelector((state) => state.user);
+	const { cart, user, error, isUpdated, success, loading } = useSelector((state) => state.user);
 
 	const dispatch = useDispatch();
 	const history = useHistory();
@@ -72,20 +73,28 @@ const Cart = () => {
 								</h5>
 							</div>
 							<div className="cart__btns cart__btns__saveBox w-100">
-								<button className="btn cart__btns__save" onClick={onSave}>
-									Save Your Cart
-								</button>
+								{loading ? (
+									<SmallLoader />
+								) : (
+									<button className="btn cart__btns__save" onClick={onSave}>
+										Save Your Cart
+									</button>
+								)}
 							</div>
 							<div className="cart__btns cart__btns__saveBox w-100">
-								<button
-									onClick={() => {
-										history.push("/profile/shipping");
-										onSave();
-									}}
-									className="btn cart__btns__checkout"
-								>
-									Checkout
-								</button>
+								{loading ? (
+									<SmallLoader />
+								) : (
+									<button
+										onClick={() => {
+											history.push("/profile/shipping");
+											onSave();
+										}}
+										className="btn cart__btns__checkout"
+									>
+										Checkout
+									</button>
+								)}
 							</div>
 						</div>
 					</div>
@@ -102,9 +111,13 @@ const Cart = () => {
 				)}
 				{user?.cart?.length > 0 && cart?.length === 0 && (
 					<div className="cart__btns cart__btns__saveBox">
-						<button className="btn cart__btns__save" onClick={onSave}>
-							Save Your Cart
-						</button>
+						{loading ? (
+							<SmallLoader />
+						) : (
+							<button className="btn cart__btns__save" onClick={onSave}>
+								Save Your Cart
+							</button>
+						)}
 					</div>
 				)}
 			</div>

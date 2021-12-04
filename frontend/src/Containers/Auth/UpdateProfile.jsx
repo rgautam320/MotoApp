@@ -14,13 +14,14 @@ import { AiFillPhone } from "react-icons/ai";
 
 import MetaData from "../../HOCS/MetaData";
 import Input from "../../Components/Shared/Input";
+import { SmallLoader } from "../../Utils/Loader";
 
 const Auth = () => {
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const alert = useAlert();
 
-	const { isUpdated, error, user, success, cart } = useSelector((state) => state.user);
+	const { isUpdated, error, user, success, cart, loading } = useSelector((state) => state.user);
 
 	const [avatar, setAvatar] = useState(user?.avatar?.url);
 	const [avatarPreview, setAvatarPreview] = useState(user?.avatar?.url);
@@ -156,9 +157,13 @@ const Auth = () => {
 							</div>
 						</div>
 
-						<button type="submit" className="auth__button">
-							Update
-						</button>
+						{loading ? (
+							<SmallLoader />
+						) : (
+							<button type="submit" className="auth__button">
+								{loading ? <SmallLoader /> : "Update"}
+							</button>
+						)}
 					</form>
 				</div>
 			</div>

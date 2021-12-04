@@ -7,13 +7,13 @@ import Routes from "./Routes";
 import UserOptions from "../Components/Navbar/UserOptions";
 
 const Layout = () => {
-	const { isAuthenticated, user, loading } = useSelector((state) => state.user);
+	const { isAuthenticated, user } = useSelector((state) => state.user);
 	return (
 		<>
 			{isAuthenticated && <UserOptions user={user} />}
 			<Navbar />
 			<Routes />
-			{!loading && <Footer />}
+			<Footer />
 		</>
 	);
 };

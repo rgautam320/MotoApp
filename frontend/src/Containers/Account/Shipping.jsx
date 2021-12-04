@@ -11,13 +11,14 @@ import Input from "../../Components/Shared/Input";
 import { updateProfile, userActions } from "../../Data/reducers/user.reducer";
 import MetaData from "../../HOCS/MetaData";
 import { getStripeKey } from "../../Data/reducers/order.reducer";
+import { SmallLoader } from "../../Utils/Loader";
 
 const Shipping = () => {
 	const history = useHistory();
 	const dispatch = useDispatch();
 	const alert = useAlert();
 
-	const { isUpdated, error, user, success } = useSelector((state) => state.user);
+	const { isUpdated, error, user, success, loading } = useSelector((state) => state.user);
 	const { price } = useSelector((state) => state.order);
 
 	const [address, setAddress] = useState({
@@ -103,9 +104,14 @@ const Shipping = () => {
 							</select>
 						</div>
 					)}
-					<button className="auth__button" onClick={onContinue}>
-						Continue
-					</button>
+
+					{loading ? (
+						<SmallLoader />
+					) : (
+						<button className="auth__button" onClick={onContinue}>
+							Continue
+						</button>
+					)}
 				</div>
 			</div>
 		</>

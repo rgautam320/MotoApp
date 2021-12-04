@@ -7,13 +7,14 @@ import CartItem from "../../Components/Cart/CartItem";
 import CheckoutSteps from "../../Components/Cart/CheckoutSteps";
 import { updateProfile, userActions } from "../../Data/reducers/user.reducer";
 import MetaData from "../../HOCS/MetaData";
+import { SmallLoader } from "../../Utils/Loader";
 
 const ConfirmOrder = () => {
 	const history = useHistory();
 	const dispatch = useDispatch();
 	const alert = useAlert();
 
-	const { isUpdated, error, user, success, cart } = useSelector((state) => state.user);
+	const { isUpdated, error, user, success, cart, loading } = useSelector((state) => state.user);
 	const { price } = useSelector((state) => state.order);
 
 	const onContinue = () => {
@@ -85,9 +86,14 @@ const ConfirmOrder = () => {
 						</div>
 					</div>
 				</div>
-				<button className="auth__button my-4" onClick={onContinue}>
-					Continue
-				</button>
+
+				{loading ? (
+					<SmallLoader />
+				) : (
+					<button className="auth__button my-4" onClick={onContinue}>
+						Continue
+					</button>
+				)}
 			</div>
 		</>
 	);

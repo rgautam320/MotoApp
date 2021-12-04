@@ -110,7 +110,10 @@
 		border-radius: 0.8rem;
 		box-shadow: 0.2rem 0.2rem 0.5rem 0.2rem $grey;
 		&__medium {
-			height: 22rem;
+			height: 23rem;
+		}
+		&__login {
+			height: 28.5rem;
 		}
 		&__small {
 			height: 16rem;

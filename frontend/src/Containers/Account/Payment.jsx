@@ -10,6 +10,7 @@ import { AiOutlineCreditCard, BsCalendarEvent, MdVpnKey } from "react-icons/all"
 import { useDispatch, useSelector } from "react-redux";
 import { makeOrder, makePayment, orderActions } from "../../Data/reducers/order.reducer";
 import { updateProfile, userActions } from "../../Data/reducers/user.reducer";
+import { SmallLoader } from "../../Utils/Loader";
 
 const Payment = () => {
 	const history = useHistory();
@@ -106,9 +107,7 @@ const Payment = () => {
 								<MdVpnKey />
 								<CardCvcElement className="checkout__payment__input" />
 							</div>
-							<div className="checkout__payment__buttonBox">
-								<input type="submit" value={loading ? "Processing" : `Pay - ₹${price?.total}`} className="checkout__payment__button" />
-							</div>
+							<div className="checkout__payment__buttonBox">{loading ? <SmallLoader /> : <input type="submit" value={`Pay - ₹${price?.total}`} className="checkout__payment__button" />}</div>
 						</form>
 					</div>
 				</div>

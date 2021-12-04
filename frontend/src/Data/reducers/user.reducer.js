@@ -4,7 +4,7 @@ import { changePasswordService, forgotPasswordService, loadService, loginService
 const initialState = {
 	user: null,
 	cart: [],
-	isAuthenticated: false,
+	isAuthenticated: null,
 	isUpdated: false,
 	loading: undefined,
 	success: null,
