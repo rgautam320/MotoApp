@@ -92,3 +92,18 @@ pre {
 .MuiStepConnector-completed {
 	background-color: $tomato;
 }
+
+// Table
+.MuiDataGrid-columnHeader {
+	background-color: $tomato;
+	padding: 1vmax !important;
+}
+
+.MuiDataGrid-columnHeader div {
+	color: $white;
+	font: 500 1.1vmax "Roboto" !important;
+}
+
+.MuiDataGrid-iconSeparator {
+	display: none !important;
+}

@@ -24,6 +24,7 @@ import ConfirmOrder from "../Containers/Account/ConfirmOrder";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useSelector } from "react-redux";
+import OrderDetails from "../Containers/Account/OrderDetails";
 
 const Routes = () => {
 	const { stripeAPIKey } = useSelector((state) => state.order);
@@ -49,6 +50,8 @@ const Routes = () => {
 				<ProtectedRoute exact path="/profile" component={Profile} />
 				<ProtectedRoute exact path="/profile/update" component={UpdateProfile} />
 				<ProtectedRoute exact path="/profile/change-password" component={ChangePassword} />
+				<ProtectedRoute exact path="/orders" component={Orders} />
+				<ProtectedRoute exact path="/order/:id" component={OrderDetails} />
 
 				{/* Payment Routes */}
 				<ProtectedRoute exact path="/profile/shipping" component={Shipping} />

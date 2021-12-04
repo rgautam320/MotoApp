@@ -51,7 +51,7 @@ const Cart = () => {
 				<h1 className="heading cart__heading">Cart</h1>
 				{cart?.length > 0 ? (
 					<div className="row m-0 p-0">
-						<div className="col-lg-7 col-md-12 col-12">{cart && cart?.map((val, id) => <CartItem cart={val} key={id} />)}</div>
+						<div className="col-lg-7 col-md-12 col-12">{cart && cart?.map((val, id) => <CartItem cart={val} key={id} type={null} />)}</div>
 						<div className="col-lg-5 col-md-12 col-12">
 							<div className="cart__priceBreakup p-3">
 								<h1 className="sub-heading text-center">Price Breakup</h1>
@@ -82,19 +82,15 @@ const Cart = () => {
 								)}
 							</div>
 							<div className="cart__btns cart__btns__saveBox w-100">
-								{loading ? (
-									<SmallLoader />
-								) : (
-									<button
-										onClick={() => {
-											history.push("/profile/shipping");
-											onSave();
-										}}
-										className="btn cart__btns__checkout"
-									>
-										Checkout
-									</button>
-								)}
+								<button
+									onClick={() => {
+										history.push("/profile/shipping");
+										onSave();
+									}}
+									className="btn cart__btns__checkout"
+								>
+									Checkout
+								</button>
 							</div>
 						</div>
 					</div>

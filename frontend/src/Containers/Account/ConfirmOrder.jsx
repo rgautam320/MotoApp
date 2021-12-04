@@ -47,7 +47,7 @@ const ConfirmOrder = () => {
 			<div className="container">
 				<div className="row pt-5">
 					<div className="row m-0">
-						<div className="col-lg-7 col-md-12 col-12">{cart && cart?.map((val, id) => <CartItem cart={val} key={id} />)}</div>
+						<div className="col-lg-7 col-md-12 col-12">{cart && cart?.map((val, id) => <CartItem cart={val} key={id} type="confirmOrder" />)}</div>
 						<div className="col-lg-5 col-md-12 col-12 ">
 							<div className="cart__priceBreakup p-3">
 								<h1 className="sub-heading text-center">Price Breakup</h1>
