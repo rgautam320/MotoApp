@@ -38,3 +38,5 @@ export const makePaymentAPI = (amount) => API.post("/payment/process", { amount 
 
 // Order
 export const makeOrderAPI = (order) => API.post("/order/placeOrder", order);
+export const getMyOrdersAPI = () => API.get("/order/getAllMyOrders");
+export const getOrderDetailsAPI = (id) => API.get(`/order/getSingleOrder/${id}`);

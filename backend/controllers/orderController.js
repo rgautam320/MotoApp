@@ -21,7 +21,7 @@ export const getSingleOrder = Catch(async (req, res, next) => {
 		return next(new ErrorHandler(404, "Order not found with the given id."));
 	}
 
-	res.status(200).json({ succeess: true, order: order });
+	res.status(200).json({ success: true, order: order, message: "Order Details Found" });
 });
 
 // Get All Orders of particular user
@@ -30,7 +30,7 @@ export const getMyAllOrders = Catch(async (req, res, next) => {
 
 	const orders = await Order.find({ user: _id });
 
-	res.status(200).json({ success: true, orders: orders });
+	res.status(200).json({ success: true, orders: orders, message: "Orders loaded successfully." });
 });
 
 // Get All Orders by Admin

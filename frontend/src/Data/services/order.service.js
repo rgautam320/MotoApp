@@ -1,4 +1,4 @@
-import { getStripeKeyAPI, makeOrderAPI, makePaymentAPI } from "../api";
+import { getMyOrdersAPI, getOrderDetailsAPI, getStripeKeyAPI, makeOrderAPI, makePaymentAPI } from "../api";
 
 export const getStripeKeyService = async () => {
 	try {
@@ -23,6 +23,26 @@ export const makePaymentService = async (amount) => {
 export const makeOrderService = async (order) => {
 	try {
 		const response = await makeOrderAPI(order);
+		return response.data;
+	} catch (error) {
+		console.log(error);
+		return { error: error.response.data.message };
+	}
+};
+
+export const getMyOrdersService = async () => {
+	try {
+		const response = await getMyOrdersAPI();
+		return response.data;
+	} catch (error) {
+		console.log(error);
+		return { error: error.response.data.message };
+	}
+};
+
+export const getOrderDetailsService = async (id) => {
+	try {
+		const response = await getOrderDetailsAPI(id);
 		return response.data;
 	} catch (error) {
 		console.log(error);
