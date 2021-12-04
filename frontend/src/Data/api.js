@@ -34,3 +34,7 @@ export const logoutAPI = () => API.get("/auth/logout");
 
 // Payment
 export const getStripeKeyAPI = () => API.get("/payment/stripeapikey");
+export const makePaymentAPI = (amount) => API.post("/payment/process", { amount });
+
+// Order
+export const makeOrderAPI = (order) => API.post("/order/placeOrder", order);

@@ -4,7 +4,7 @@ import { isAuthenticated } from "../middleware/auth.js";
 
 const router = express.Router();
 
-router.post("/payment/process", isAuthenticated, processPayment);
+router.post("/process", isAuthenticated, processPayment);
 router.get("/stripeapikey", isAuthenticated, sendStripeApiKey);
 
 export default router;

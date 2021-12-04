@@ -7,6 +7,7 @@ import { updateProfile, userActions } from "../../Data/reducers/user.reducer";
 import { useHistory } from "react-router";
 import { useAlert } from "react-alert";
 import { NavLink } from "react-router-dom";
+import { orderActions } from "../../Data/reducers/order.reducer";
 
 const Cart = () => {
 	const { cart, user, error, isUpdated, success } = useSelector((state) => state.user);
@@ -15,10 +16,18 @@ const Cart = () => {
 	const history = useHistory();
 	const alert = useAlert();
 
+	const price = {
+		price: cart?.reduce((acc, item) => acc + item?.quantity * item?.price, 0),
+		discount: Math.round(cart?.reduce((acc, item) => acc + item?.quantity * item?.price, 0) - cart?.reduce((acc, item) => acc + item?.quantity * item?.price, 0) * 0.95),
+		delivery: 50,
+		total: Math.round(cart?.reduce((acc, item) => acc + item?.quantity * item?.price, 0) - cart?.reduce((acc, item) => acc + item?.quantity * item?.price, 0) * 0.05 + 50),
+	};
 	const onSave = () => {
 		const payload = {
 			cart: cart,
 		};
+		dispatch(userActions.reset());
+		dispatch(orderActions.setPrice(price));
 		dispatch(updateProfile(payload));
 	};
 
@@ -47,20 +56,19 @@ const Cart = () => {
 								<h1 className="sub-heading text-center">Price Breakup</h1>
 								<hr />
 								<h5 className="cart__priceBreakup__lines row">
-									<div className="col-7">Price ({cart?.length} Items): </div> <div className="col-5">₹ {cart.reduce((acc, item) => acc + item?.quantity * item?.price, 0)}</div>
+									<div className="col-7">Price ({cart?.length} Items): </div> <div className="col-5">₹ {price?.price}</div>
 								</h5>
 								<h5 className="cart__priceBreakup__lines row">
 									<div className="col-7">Discount: </div>
-									<div className="col-5">₹ {Math.round(cart.reduce((acc, item) => acc + item?.quantity * item?.price, 0) - cart.reduce((acc, item) => acc + item?.quantity * item?.price, 0) * 0.95)}</div>
+									<div className="col-5">₹ {price?.discount}</div>
 								</h5>
 								<h5 className="cart__priceBreakup__lines row">
 									<div className="col-7">Delivery Charges: </div>
-									<div className="col-5">₹ 50</div>
+									<div className="col-5">₹ {price?.delivery}</div>
 								</h5>
 								<hr />
 								<h5 className="cart__priceBreakup__lines row">
-									<div className="col-7">Total: </div>{" "}
-									<div className="col-5">₹ {Math.round(cart.reduce((acc, item) => acc + item?.quantity * item?.price, 0) - cart.reduce((acc, item) => acc + item?.quantity * item?.price, 0) * 0.05 + 50)} </div>
+									<div className="col-7">Total: </div> <div className="col-5">₹ {price?.total} </div>
 								</h5>
 							</div>
 							<div className="cart__btns cart__btns__saveBox w-100">
@@ -71,8 +79,8 @@ const Cart = () => {
 							<div className="cart__btns cart__btns__saveBox w-100">
 								<button
 									onClick={() => {
-										onSave();
 										history.push("/profile/shipping");
+										onSave();
 									}}
 									className="btn cart__btns__checkout"
 								>

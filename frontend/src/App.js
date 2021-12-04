@@ -14,7 +14,6 @@ import "./SCSS/_main.scss";
 
 import Layout from "./HOCS/Layout";
 import { load } from "./Data/reducers/user.reducer";
-import { getStripeKey } from "./Data/reducers/order.reducer";
 
 aos.init();
 
@@ -26,9 +25,6 @@ const App = () => {
 			},
 		});
 		store.dispatch(load());
-	}, []);
-	useEffect(() => {
-		store.dispatch(getStripeKey());
 	}, []);
 
 	const options = {

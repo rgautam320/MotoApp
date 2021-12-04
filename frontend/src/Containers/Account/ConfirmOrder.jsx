@@ -14,6 +14,7 @@ const ConfirmOrder = () => {
 	const alert = useAlert();
 
 	const { isUpdated, error, user, success, cart } = useSelector((state) => state.user);
+	const { price } = useSelector((state) => state.order);
 
 	const onContinue = () => {
 		const payload = {
@@ -25,6 +26,9 @@ const ConfirmOrder = () => {
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
+		if (!price) {
+			history.push("/cart");
+		}
 		if (error) {
 			alert.error(error);
 		} else {
@@ -34,7 +38,7 @@ const ConfirmOrder = () => {
 				dispatch(userActions.reset());
 			}
 		}
-	}, [alert, error, dispatch, history, isUpdated, success]);
+	}, [alert, error, dispatch, history, isUpdated, success, price]);
 	return (
 		<>
 			<MetaData title="Moto App | Confirm Order" />

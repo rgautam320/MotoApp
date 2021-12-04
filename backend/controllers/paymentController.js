@@ -7,6 +7,7 @@ dotenv.config();
 const stripe = stripeImport(process.env.STRIPE_SECRET_KEY);
 
 export const processPayment = Catch(async (req, res, next) => {
+	console.log(req.body);
 	const payment = await stripe.paymentIntents.create({
 		amount: req.body.amount,
 		currency: "inr",

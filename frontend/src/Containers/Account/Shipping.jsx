@@ -10,6 +10,7 @@ import CheckoutSteps from "../../Components/Cart/CheckoutSteps";
 import Input from "../../Components/Shared/Input";
 import { updateProfile, userActions } from "../../Data/reducers/user.reducer";
 import MetaData from "../../HOCS/MetaData";
+import { getStripeKey } from "../../Data/reducers/order.reducer";
 
 const Shipping = () => {
 	const history = useHistory();
@@ -17,6 +18,7 @@ const Shipping = () => {
 	const alert = useAlert();
 
 	const { isUpdated, error, user, success } = useSelector((state) => state.user);
+	const { price } = useSelector((state) => state.order);
 
 	const [address, setAddress] = useState({
 		street: user?.address?.street,
@@ -35,21 +37,28 @@ const Shipping = () => {
 		const payload = {
 			address: address,
 		};
-
-		dispatch(updateProfile(payload));
+		if (address.street && address.city && address.zip && address.country && address.state && address.phone) {
+			dispatch(updateProfile(payload));
+			history.push("/profile/confirm");
+		} else {
+			alert.error("All Fields are mandatory");
+		}
 	};
 	useEffect(() => {
 		window.scrollTo(0, 0);
+		if (!price) {
+			history.push("/cart");
+		}
 		if (error) {
 			alert.error(error);
 		} else {
 			if (isUpdated && success) {
+				dispatch(getStripeKey());
 				alert.success(success);
-				history.push("/profile/confirm");
 				dispatch(userActions.reset());
 			}
 		}
-	}, [alert, error, dispatch, history, isUpdated, success]);
+	}, [alert, error, dispatch, history, isUpdated, success, price]);
 	return (
 		<>
 			<MetaData title="Moto App | Shipping" />

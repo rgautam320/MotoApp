@@ -7,10 +7,10 @@ const OrderSuccess = () => {
 	const history = useHistory();
 	return (
 		<>
-			<div className="container">
-				<div className="row pt-5">
+			<div className="container pt-5 mt-5">
+				<div className="row pt-5 mt-5">
 					<BsFillCheckCircleFill color="blue" fontSize="5rem" cursor="pointer" />
-					<div className="text-center checkout__box">
+					<div className="text-center" style={{ minHeight: "42.25vh" }}>
 						<h1 className="pt-4">Payment Successful</h1>
 						<button className="btn checkout__products" onClick={() => history.push("/products")}>
 							View More Products

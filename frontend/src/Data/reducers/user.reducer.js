@@ -3,7 +3,7 @@ import { changePasswordService, forgotPasswordService, loadService, loginService
 
 const initialState = {
 	user: null,
-	cart: JSON.parse(localStorage.getItem("cart")),
+	cart: [],
 	isAuthenticated: false,
 	isUpdated: false,
 	loading: undefined,
@@ -86,18 +86,19 @@ export const userSlice = createSlice({
 			state.success = null;
 			state.error = null;
 		},
+		resetCartOnly: (state, action) => {
+			state.cart = [];
+		},
 		cart: (state, action) => {
-			const isExist = state.cart.find((item) => item?.product === action.payload?.product);
+			const isExist = state.cart?.find((item) => item?.product === action.payload?.product);
 			if (isExist) {
-				state.cart = state.cart.map((item) => (item.product === action.payload?.product ? action.payload : item));
+				state.cart = state.cart?.map((item) => (item.product === action.payload?.product ? action.payload : item));
 			} else {
 				state.cart = [...state.cart, action.payload];
 			}
-			localStorage.setItem("cart", JSON.stringify(state.cart));
 		},
 		cartRemove: (state, action) => {
 			state.cart = state.cart.filter((item) => item.product !== action.payload);
-			localStorage.setItem("cart", JSON.stringify(state.cart));
 		},
 	},
 	extraReducers: {

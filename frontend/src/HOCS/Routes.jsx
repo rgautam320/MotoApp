@@ -20,9 +20,7 @@ import ForgotPassword from "../Containers/Auth/ForgotPassword";
 import ProtectedRoute from "./ProtectedRoute";
 import ResetPassword from "../Containers/Auth/ResetPassword";
 import Payment from "../Containers/Account/Payment";
-import OrderSuccess from "../Containers/Account/OrderSuccess";
 import ConfirmOrder from "../Containers/Account/ConfirmOrder";
-
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useSelector } from "react-redux";
@@ -30,7 +28,6 @@ import { useSelector } from "react-redux";
 const Routes = () => {
 	const { stripeAPIKey } = useSelector((state) => state.order);
 	window.addEventListener("contextmenu", (e) => e.preventDefault());
-
 	return (
 		<>
 			<Switch>
@@ -52,17 +49,16 @@ const Routes = () => {
 				<ProtectedRoute exact path="/profile" component={Profile} />
 				<ProtectedRoute exact path="/profile/update" component={UpdateProfile} />
 				<ProtectedRoute exact path="/profile/change-password" component={ChangePassword} />
+
+				{/* Payment Routes */}
 				<ProtectedRoute exact path="/profile/shipping" component={Shipping} />
 				<ProtectedRoute exact path="/profile/confirm" component={ConfirmOrder} />
-				<ProtectedRoute exact path="/profile/success" component={OrderSuccess} />
-				{stripeAPIKey && (
-					<Elements stripe={loadStripe(stripeAPIKey)}>
-						<ProtectedRoute exact path="/profile/payment" component={Payment} />
-					</Elements>
-				)}
+
+				<Elements stripe={loadStripe(stripeAPIKey || "empty")}>
+					<ProtectedRoute exact path="/profile/payment" component={Payment} />
+				</Elements>
 
 				{/* Admin Routes */}
-
 				<ProtectedRoute exact path="/admin/dashboard" component={Dashboard} />
 
 				{/* Error Route */}
