@@ -11,11 +11,14 @@
 @import "./Containers/Account/cart";
 @import "./Containers/Account/account";
 @import "./Containers/Account/orders";
-@import "./Containers/Account/checkout";
 @import "./Containers/Auth/auth";
 @import "./Containers/Auth/profile";
 @import "./Containers/Product/product";
 @import "./Containers/Admin/dashboard";
+@import "./Containers/Account/confirmOrder";
+@import "./Containers/Account/payment";
+@import "./Containers/Account/shipping";
+@import "./Containers/Account/orderDetails";
 
 // Importing Components
 @import "./Components/Navbar/navbar";
@@ -24,6 +27,10 @@
 @import "./Components/Footer/footer";
 @import "./Components/Product/card";
 @import "./Components/Product/review";
+@import "./Components/Product/reviewDialog";
+@import "./Components/Cart/cart";
+@import "./Components/Cart/checkoutSteps";
+@import "./Components/Shared/input";
 
 // Importing Loader
 @import "./Utilities/loader";

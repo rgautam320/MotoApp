@@ -40,3 +40,6 @@ export const makePaymentAPI = (amount) => API.post("/payment/process", { amount 
 export const makeOrderAPI = (order) => API.post("/order/placeOrder", order);
 export const getMyOrdersAPI = () => API.get("/order/getAllMyOrders");
 export const getOrderDetailsAPI = (id) => API.get(`/order/getSingleOrder/${id}`);
+
+// Review
+export const writeReviewAPI = (id, comment, rating) => API.put(`/products/review/${id}`, { comment, rating });

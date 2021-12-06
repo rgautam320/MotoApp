@@ -12,7 +12,7 @@ const OrderSuccess = () => {
 					<BsFillCheckCircleFill color="blue" fontSize="5rem" cursor="pointer" />
 					<div className="text-center" style={{ minHeight: "42.25vh" }}>
 						<h1 className="pt-4">Payment Successful</h1>
-						<button className="btn checkout__products" onClick={() => history.push("/products")}>
+						<button className="btn orderSuccess__products" onClick={() => history.push("/products")}>
 							View More Products
 						</button>
 					</div>

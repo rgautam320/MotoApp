@@ -1,0 +1,23 @@
+.orderSuccess {
+	&__products {
+		width: 40%;
+		margin-top: 2rem;
+		background-color: $secondary;
+		padding: 0.6rem 2rem;
+		font-size: 1.1rem;
+		text-transform: uppercase;
+		letter-spacing: 0.2rem;
+		border-radius: 1rem;
+		opacity: 0.85;
+		transition: all 1s;
+		&:hover {
+			opacity: 1;
+			transform: scale3d(1.1, 1.1, 1.1);
+		}
+	}
+	@media (max-width: 768px) {
+		&__products {
+			width: 80%;
+		}
+	}
+}

@@ -1,0 +1,50 @@
+.orderDetails {
+	&__heading {
+		text-align: center;
+		font-size: 3rem;
+		width: 60%;
+		margin: 2rem auto;
+		border-bottom: 0.15rem solid $black;
+		border-color: $grey;
+	}
+	&__subheading {
+		font-size: 1.5rem;
+		text-align: center;
+	}
+	&__priceBreakup {
+		border-radius: 1rem;
+		padding-top: 1rem;
+		height: 20rem;
+		box-shadow: 0.1rem 0.1rem 0.5rem 0.2rem $light-shadow;
+		&__small {
+			height: 10rem;
+		}
+		&__lines {
+			height: 3rem;
+			h5 {
+				font-size: 1.4rem;
+				padding-left: 1rem;
+				span:first-child {
+					width: 30rem !important;
+				}
+			}
+		}
+	}
+	&__info {
+		padding: 1.1rem 0;
+		h4 {
+			font-size: 1.3rem;
+			letter-spacing: 0.2rem;
+			font-weight: 600;
+		}
+		p {
+			padding: 0.6rem 0;
+			font-size: 1.1rem;
+		}
+	}
+	@media (max-width: 768px) {
+		&__heading {
+			font-size: 1.6rem;
+		}
+	}
+}

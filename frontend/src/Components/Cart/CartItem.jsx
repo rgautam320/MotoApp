@@ -50,12 +50,12 @@ const CartItem = ({ cart, type }) => {
 					<div className="col-md-4 col-6 mx-auto">
 						<img src={cart?.image} alt="Cart Avatar" />
 						{type === null && (
-							<div className="product__quantity my-2">
-								<button className="btn product__quantity__btn" onClick={decreaseItem}>
+							<div className="cart__quantity my-2">
+								<button className="btn cart__quantity__btn" onClick={decreaseItem}>
 									-
 								</button>
-								<input className="product__quantity__input mx-2" type="number" readOnly value={quantity} />
-								<button className="btn product__quantity__btn" onClick={increaseItem}>
+								<input className="cart__quantity__input mx-2" type="number" readOnly value={quantity} />
+								<button className="btn cart__quantity__btn" onClick={increaseItem}>
 									+
 								</button>
 							</div>

@@ -1,5 +1,5 @@
 import React from "react";
-import ReactRatings from "react-rating-stars-component";
+import { Rating } from "@material-ui/lab";
 
 import DefaultUser from "../../Assets/default-user.png";
 
@@ -7,9 +7,7 @@ const Review = ({ review }) => {
 	const options = {
 		value: review.rating,
 		readOnly: true,
-		isHalf: true,
-		size: window.innerWidth > 768 ? 25 : 20,
-		edit: false,
+		size: "large",
 	};
 	return (
 		<div className="review">
@@ -21,7 +19,7 @@ const Review = ({ review }) => {
 					<h3 className="sub-heading py-3 text-center">{review?.name}</h3>
 
 					<div className="d-flex justify-content-center">
-						<ReactRatings {...options} />
+						<Rating {...options} />
 					</div>
 
 					<hr />

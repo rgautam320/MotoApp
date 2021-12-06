@@ -90,24 +90,24 @@ const Payment = () => {
 			<MetaData title="Moto App | Payment" />
 			<CheckoutSteps activeStep={2} />
 			<div className="container">
-				<div className="checkout__box checkout__box__medium">
+				<div className="payment__box payment__box__medium">
 					<div className="row pt-5">
-						<form className="checkout__payment" onSubmit={(e) => submitHandler(e)}>
+						<form className="payment__payment" onSubmit={(e) => submitHandler(e)}>
 							<h3>Card Info</h3>
 							<hr />
-							<div className="checkout__payment__inputBox">
+							<div className="payment__payment__inputBox">
 								<AiOutlineCreditCard />
-								<CardNumberElement className="checkout__payment__input" />
+								<CardNumberElement className="payment__payment__input" />
 							</div>
-							<div className="checkout__payment__inputBox">
+							<div className="payment__payment__inputBox">
 								<BsCalendarEvent />
-								<CardExpiryElement className="checkout__payment__input" />
+								<CardExpiryElement className="payment__payment__input" />
 							</div>
-							<div className="checkout__payment__inputBox">
+							<div className="payment__payment__inputBox">
 								<MdVpnKey />
-								<CardCvcElement className="checkout__payment__input" />
+								<CardCvcElement className="payment__payment__input" />
 							</div>
-							<div className="checkout__payment__buttonBox">{loading ? <SmallLoader /> : <input type="submit" value={`Pay - ₹${price?.total}`} className="checkout__payment__button" />}</div>
+							<div className="payment__payment__buttonBox">{loading ? <SmallLoader /> : <input type="submit" value={`Pay - ₹${price?.total}`} className="payment__payment__button" />}</div>
 						</form>
 					</div>
 				</div>

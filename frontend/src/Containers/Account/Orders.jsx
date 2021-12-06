@@ -11,9 +11,6 @@ import { SmallLoader } from "../../Utils/Loader";
 const Orders = () => {
 	const dispatch = useDispatch();
 	const alert = useAlert();
-	useEffect(() => {
-		dispatch(getMyOrders());
-	}, [dispatch]);
 	const { orders, loading, success, error } = useSelector((state) => state.order);
 	const { user } = useSelector((state) => state.user);
 
@@ -91,6 +88,9 @@ const Orders = () => {
 		}
 		dispatch(orderActions.reset());
 	}, [success, error, dispatch, alert]);
+	useEffect(() => {
+		dispatch(getMyOrders());
+	}, [dispatch]);
 	return (
 		<div className="container">
 			<div className="orders__table">

@@ -1,0 +1,76 @@
+.shipping {
+	&__box {
+		width: 30rem;
+		height: 30rem;
+		margin: 2rem auto;
+		padding: 2rem;
+		padding-top: 1rem;
+		background-color: transparent;
+		border-radius: 0.8rem;
+		box-shadow: 0.2rem 0.2rem 0.5rem 0.2rem $grey;
+		&__updateBox {
+			height: 37rem;
+			width: 40rem;
+			max-width: 100%;
+		}
+		&__medium {
+			height: 27rem;
+		}
+		@media (max-width: 768px) {
+			&__updateBox {
+				height: 68rem;
+			}
+		}
+	}
+	&__input {
+		margin: 1.5rem 0;
+	}
+	&__CountryState {
+		position: relative;
+		svg {
+			position: absolute;
+			left: 1.75rem;
+			top: 1.2rem;
+			width: 1.5rem;
+			height: 1.5rem;
+			color: $grey;
+		}
+	}
+	&__countryState {
+		width: 100%;
+		padding: 1.2rem;
+		padding-left: 4rem;
+		margin-bottom: 1rem;
+		border: 0.05rem solid $light-shadow;
+		background-color: transparent;
+		border-radius: 0.3rem;
+		&:hover {
+			border-color: $black;
+		}
+		&:focus {
+			border: 0.1rem solid $blue !important;
+		}
+	}
+	&__button {
+		width: 100%;
+		font-size: 1.3rem;
+		color: $white;
+		padding: 0.6rem 0.8rem;
+		background-color: $blue;
+		outline: none;
+		border: none;
+		cursor: pointer;
+		border-radius: 0.6rem;
+		transition: all 0.5s;
+		&:hover {
+			background-color: $dark-blue;
+			transform: scale(1.02);
+		}
+	}
+	@media (max-width: 576px) {
+		&__box {
+			width: 100%;
+			max-width: 100%;
+		}
+	}
+}

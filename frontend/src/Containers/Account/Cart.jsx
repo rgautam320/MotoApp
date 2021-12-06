@@ -36,11 +36,9 @@ const Cart = () => {
 		window.scrollTo(0, 0);
 		if (error) {
 			alert.error(error);
-		} else {
-			if (isUpdated && success) {
-				alert.success(success);
-				dispatch(userActions.reset());
-			}
+		} else if (isUpdated && success) {
+			alert.success(success);
+			dispatch(userActions.reset());
 		}
 	}, [alert, error, user, dispatch, history, isUpdated, success]);
 

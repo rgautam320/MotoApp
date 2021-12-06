@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useAlert } from "react-alert";
 import Carousel from "react-material-ui-carousel";
 import { useDispatch, useSelector } from "react-redux";
-import ReactRatings from "react-rating-stars-component";
-import { Loader } from "../../Utils/Loader";
 import ReviewCarousel from "react-multi-carousel";
+import { Rating } from "@material-ui/lab";
 
-import { getSingleProduct } from "../../Data/reducers/product.reducer";
+import { Loader } from "../../Utils/Loader";
+import { getSingleProduct, productActions, writeReview } from "../../Data/reducers/product.reducer";
 import Review from "../../Components/Product/Review";
 import { userActions } from "../../Data/reducers/user.reducer";
+import ReviewDialog from "../../Components/Product/ReviewDialog";
+import { getMyOrders } from "../../Data/reducers/order.reducer";
 
 const responsive = {
 	desktop: {
@@ -36,17 +38,42 @@ const ProductDetails = ({ match }) => {
 	const id = match.params.id;
 	const dispatch = useDispatch();
 	const alert = useAlert();
-	const { singleProduct, loading, error } = useSelector((state) => state.product);
+	const { singleProduct, loading, error, success } = useSelector((state) => state.product);
+	const { isAuthenticated } = useSelector((state) => state.user);
+	const { orders } = useSelector((state) => state.order);
+
+	const [quantity, setQuantity] = useState(1);
+	const [open, setOpen] = useState(false);
+	const [rating, setRating] = useState(0);
+	const [comment, setComment] = useState("");
+
+	let myOrders = [];
+	orders?.forEach((element) => {
+		element?.orderItems?.forEach((item) => {
+			myOrders.push(item?.product);
+		});
+	});
+	const isOrdered = myOrders.find((item) => item === id);
+	const submitReviewToggle = () => {
+		setOpen(!open);
+	};
+
+	const reviewSubmitHandler = () => {
+		const payload = {
+			id: id,
+			comment: comment,
+			rating: rating,
+		};
+		dispatch(writeReview(payload));
+		dispatch(productActions.reset());
+		submitReviewToggle();
+	};
 
 	const options = {
 		value: singleProduct.rating,
 		readOnly: true,
-		isHalf: true,
-		size: window.innerWidth > 768 ? 25 : 20,
-		edit: false,
+		size: "large",
 	};
-
-	const [quantity, setQuantity] = useState(1);
 
 	const increaseItem = () => {
 		if (singleProduct?.stock === quantity) {
@@ -72,21 +99,27 @@ const ProductDetails = ({ match }) => {
 			image: singleProduct?.images[0]?.url,
 		};
 		dispatch(userActions.cart(payload));
+		dispatch(userActions.reset());
 		alert.success("Product added to cart.");
 	};
 
 	useEffect(() => {
 		if (error) {
 			alert.error(error);
+		} else if (success) {
+			alert.success(success);
 		}
 		dispatch(getSingleProduct(id));
-	}, [dispatch, id, error, alert]);
+		dispatch(getMyOrders());
+		dispatch(userActions.reset());
+	}, [dispatch, id, error, alert, success]);
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
 	}, []);
 	return (
 		<div className="container my-5">
+			<ReviewDialog open={open} comment={comment} setComment={setComment} rating={rating} setRating={setRating} submitReviewToggle={submitReviewToggle} reviewSubmitHandler={reviewSubmitHandler} />
 			<h1 className="heading product__title">Product Details</h1>
 			{!loading ? (
 				<>
@@ -105,7 +138,7 @@ const ProductDetails = ({ match }) => {
 							<h2 className="sub-heading product__name">{singleProduct?.name}</h2>
 							<p className="product__id">#{singleProduct?._id}</p>
 							<div className="product__rating">
-								<ReactRatings {...options} />
+								<Rating {...options} />
 								<h6 className="product__rating__reviews">{singleProduct?.reviews?.length} Reviews</h6>
 							</div>
 							<div className="product__price">
@@ -122,7 +155,7 @@ const ProductDetails = ({ match }) => {
 									</button>
 								</div>
 								<div className="product__add">
-									<button className="btn product__add__btn" onClick={addToCart}>
+									<button disabled={!isAuthenticated} className="btn product__add__btn" onClick={addToCart}>
 										Add to Cart
 									</button>
 								</div>
@@ -133,7 +166,9 @@ const ProductDetails = ({ match }) => {
 								</h5>
 							</div>
 							<div className="product__reviews">
-								<button className="btn product__add__btn">Add Review</button>
+								<button disabled={!isOrdered} onClick={submitReviewToggle} className="btn product__add__btn">
+									Add Review
+								</button>
 							</div>
 						</div>
 					</div>

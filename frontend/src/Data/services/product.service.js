@@ -1,4 +1,4 @@
-import { getAllProductsAPI, getFeaturedProductsAPI, getSingleProductAPI } from "../api";
+import { getAllProductsAPI, getFeaturedProductsAPI, getSingleProductAPI, writeReviewAPI } from "../api";
 
 export const getAllProductsService = async (keyword, page, price, category, rating) => {
 	try {
@@ -23,6 +23,16 @@ export const getFeaturedProductsService = async () => {
 export const getSingleProductService = async (id) => {
 	try {
 		const response = await getSingleProductAPI(id);
+		return response.data;
+	} catch (error) {
+		console.log(error);
+		return { error: error.response.data.message };
+	}
+};
+
+export const writeReviewService = async (id, comment, rating) => {
+	try {
+		const response = await writeReviewAPI(id, comment, rating);
 		return response.data;
 	} catch (error) {
 		console.log(error);

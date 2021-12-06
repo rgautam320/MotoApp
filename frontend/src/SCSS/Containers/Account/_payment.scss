@@ -1,23 +1,4 @@
-.checkout {
-	&__box {
-		min-height: 50vh;
-	}
-	&__products {
-		width: 40%;
-		margin-top: 2rem;
-		background-color: $secondary;
-		padding: 0.6rem 2rem;
-		font-size: 1.1rem;
-		text-transform: uppercase;
-		letter-spacing: 0.2rem;
-		border-radius: 1rem;
-		opacity: 0.85;
-		transition: all 1s;
-		&:hover {
-			opacity: 1;
-			transform: scale3d(1.1, 1.1, 1.1);
-		}
-	}
+.payment {
 	&__box {
 		width: 30rem;
 		height: 30rem;
@@ -39,35 +20,6 @@
 			&__updateBox {
 				height: 68rem;
 			}
-		}
-	}
-	&__input {
-		margin: 1.5rem 0;
-	}
-	&__CountryState {
-		position: relative;
-		svg {
-			position: absolute;
-			left: 1.75rem;
-			top: 1.2rem;
-			width: 1.5rem;
-			height: 1.5rem;
-			color: $grey;
-		}
-	}
-	&__countryState {
-		width: 100%;
-		padding: 1.2rem;
-		padding-left: 4rem;
-		margin-bottom: 1rem;
-		border: 0.05rem solid $light-shadow;
-		background-color: transparent;
-		border-radius: 0.3rem;
-		&:hover {
-			border-color: $black;
-		}
-		&:focus {
-			border: 0.1rem solid $blue !important;
 		}
 	}
 	&__payment {
@@ -113,11 +65,6 @@
 				opacity: 1;
 				transform: scale(1.01);
 			}
-		}
-	}
-	@media (max-width: 768px) {
-		&__products {
-			width: 80%;
 		}
 	}
 	@media (max-width: 576px) {

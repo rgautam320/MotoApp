@@ -65,23 +65,23 @@ const Shipping = () => {
 			<MetaData title="Moto App | Shipping" />
 			<CheckoutSteps activeStep={0} />
 			<div className="container">
-				<div className="checkout__box checkout__box__updateBox">
-					<div className="checkout__input">
+				<div className="shipping__box shipping__box__updateBox">
+					<div className="shipping__input">
 						<Input name="street" type="text" label="Street" value={address?.street} icon={<BiStreetView />} handleChange={onAddressChange} />
 					</div>
-					<div className="checkout__input">
+					<div className="shipping__input">
 						<Input name="city" type="text" label="City" value={address?.city} icon={<FaCity />} handleChange={onAddressChange} />
 					</div>
-					<div className="checkout__input">
+					<div className="shipping__input">
 						<Input name="zip" type="text" label="Zip Code" value={address?.zip} icon={<MdPinDrop />} handleChange={onAddressChange} />
 					</div>
-					<div className="checkout__input">
+					<div className="shipping__input">
 						<Input name="phone" type="text" label="Phone Number" value={address?.phone} icon={<AiFillPhone />} handleChange={onAddressChange} />
 					</div>
 
-					<div className="checkout__CountryState">
+					<div className="shipping__CountryState">
 						<MdPublic />
-						<select className="checkout__countryState" defaultValue={address?.country} onBlur={(e) => setAddress({ ...address, country: e.target.value })}>
+						<select className="shipping__countryState" defaultValue={address?.country} onBlur={(e) => setAddress({ ...address, country: e.target.value })}>
 							{Country &&
 								Country.getAllCountries().map((item) => (
 									<option key={item.isoCode} value={item.isoCode}>
@@ -92,9 +92,9 @@ const Shipping = () => {
 					</div>
 
 					{address?.country && (
-						<div className="auth__CountryState">
+						<div className="shipping__CountryState">
 							<MdTransferWithinAStation />
-							<select className="auth__countryState" defaultValue={address?.state} onBlur={(e) => setAddress({ ...address, state: e.target.value })}>
+							<select className="shipping__countryState" defaultValue={address?.state} onBlur={(e) => setAddress({ ...address, state: e.target.value })}>
 								{State &&
 									State.getStatesOfCountry(address?.country).map((item) => (
 										<option key={item.isoCode} value={item.isoCode}>
@@ -108,7 +108,7 @@ const Shipping = () => {
 					{loading ? (
 						<SmallLoader />
 					) : (
-						<button className="auth__button" onClick={onContinue}>
+						<button className="shipping__button" onClick={onContinue}>
 							Continue
 						</button>
 					)}

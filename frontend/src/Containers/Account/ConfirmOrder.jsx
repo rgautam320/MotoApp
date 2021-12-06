@@ -46,41 +46,39 @@ const ConfirmOrder = () => {
 			<CheckoutSteps activeStep={1} />
 			<div className="container">
 				<div className="row pt-5">
-					<div className="row m-0">
-						<div className="col-lg-7 col-md-12 col-12">{cart && cart?.map((val, id) => <CartItem cart={val} key={id} type="confirmOrder" />)}</div>
-						<div className="col-lg-5 col-md-12 col-12 ">
-							<div className="cart__priceBreakup p-3">
-								<h1 className="sub-heading text-center">Price Breakup</h1>
-								<hr />
-								<h5 className="cart__priceBreakup__lines row">
-									<div className="col-7">Price ({cart?.length} Items): </div> <div className="col-5">₹ {cart.reduce((acc, item) => acc + item?.quantity * item?.price, 0)}</div>
-								</h5>
-								<h5 className="cart__priceBreakup__lines row">
-									<div className="col-7">Discount: </div>
-									<div className="col-5">₹ {Math.round(cart.reduce((acc, item) => acc + item?.quantity * item?.price, 0) - cart.reduce((acc, item) => acc + item?.quantity * item?.price, 0) * 0.95)}</div>
-								</h5>
-								<h5 className="cart__priceBreakup__lines row">
-									<div className="col-7">Delivery Charges: </div>
-									<div className="col-5">₹ 50</div>
-								</h5>
-								<hr />
-								<h5 className="cart__priceBreakup__lines row">
-									<div className="col-7">Total: </div>{" "}
-									<div className="col-5">₹ {Math.round(cart.reduce((acc, item) => acc + item?.quantity * item?.price, 0) - cart.reduce((acc, item) => acc + item?.quantity * item?.price, 0) * 0.05 + 50)} </div>
-								</h5>
-							</div>
-							<div className="cart__priceBreakup mt-4 p-3">
-								<h1 className="sub-heading text-center">Delivery Address</h1>
-								<hr />
-								<div className="profile__details">
-									<div className="profile__info">
-										<h4>Name:</h4>
-										<p>{user?.name}</p>
-									</div>
-									<div className="profile__info">
-										<h4>Address:</h4>
-										<p>{`${user?.address?.phone}, ${user?.address?.street}, ${user?.address?.city}, ${user?.address?.zip}, ${user?.address?.state}, ${user?.address?.country}`}</p>
-									</div>
+					<div className="col-lg-7 col-md-12 col-12">{cart && cart?.map((val, id) => <CartItem cart={val} key={id} type="confirmOrder" />)}</div>
+					<div className="col-lg-5 col-md-12 col-12 ">
+						<div className="confirmOrder__priceBreakup p-3">
+							<h1 className="sub-heading text-center">Price Breakup</h1>
+							<hr />
+							<h5 className="confirmOrder__priceBreakup__lines row">
+								<div className="col-7">Price ({cart?.length} Items): </div> <div className="col-5">₹ {cart.reduce((acc, item) => acc + item?.quantity * item?.price, 0)}</div>
+							</h5>
+							<h5 className="confirmOrder__priceBreakup__lines row">
+								<div className="col-7">Discount: </div>
+								<div className="col-5">₹ {Math.round(cart.reduce((acc, item) => acc + item?.quantity * item?.price, 0) - cart.reduce((acc, item) => acc + item?.quantity * item?.price, 0) * 0.95)}</div>
+							</h5>
+							<h5 className="confirmOrder__priceBreakup__lines row">
+								<div className="col-7">Delivery Charges: </div>
+								<div className="col-5">₹ 50</div>
+							</h5>
+							<hr />
+							<h5 className="confirmOrder__priceBreakup__lines row">
+								<div className="col-7">Total: </div>{" "}
+								<div className="col-5">₹ {Math.round(cart.reduce((acc, item) => acc + item?.quantity * item?.price, 0) - cart.reduce((acc, item) => acc + item?.quantity * item?.price, 0) * 0.05 + 50)} </div>
+							</h5>
+						</div>
+						<div className="confirmOrder__priceBreakup mt-4 p-3">
+							<h1 className="sub-heading text-center">Delivery Address</h1>
+							<hr />
+							<div>
+								<div className="confirmOrder__info">
+									<h4>Name:</h4>
+									<p>{user?.name}</p>
+								</div>
+								<div className="confirmOrder__info">
+									<h4>Address:</h4>
+									<p>{`${user?.address?.phone}, ${user?.address?.street}, ${user?.address?.city}, ${user?.address?.zip}, ${user?.address?.state}, ${user?.address?.country}`}</p>
 								</div>
 							</div>
 						</div>
@@ -90,7 +88,7 @@ const ConfirmOrder = () => {
 				{loading ? (
 					<SmallLoader />
 				) : (
-					<button className="auth__button my-4" onClick={onContinue}>
+					<button className="confirmOrder__continue my-4" onClick={onContinue}>
 						Continue
 					</button>
 				)}

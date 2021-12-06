@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getAllProductsService, getFeaturedProductsService, getSingleProductService } from "../services/product.service";
+import { getAllProductsService, getFeaturedProductsService, getSingleProductService, writeReviewService } from "../services/product.service";
 
 const initialState = {
 	products: [],
@@ -9,7 +9,8 @@ const initialState = {
 	filteredProductCount: 0,
 	page: 1,
 	loading: false,
-	error: false,
+	success: null,
+	error: null,
 };
 
 export const getAllProducts = createAsyncThunk("product/getAllProducts", async (payload) => {
@@ -36,10 +37,23 @@ export const getSingleProduct = createAsyncThunk("product/getSingleProduct", asy
 	return response;
 });
 
+export const writeReview = createAsyncThunk("product/writeReview", async (payload) => {
+	const response = await writeReviewService(payload?.id, payload?.comment, payload?.rating);
+	if (response?.error) {
+		return { error: response.error };
+	}
+	return response;
+});
+
 export const productSlice = createSlice({
 	name: "products",
 	initialState,
-	reducers: {},
+	reducers: {
+		reset: (state, action) => {
+			state.success = null;
+			state.error = null;
+		},
+	},
 	extraReducers: {
 		// All Products
 		[getAllProducts.pending]: (state, action) => {
@@ -63,7 +77,6 @@ export const productSlice = createSlice({
 		[getFeaturedProducts.fulfilled]: (state, action) => {
 			state.featuredProducts = action.payload?.featuredProducts;
 			state.loading = false;
-
 			if (action.payload?.error) {
 				state.error = action.payload.error;
 			}
@@ -75,9 +88,19 @@ export const productSlice = createSlice({
 		[getSingleProduct.fulfilled]: (state, action) => {
 			state.singleProduct = action.payload?.product;
 			state.loading = false;
-
 			if (action.payload?.error) {
 				state.error = action.payload.error;
+			}
+		},
+		// Submit Review
+		[writeReview.pending]: (state, action) => {
+			state.reviewLoading = true;
+		},
+		[writeReview.fulfilled]: (state, action) => {
+			if (action.payload?.error) {
+				state.error = action.payload.error;
+			} else {
+				state.success = action.payload?.message;
 			}
 		},
 	},

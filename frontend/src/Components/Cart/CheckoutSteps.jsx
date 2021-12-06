@@ -20,7 +20,7 @@ const CheckoutSteps = ({ activeStep }) => {
 
 	return (
 		<>
-			<Stepper alternativeLabel activeStep={activeStep} style={{ marginTop: "2rem", backgroundColor: "transparent" }}>
+			<Stepper alternativeLabel activeStep={activeStep} className="checkoutSteps__line">
 				{steps.map((item, index) => (
 					<Step key={index} active={activeStep === index ? true : false} completed={activeStep >= index ? true : false}>
 						<StepLabel
