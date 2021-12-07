@@ -4,7 +4,7 @@ import { useHistory } from "react-router";
 import { useSelector } from "react-redux";
 import { Backdrop } from "@material-ui/core";
 
-import { AiFillHome, BsFillPersonFill, AiOutlineMail, FaProductHunt, FaLock, AiFillInfoCircle } from "react-icons/all";
+import { AiFillHome, AiOutlineMail, FaProductHunt, FaLock, AiFillInfoCircle } from "react-icons/all";
 import Logo from "../../Assets/logo.png";
 
 const Navbar = () => {
@@ -24,8 +24,10 @@ const Navbar = () => {
 		{ icon: <FaProductHunt />, name: "Products", func: products },
 		{ icon: <AiOutlineMail />, name: "Contact", func: contact },
 		{ icon: <AiFillInfoCircle />, name: "About", func: about },
-		{ icon: isAuthenticated ? <BsFillPersonFill /> : <FaLock />, name: `${isAuthenticated ? "Profile" : "Login"}`, func: auth },
 	];
+	if (!isAuthenticated) {
+		actions.push({ icon: <FaLock />, name: "Login", func: auth });
+	}
 	function home() {
 		history.push("/");
 		handleClose();

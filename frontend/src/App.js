@@ -28,7 +28,7 @@ const App = () => {
 	}, []);
 
 	const options = {
-		timeout: 5000,
+		timeout: 3000,
 		position: positions.BOTTOM_RIGHT,
 		transition: transitions.FADE,
 	};

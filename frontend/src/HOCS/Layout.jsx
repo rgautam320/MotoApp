@@ -13,7 +13,7 @@ const Layout = () => {
 			{isAuthenticated && <UserOptions user={user} />}
 			<Navbar />
 			<Routes />
-			{/* <Footer /> */}
+			<Footer />
 		</>
 	);
 };
