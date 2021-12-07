@@ -1,9 +1,51 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useAlert } from "react-alert";
+import { useDispatch, useSelector } from "react-redux";
+
 import MetaData from "../../HOCS/MetaData";
+import { contactActions, sendMessage } from "../../Data/reducers/contact.reducer";
+import { SmallLoader } from "../../Utils/Loader";
 
 import { AiOutlinePhone, AiOutlineMail, HiOutlineLocationMarker } from "react-icons/all";
 
 const Contact = () => {
+	const alert = useAlert();
+	const dispatch = useDispatch();
+	const { loading, error, success } = useSelector((state) => state.contact);
+
+	const [info, setInfo] = useState({
+		fullname: "",
+		email: "",
+		phone: "",
+		message: "",
+	});
+
+	const onChange = (e) => {
+		setInfo({ ...info, [e.target.name]: e.target.value });
+	};
+
+	const onSubmit = () => {
+		if (!info.fullname && !info.email && !info.phone && !info.message) {
+			alert.error("All the fields are required.");
+			return;
+		}
+		dispatch(sendMessage(info));
+	};
+
+	useEffect(() => {
+		if (success) {
+			alert.success(success);
+			setInfo({
+				fullname: "",
+				email: "",
+				phone: "",
+				message: "",
+			});
+		} else if (error) {
+			alert.error(error);
+		}
+		dispatch(contactActions.reset());
+	}, [alert, success, error]);
 	return (
 		<>
 			<MetaData title="Moto App | Contact" />
@@ -34,28 +76,34 @@ const Contact = () => {
 									<label htmlFor="fullname">
 										Full Name <span>*</span>
 									</label>
-									<input type="text" name="fullname" placeholder="Full Name" className="contact__box__form__group__input" required />
+									<input type="text" name="fullname" placeholder="Full Name" value={info.fullname} onChange={onChange} className="contact__box__form__group__input" required />
 								</div>
 								<div className="form-group contact__box__form__group">
 									<label htmlFor="email">
 										Email <span>*</span>
 									</label>
-									<input type="email" name="email" placeholder="Email" className="contact__box__form__group__input" required />
+									<input type="email" name="email" placeholder="Email" value={info.email} onChange={onChange} className="contact__box__form__group__input" required />
 								</div>
 								<div className="form-group contact__box__form__group">
 									<label htmlFor="phone">
 										Phone Number <span>*</span>
 									</label>
-									<input type="text" name="phone" placeholder="Phone Number" className="contact__box__form__group__input" required maxLength="10" />
+									<input type="number" name="phone" placeholder="Phone Number" value={info.phone} onChange={onChange} className="contact__box__form__group__input" required maxLength="10" />
 								</div>
 								<div className="form-group contact__box__form__group">
 									<label htmlFor="message">
 										Message <span>*</span>
 									</label>
-									<textarea name="message" placeholder="Enter Your Message" className="contact__box__form__group__input" rows="3" required />
+									<textarea name="message" placeholder="Enter Your Message" value={info.message} onChange={onChange} className="contact__box__form__group__input" rows="3" required />
 								</div>
-								<div className="form-group contact__box__form__group">
-									<button className="contact__box__form__group__btn">Send Message</button>
+								<div className="contact__box__form__group d-flex justify-content-center">
+									{loading ? (
+										<SmallLoader />
+									) : (
+										<button className="contact__box__form__group__btn" onClick={onSubmit}>
+											Send Message
+										</button>
+									)}
 								</div>
 							</div>
 						</div>

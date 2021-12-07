@@ -43,3 +43,6 @@ export const getOrderDetailsAPI = (id) => API.get(`/order/getSingleOrder/${id}`)
 
 // Review
 export const writeReviewAPI = (id, comment, rating) => API.put(`/products/review/${id}`, { comment, rating });
+
+// Contact
+export const sendMessageAPI = (fullname, email, phone, message) => API.post("/contact/contactUs", { fullname, email, phone, message });
