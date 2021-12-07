@@ -1,15 +1,94 @@
 // About Page Styling
 .contact {
-	min-height: 80vh;
+	min-height: 85vh;
 	&__contact {
 		padding-top: 2rem;
 	}
 	&__heading {
 		font-size: 3vmax;
 		text-align: center;
-		width: 60%;
-		margin: 1.5rem auto;
-		padding-bottom: 1rem;
-		border-bottom: 0.15rem solid $light-shadow;
+	}
+	&__subheading {
+		text-align: center;
+		padding: 1rem 0;
+	}
+	&__box {
+		margin: 3rem 0;
+		padding: 0.5rem 0;
+		border-radius: 1rem;
+		background-color: $white;
+		box-shadow: 0.1rem 0.1rem 0.8rem 0.02rem $grey;
+		&__info {
+			color: $white;
+			height: 32rem;
+			border-radius: 1rem;
+			background: linear-gradient(215deg, $danger, $blue);
+			padding: 1rem;
+			h3 {
+				text-align: center;
+				margin: 1rem 0;
+			}
+			p {
+				margin-top: 1.5rem;
+				margin-bottom: 1rem;
+				line-height: 2.4rem;
+				font-size: 1.1rem;
+				text-align: center;
+			}
+			&__details {
+				svg {
+					margin-right: 1rem;
+					font-size: 2rem;
+				}
+				margin: 2rem 0;
+				padding: 0.6rem 2rem;
+				font-size: 1.15rem;
+			}
+			@media (max-width: 1024px) {
+				&__details {
+					svg {
+						font-size: 1.5rem;
+					}
+					margin: 1rem 0;
+					padding: 0.5rem;
+					font-size: 1.1rem;
+				}
+			}
+		}
+		&__form {
+			margin: 0.5rem 0;
+			&__group {
+				margin-bottom: 0.5rem;
+				label {
+					padding: 0.5rem 0.3rem;
+					span {
+						color: $danger;
+					}
+				}
+				&__input {
+					width: 100%;
+					padding: 0.625rem 1.5rem;
+					font-size: 1.1rem;
+					outline: none;
+					border: 0.1rem solid $light-shadow;
+					border-radius: 0.8rem;
+				}
+				&__btn {
+					border: none;
+					outline: none;
+					padding: 0.75rem 2.5rem;
+					border-radius: 0.6rem;
+					background-color: $secondary;
+					color: $white;
+					text-transform: uppercase;
+					opacity: 0.9;
+					transition: all 0.5s;
+					&:hover {
+						opacity: 1;
+						transform: scale(1.025);
+					}
+				}
+			}
+		}
 	}
 }
