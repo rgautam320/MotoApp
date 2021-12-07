@@ -81,6 +81,7 @@ const Payment = () => {
 	};
 
 	useEffect(() => {
+		window.scrollTo(0, 0);
 		if (!price) {
 			history.push("/cart");
 		}

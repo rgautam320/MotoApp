@@ -9,12 +9,14 @@ const OrderDetails = () => {
 	const dispatch = useDispatch();
 	const params = useParams();
 	const id = params.id;
+	const { singleOrder } = useSelector((state) => state.order);
+	const { user } = useSelector((state) => state.user);
+
 	useEffect(() => {
+		window.scrollTo(0, 0);
 		dispatch(getOrderDetails(id));
 		dispatch(orderActions.reset());
 	}, [dispatch, id]);
-	const { singleOrder } = useSelector((state) => state.order);
-	const { user } = useSelector((state) => state.user);
 
 	return (
 		<div className="container">

@@ -81,6 +81,7 @@ const Orders = () => {
 		});
 
 	useEffect(() => {
+		window.scrollTo(0, 0);
 		if (success) {
 			alert.success(success);
 		} else if (error) {

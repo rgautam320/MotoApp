@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useHistory } from "react-router";
 
 import { BsFillCheckCircleFill } from "react-icons/all";
 
 const OrderSuccess = () => {
 	const history = useHistory();
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, []);
 	return (
 		<>
 			<div className="container pt-5 mt-5">
