@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { SpeedDial, SpeedDialAction } from "@material-ui/lab";
 import { useHistory } from "react-router";
 import { useSelector } from "react-redux";
-
 import { Backdrop } from "@material-ui/core";
+
 import { AiFillHome, BsFillPersonFill, AiOutlineMail, FaProductHunt, FaLock, AiFillInfoCircle } from "react-icons/all";
 import Logo from "../../Assets/logo.png";
 
@@ -16,7 +16,6 @@ const Navbar = () => {
 	const handleOpen = () => {
 		setOpen(true);
 	};
-
 	const handleClose = () => {
 		setOpen(false);
 	};
@@ -53,7 +52,7 @@ const Navbar = () => {
 				<Backdrop open={open ? open : false} />
 				<SpeedDial ariaLabel="SpeedDial" direction="down" icon={<img className="navbar__speedDialIcon" src={Logo} alt="Profile" />} onOpen={handleOpen} onClose={handleClose} open={open ? open : false}>
 					{actions.map((action) => (
-						<SpeedDialAction key={action.name} tooltipOpen={window.innerWidth <= 600 ? true : false} icon={action.icon} tooltipTitle={action.name} onClick={action.func} />
+						<SpeedDialAction key={action.name} icon={action.icon} tooltipTitle={action.name} onClick={action.func} />
 					))}
 				</SpeedDial>
 			</div>

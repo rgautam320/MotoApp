@@ -5,9 +5,9 @@ const Contact = () => {
 	return (
 		<>
 			<MetaData title="Moto App | Contact" />
-			<div className="container">
-				<div className="contact_contact">
-					<h1 className="text-center">Contact</h1>
+			<div className="container contact">
+				<div className="contact__contact">
+					<h1 className="heading contact__heading">Contact</h1>
 				</div>
 			</div>
 		</>

@@ -41,8 +41,10 @@ const Routes = () => {
 				<Route exact path="/profile/forgot-password" component={ForgotPassword} />
 				<Route exact path="/profile/password-reset/:token" component={ResetPassword} />
 
-				{/* Authenticated Routes */}
+				{/* Admin Routes */}
+				<ProtectedRoute exact path="/admin/dashboard" component={Dashboard} />
 
+				{/* Authenticated Routes */}
 				<ProtectedRoute exact path="/cart" component={Cart} />
 				<ProtectedRoute exact path="/orders" component={Orders} />
 				<ProtectedRoute exact path="/profile" component={Profile} />
@@ -58,9 +60,6 @@ const Routes = () => {
 				<Elements stripe={loadStripe(stripeAPIKey || "empty")}>
 					<ProtectedRoute exact path="/profile/payment" component={Payment} />
 				</Elements>
-
-				{/* Admin Routes */}
-				<ProtectedRoute exact path="/admin/dashboard" component={Dashboard} />
 
 				{/* Error Route */}
 				<Route component={Error} />

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ReactRatings from "react-rating-stars-component";
 import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";

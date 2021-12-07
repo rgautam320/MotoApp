@@ -2,11 +2,11 @@ import React from "react";
 
 const Dashboard = () => {
 	return (
-		<div>
-			<div className="container mt-5">
-				<h1>Dashboard</h1>
+		<>
+			<div className="container dashboard">
+				<h1 className="heading dashboard__heading">Dashboard</h1>
 			</div>
-		</div>
+		</>
 	);
 };
 
