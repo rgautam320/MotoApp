@@ -104,6 +104,7 @@ const ProductDetails = ({ match }) => {
 	};
 
 	useEffect(() => {
+		window.scrollTo(0, 0);
 		if (error) {
 			alert.error(error);
 		} else if (success) {
@@ -114,9 +115,6 @@ const ProductDetails = ({ match }) => {
 		dispatch(userActions.reset());
 	}, [dispatch, id, error, alert, success]);
 
-	useEffect(() => {
-		window.scrollTo(0, 0);
-	}, []);
 	return (
 		<div className="container my-5">
 			<ReviewDialog open={open} comment={comment} setComment={setComment} rating={rating} setRating={setRating} submitReviewToggle={submitReviewToggle} reviewSubmitHandler={reviewSubmitHandler} />

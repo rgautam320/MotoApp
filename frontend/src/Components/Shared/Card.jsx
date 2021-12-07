@@ -1,14 +1,35 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ReactRatings from "react-rating-stars-component";
 import { NavLink } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { userActions } from "../../Data/reducers/user.reducer";
+import { useAlert } from "react-alert";
 
 const Card = ({ product, styles }) => {
+	const dispatch = useDispatch();
+	const alert = useAlert();
+	const { isAuthenticated } = useSelector((state) => state.user);
 	const options = {
 		value: product.rating,
 		readOnly: true,
 		isHalf: true,
 		size: 20,
 		edit: false,
+	};
+	const addToCart = () => {
+		if (!isAuthenticated) {
+			alert.error("Please login to add items in Cart.");
+			return;
+		}
+		const payload = {
+			product: product?._id,
+			name: product?.name,
+			price: product?.price,
+			quantity: 1,
+			image: product?.images[0]?.url,
+		};
+		dispatch(userActions.cart(payload));
+		alert.success("Product added to cart.");
 	};
 	return (
 		<div className={styles}>
@@ -25,7 +46,7 @@ const Card = ({ product, styles }) => {
 					</div>
 				</NavLink>
 				<div className="card__card__add">
-					<button>Add to Cart</button>
+					<button onClick={addToCart}>Add to Cart</button>
 				</div>
 			</div>
 		</div>
