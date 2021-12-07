@@ -62,13 +62,12 @@ const UserOptions = ({ user }) => {
 
 	return (
 		<>
-			<div className="user__options">
+			<div className="userOptions__options">
 				<Backdrop open={open ? open : false} />
 				<SpeedDial
 					ariaLabel="SpeedDial"
-					className="user__speedDial"
 					direction="down"
-					icon={<img className="user__speedDialIcon" src={user?.avatar?.url ? user?.avatar?.url : "/logo.png"} alt="Profile" />}
+					icon={<img className="userOptions__speedDialIcon" src={user?.avatar?.url ? user?.avatar?.url : "/logo.png"} alt="Profile" />}
 					onOpen={handleOpen}
 					onClose={handleClose}
 					open={open ? open : false}

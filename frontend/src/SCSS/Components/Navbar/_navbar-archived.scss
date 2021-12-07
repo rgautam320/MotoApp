@@ -1,0 +1,12 @@
+// Write Your SCSS Here
+
+// Overriding CSS
+.menuBurger {
+	background-color: $primary;
+	border-radius: 50%;
+	width: 4vmax !important;
+	height: 4vmax !important;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

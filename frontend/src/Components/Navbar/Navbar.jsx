@@ -1,56 +1,64 @@
-import React from "react";
-import { ReactNavbar } from "overlay-navbar";
+import React, { useState } from "react";
+import { SpeedDial, SpeedDialAction } from "@material-ui/lab";
+import { useHistory } from "react-router";
+import { useSelector } from "react-redux";
 
+import { Backdrop } from "@material-ui/core";
+import { AiFillHome, BsFillPersonFill, AiOutlineMail, FaProductHunt, FaLock, AiFillInfoCircle } from "react-icons/all";
 import Logo from "../../Assets/logo.png";
 
-const options = {
-	burgerColorHover: "#eb4034",
+const Navbar = () => {
+	const history = useHistory();
 
-	logo: Logo,
-	logoWidth: "20vmax",
-	navColor1: "white",
-	logoHoverSize: "10px",
-	logoHoverColor: "#eb4034",
+	const [open, setOpen] = useState(false);
+	const { isAuthenticated } = useSelector((state) => state.user);
 
-	link1Text: "Home",
-	link2Text: "Products",
-	link3Text: "Contact",
-	link4Text: "About",
+	const handleOpen = () => {
+		setOpen(true);
+	};
 
-	link1Url: "/",
-	link2Url: "/products",
-	link3Url: "/contact",
-	link4Url: "/about",
-
-	link1Size: "1.3vmax",
-	link1Color: "rgba(35, 35, 35,0.8)",
-	link1ColorHover: "#eb4034",
-	link1Margin: "1vmax",
-
-	nav1justifyContent: "flex-end",
-	nav2justifyContent: "flex-end",
-	nav3justifyContent: "flex-start",
-	nav4justifyContent: "flex-start",
-
-	searchIconColor: "rgba(35, 35, 35,0.8)",
-	searchIconColorHover: "#eb4034",
-	searchIconUrl: "/products",
-
-	cartIconColor: "rgba(35, 35, 35,0.8)",
-	cartIconColorHover: "#eb4034",
-	cartIconMargin: "1vmax",
-
-	profileIconUrl: "/auth",
-	profileIconColor: "rgba(35, 35, 35,0.8)",
-	profileIconColorHover: "#eb4034",
-};
-
-const Appbar = () => {
+	const handleClose = () => {
+		setOpen(false);
+	};
+	const actions = [
+		{ icon: <AiFillHome />, name: "Home", func: home },
+		{ icon: <FaProductHunt />, name: "Products", func: products },
+		{ icon: <AiOutlineMail />, name: "Contact", func: contact },
+		{ icon: <AiFillInfoCircle />, name: "About", func: about },
+		{ icon: isAuthenticated ? <BsFillPersonFill /> : <FaLock />, name: `${isAuthenticated ? "Profile" : "Login"}`, func: auth },
+	];
+	function home() {
+		history.push("/");
+		handleClose();
+	}
+	function products() {
+		history.push("/products");
+		handleClose();
+	}
+	function contact() {
+		history.push("/contact");
+		handleClose();
+	}
+	function about() {
+		history.push("/about");
+		handleClose();
+	}
+	function auth() {
+		history.push("/auth");
+		handleClose();
+	}
 	return (
 		<>
-			<ReactNavbar {...options} />
+			<div className="navbar__options">
+				<Backdrop open={open ? open : false} />
+				<SpeedDial ariaLabel="SpeedDial" direction="down" icon={<img className="navbar__speedDialIcon" src={Logo} alt="Profile" />} onOpen={handleOpen} onClose={handleClose} open={open ? open : false}>
+					{actions.map((action) => (
+						<SpeedDialAction key={action.name} tooltipOpen={window.innerWidth <= 600 ? true : false} icon={action.icon} tooltipTitle={action.name} onClick={action.func} />
+					))}
+				</SpeedDial>
+			</div>
 		</>
 	);
 };
 
-export default Appbar;
+export default Navbar;
