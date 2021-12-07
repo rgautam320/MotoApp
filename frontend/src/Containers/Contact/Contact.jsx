@@ -45,7 +45,7 @@ const Contact = () => {
 			alert.error(error);
 		}
 		dispatch(contactActions.reset());
-	}, [alert, success, error]);
+	}, [alert, success, error, dispatch]);
 	return (
 		<>
 			<MetaData title="Moto App | Contact" />
