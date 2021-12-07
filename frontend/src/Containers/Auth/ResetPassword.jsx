@@ -67,11 +67,11 @@ const ResetPassword = ({ match }) => {
 	return (
 		<>
 			<MetaData title="Moto App | Auth" />
-			<div className="container my-5 auth">
-				<h1 className="heading auth__heading">Reset Password</h1>
-				<div className="auth__box auth__box__medium">
+			<div className="container my-5 resetPassword">
+				<h1 className="heading resetPassword__heading">Reset Password</h1>
+				<div className="resetPassword__box">
 					<form noValidate autoComplete="off" onSubmit={onUpdatePassword}>
-						<div className="auth__input">
+						<div className="resetPassword__input">
 							<Input
 								name="password"
 								label="New Password"
@@ -82,7 +82,7 @@ const ResetPassword = ({ match }) => {
 								handleChange={onUpdateChange}
 							/>
 						</div>
-						<div className="auth__input">
+						<div className="resetPassword__input">
 							<Input
 								name="confirmPassword"
 								label="Confirm Password"
@@ -96,7 +96,7 @@ const ResetPassword = ({ match }) => {
 						{loading ? (
 							<SmallLoader />
 						) : (
-							<button type="submit" className="auth__button">
+							<button type="submit" className="resetPassword__button">
 								Change Password
 							</button>
 						)}

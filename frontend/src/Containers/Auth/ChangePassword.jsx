@@ -68,11 +68,11 @@ const ChangePassword = () => {
 	return (
 		<>
 			<MetaData title="Moto App | Auth" />
-			<div className="container my-5 auth">
-				<h1 className="heading auth__heading">Change Password</h1>
-				<div className="auth__box auth__box__medium">
+			<div className="container my-5 changePassword">
+				<h1 className="heading changePassword__heading">Change Password</h1>
+				<div className="changePassword__box">
 					<form noValidate autoComplete="off" onSubmit={onUpdatePassword}>
-						<div className="auth__input">
+						<div className="changePassword__input">
 							<Input
 								name="oldPassword"
 								label="Old Password"
@@ -83,7 +83,7 @@ const ChangePassword = () => {
 								handleChange={onUpdateChange}
 							/>
 						</div>
-						<div className="auth__input">
+						<div className="changePassword__input">
 							<Input
 								name="password"
 								label="New Password"
@@ -94,7 +94,7 @@ const ChangePassword = () => {
 								handleChange={onUpdateChange}
 							/>
 						</div>
-						<div className="auth__input">
+						<div className="changePassword__input">
 							<Input
 								name="confirmPassword"
 								label="Confirm Password"
@@ -108,7 +108,7 @@ const ChangePassword = () => {
 						{loading ? (
 							<SmallLoader />
 						) : (
-							<button type="submit" className="auth__button">
+							<button type="submit" className="changePassword__button">
 								Change Password
 							</button>
 						)}

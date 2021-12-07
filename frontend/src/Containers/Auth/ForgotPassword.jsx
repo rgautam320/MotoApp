@@ -40,17 +40,17 @@ const ForgotPassword = () => {
 	return (
 		<>
 			<MetaData title="Moto App | Forgot Password" />
-			<div className="container my-5 auth">
-				<h1 className="heading auth__heading">Forgot Password</h1>
-				<div className="auth__box auth__box__small">
+			<div className="container my-5 forgotPassword">
+				<h1 className="heading forgotPassword__heading">Forgot Password</h1>
+				<div className="forgotPassword__box">
 					<form noValidate autoComplete="off" onSubmit={onSubmitEmail}>
-						<div className="auth__input">
+						<div className="forgotPassword__input">
 							<Input name="email" type="email" label="Email" value={email} icon={<MdEmail />} handleChange={(e) => setEmail(e.target.value)} />
 						</div>
 						{loading ? (
 							<SmallLoader />
 						) : (
-							<button type="submit" className="auth__button">
+							<button type="submit" className="forgotPassword__button">
 								Forgot Password
 							</button>
 						)}

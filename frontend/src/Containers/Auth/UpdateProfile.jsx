@@ -76,6 +76,9 @@ const Auth = () => {
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
+		if (!user) {
+			history.push("/profile");
+		}
 		if (error) {
 			alert.error(error);
 		} else {
@@ -94,44 +97,44 @@ const Auth = () => {
 	return (
 		<>
 			<MetaData title="Moto App | Auth" />
-			<div className="container my-5 auth">
-				<h1 className="heading auth__heading">Update Profile</h1>
-				<div className="auth__box auth__box__updateBox">
+			<div className="container my-5 updateProfile">
+				<h1 className="heading updateProfile__heading">Update Profile</h1>
+				<div className="updateProfile__box">
 					<form noValidate autoComplete="off" onSubmit={onUpdateProfile}>
 						<div className="row">
 							<div className="col-md-6 col-12">
-								<h1 className="sub-heading auth__subheading">User Info</h1>
+								<h1 className="sub-heading updateProfile__subheading">User Info</h1>
 								<hr />
-								<div className="auth__input">
+								<div className="updateProfile__input">
 									<Input name="email" type="email" label="Email" value={userInfo.email} icon={<MdEmail />} handleChange={onUpdateChange} />
 								</div>
-								<div className="auth__input">
+								<div className="updateProfile__input">
 									<Input name="name" type="text" label="Name" value={userInfo.name} icon={<MdAccountCircle />} handleChange={onUpdateChange} />
 								</div>
-								<div className="auth__registerImage">
+								<div className="updateProfile__registerImage">
 									<img src={avatarPreview} alt="Avatar Preview" />
 									<input type="file" name="avatar" accept="image/*" onChange={onUpdateChange} />
 								</div>
 							</div>
 							<div className="col-md-6 col-12">
-								<h1 className="sub-heading auth__subheading">Address Details</h1>
+								<h1 className="sub-heading updateProfile__subheading">Address Details</h1>
 								<hr />
-								<div className="auth__input">
+								<div className="updateProfile__input">
 									<Input name="street" type="text" label="Street" value={address?.street} icon={<BiStreetView />} handleChange={onAddressChange} />
 								</div>
-								<div className="auth__input">
+								<div className="updateProfile__input">
 									<Input name="city" type="text" label="City" value={address?.city} icon={<FaCity />} handleChange={onAddressChange} />
 								</div>
-								<div className="auth__input">
+								<div className="updateProfile__input">
 									<Input name="zip" type="text" label="Zip Code" value={address?.zip} icon={<MdPinDrop />} handleChange={onAddressChange} />
 								</div>
-								<div className="auth__input">
+								<div className="updateProfile__input">
 									<Input name="phone" type="text" label="Phone Number" value={address?.phone} icon={<AiFillPhone />} handleChange={onAddressChange} />
 								</div>
 
-								<div className="auth__CountryState">
+								<div className="updateProfile__CountryState">
 									<MdPublic />
-									<select className="auth__countryState" defaultValue={address?.country} onBlur={(e) => setAddress({ ...address, country: e.target.value })}>
+									<select className="updateProfile__countryState" defaultValue={address?.country} onBlur={(e) => setAddress({ ...address, country: e.target.value })}>
 										{Country &&
 											Country.getAllCountries().map((item) => (
 												<option key={item.isoCode} value={item.isoCode}>
@@ -142,9 +145,9 @@ const Auth = () => {
 								</div>
 
 								{address?.country && (
-									<div className="auth__CountryState">
+									<div className="updateProfile__CountryState">
 										<MdTransferWithinAStation />
-										<select className="auth__countryState" defaultValue={address?.state} onBlur={(e) => setAddress({ ...address, state: e.target.value })}>
+										<select className="updateProfile__countryState" defaultValue={address?.state} onBlur={(e) => setAddress({ ...address, state: e.target.value })}>
 											{State &&
 												State.getStatesOfCountry(address?.country).map((item) => (
 													<option key={item.isoCode} value={item.isoCode}>
@@ -160,7 +163,7 @@ const Auth = () => {
 						{loading ? (
 							<SmallLoader />
 						) : (
-							<button type="submit" className="auth__button">
+							<button type="submit" className="updateProfile__button">
 								{loading ? <SmallLoader /> : "Update"}
 							</button>
 						)}
