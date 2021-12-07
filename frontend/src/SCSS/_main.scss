@@ -8,9 +8,12 @@
 @import "./Containers/Error/error";
 @import "./Containers/About/about";
 @import "./Containers/Product/products";
-@import "./Containers/Account/cart";
-@import "./Containers/Account/account";
-@import "./Containers/Account/orders";
+@import "./Containers/Order/cart";
+@import "./Containers/Order/orders";
+@import "./Containers/Order/confirmOrder";
+@import "./Containers/Order/payment";
+@import "./Containers/Order/shipping";
+@import "./Containers/Order/orderDetails";
 @import "./Containers/Auth/auth";
 @import "./Containers/Auth/profile";
 @import "./Containers/Auth/changePassword";
@@ -19,21 +22,17 @@
 @import "./Containers/Auth/updateProfile";
 @import "./Containers/Product/productDetails";
 @import "./Containers/Admin/dashboard";
-@import "./Containers/Account/confirmOrder";
-@import "./Containers/Account/payment";
-@import "./Containers/Account/shipping";
-@import "./Containers/Account/orderDetails";
 
 // Importing Components
 @import "./Components/Navbar/navbar";
 @import "./Components/Home/hero";
 @import "./Components/Home/featured";
 @import "./Components/Footer/footer";
-@import "./Components/Product/card";
 @import "./Components/Product/review";
 @import "./Components/Product/reviewDialog";
 @import "./Components/Cart/cart";
 @import "./Components/Cart/checkoutSteps";
+@import "./Components/Shared/card";
 @import "./Components/Shared/input";
 
 // Importing Loader

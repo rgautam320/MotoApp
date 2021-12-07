@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Slider } from "@material-ui/core";
 
 import MetaData from "../../HOCS/MetaData";
-import Card from "../../Components/Product/Card";
+import Card from "../../Components/Shared/Card";
 import { Loader } from "../../Utils/Loader";
 import { getAllProducts } from "../../Data/reducers/product.reducer";
 

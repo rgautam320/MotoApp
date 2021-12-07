@@ -8,10 +8,9 @@ import Contact from "../Containers/Contact/Contact";
 import Products from "../Containers/Product/Products";
 import Auth from "../Containers/Auth/Auth";
 import ProductDetails from "../Containers/Product/ProductDetails";
-import Cart from "../Containers/Account/Cart";
-import Account from "../Containers/Account/Account";
-import Orders from "../Containers/Account/Orders";
-import Shipping from "../Containers/Account/Shipping";
+import Cart from "../Containers/Order/Cart";
+import Orders from "../Containers/Order/Orders";
+import Shipping from "../Containers/Order/Shipping";
 import Dashboard from "../Containers/Admin/Dashboard";
 import Profile from "../Containers/Auth/Profile";
 import UpdateProfile from "../Containers/Auth/UpdateProfile";
@@ -19,12 +18,12 @@ import ChangePassword from "../Containers/Auth/ChangePassword";
 import ForgotPassword from "../Containers/Auth/ForgotPassword";
 import ProtectedRoute from "./ProtectedRoute";
 import ResetPassword from "../Containers/Auth/ResetPassword";
-import Payment from "../Containers/Account/Payment";
-import ConfirmOrder from "../Containers/Account/ConfirmOrder";
+import Payment from "../Containers/Order/Payment";
+import ConfirmOrder from "../Containers/Order/ConfirmOrder";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useSelector } from "react-redux";
-import OrderDetails from "../Containers/Account/OrderDetails";
+import OrderDetails from "../Containers/Order/OrderDetails";
 
 const Routes = () => {
 	const { stripeAPIKey } = useSelector((state) => state.order);
@@ -45,7 +44,6 @@ const Routes = () => {
 				{/* Authenticated Routes */}
 
 				<ProtectedRoute exact path="/cart" component={Cart} />
-				<ProtectedRoute exact path="/account" component={Account} />
 				<ProtectedRoute exact path="/orders" component={Orders} />
 				<ProtectedRoute exact path="/profile" component={Profile} />
 				<ProtectedRoute exact path="/profile/update" component={UpdateProfile} />

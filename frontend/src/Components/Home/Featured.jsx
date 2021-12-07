@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Loader } from "../../Utils/Loader";
-import Card from "../Product/Card";
+import Card from "../Shared/Card";
 
 const Featured = ({ products, loading }) => {
 	return (
