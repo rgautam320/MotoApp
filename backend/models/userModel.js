@@ -56,10 +56,11 @@ const userSchema = new mongoose.Schema({
 
 // Saving decrypted password
 userSchema.pre("save", async function (next) {
-	if (!this.isModified("password")) {
+	if (this.isModified("password")) {
+		this.password = await bcrypt.hash(this.password, 10);
+	} else {
 		next();
 	}
-	this.password = await bcrypt.hash(this.password, 10);
 });
 
 // Creating JWT Token
@@ -71,7 +72,10 @@ userSchema.methods.getJWTToken = function () {
 
 // Comparing password to login
 userSchema.methods.comparePassword = async function (enteredPassword) {
-	return await bcrypt.compare(enteredPassword, this.password);
+	const test = await bcrypt.hash(enteredPassword, 10);
+	// console.log(test);
+	const result = await bcrypt.compare(enteredPassword, this.password);
+	return result;
 };
 
 // Generating Password Reset Token
@@ -86,10 +90,10 @@ userSchema.methods.generatePasswordResetToken = function () {
 
 // Generating email verification token
 userSchema.methods.generateEmailActivationToken = function () {
-	const activateToken = crypto.randomBytes(20).toString("hex");
-	this.activateToken = crypto.createHash("sha256").update(activateToken).digest("hex");
+	const token = crypto.randomBytes(20).toString("hex");
+	this.activateToken = crypto.createHash("sha256").update(token).digest("hex");
 
-	return activateToken;
+	return token;
 };
 
 export default mongoose.model("User", userSchema);

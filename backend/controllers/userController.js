@@ -39,8 +39,6 @@ export const registerUser = Catch(async (req, res, next) => {
 		message: message,
 	});
 
-	await user.save();
-
 	res.status(200).json({ success: true, message: `Activation Link sent successfully to your email.` });
 });
 
@@ -56,9 +54,9 @@ export const activateAccount = Catch(async (req, res, next) => {
 		return next(new ErrorHandler(400, "Activation URL is invalid."));
 	}
 	user.active = true;
-	user.activatetoken = undefined;
+	user.activateToken = undefined;
 
-	await user.save();
+	await user.save({ validateBeforeSave: false });
 
 	sendToken(user, 200, res);
 });
@@ -74,17 +72,17 @@ export const loginUser = Catch(async (req, res, next) => {
 	const user = await User.findOne({ email: email }).select("+password");
 
 	if (!user) {
-		return next(new ErrorHandler(401, "Invalid Email or Password."));
+		return next(new ErrorHandler(401, "User not found."));
 	}
 
-	if (!user.active) {
+	if (!user?.active) {
 		return next(new ErrorHandler(401, "Your account isn't activated yet. Please check your mail and verify."));
 	}
 
 	const isPasswordCorrect = await user.comparePassword(password);
 
 	if (!isPasswordCorrect) {
-		return next(new ErrorHandler(401, "Invalid Email or Password."));
+		return next(new ErrorHandler(401, "Invalid Email or Password. Here"));
 	}
 
 	sendToken(user, 200, res);
