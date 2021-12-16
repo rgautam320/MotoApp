@@ -1,4 +1,5 @@
 import User from "../models/userModel.js";
+import Cart from "../models/cartModel.js";
 import Catch from "../middleware/catch.js";
 import ErrorHandler from "../middleware/error.js";
 import sendToken from "../utils/jwtToken.js";
@@ -24,6 +25,11 @@ export const registerUser = Catch(async (req, res, next) => {
 		email,
 		password,
 		avatar: { public_id: myCloud.public_id, url: myCloud.secure_url },
+	});
+
+	await Cart.create({
+		orderItems: [],
+		user: user._id,
 	});
 
 	const activateToken = await user.generateEmailActivationToken();

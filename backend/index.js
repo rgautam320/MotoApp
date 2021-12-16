@@ -15,6 +15,7 @@ import userRoutes from "./routes/userRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import paymentRoutes from "./routes/paymentRoutes.js";
 import contactRoutes from "./routes/contactRoutes.js";
+import cartRoutes from "./routes/cartRoutes.js";
 
 const app = express();
 
@@ -43,6 +44,7 @@ app.use("/api/auth", userRoutes);
 app.use("/api/order", orderRoutes);
 app.use("/api/payment", paymentRoutes);
 app.use("/api/contact", contactRoutes);
+app.use("/api/cart", cartRoutes);
 
 // Using Error Middleware
 app.use(Handler);
