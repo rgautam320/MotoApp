@@ -34,7 +34,13 @@ const Profile = () => {
 						</div>
 						<div className="profile__info">
 							<h4>Address:</h4>
-							<p>{`${user?.name}, ${user?.address?.phone}, ${user?.address?.street}, ${user?.address?.city}, ${user?.address?.zip}, ${user?.address?.state}, ${user?.address?.country}`}</p>
+							{user?.address?.city ? (
+								<p>{`${user?.name}, ${user?.address?.phone}, ${user?.address?.street}, ${user?.address?.city}, ${user?.address?.zip}, ${user?.address?.state}, ${user?.address?.country}`}</p>
+							) : (
+								<NavLink to="/profile/update" className="py-4">
+									<p>Update Address</p>
+								</NavLink>
+							)}
 						</div>
 						<div className="d-flex justify-content-center">
 							<NavLink to="/profile/change-password" className="profile__updateButton">

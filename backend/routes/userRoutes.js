@@ -1,6 +1,6 @@
 import express from "express";
 
-import { registerUser, loginUser, logout, forgotPassword, resetPassword, getUserDetails, updatePassword, updateUserDetails, getAllUsers, getSingleUser, updateUserByAdmin, deleteUser } from "../controllers/userController.js";
+import { registerUser, loginUser, logout, forgotPassword, resetPassword, getUserDetails, updatePassword, updateUserDetails, getAllUsers, getSingleUser, updateUserByAdmin, deleteUser, activateAccount } from "../controllers/userController.js";
 import { isAdmin, isAuthenticated } from "../middleware/auth.js";
 
 const router = express.Router();
@@ -11,6 +11,7 @@ router.post("/login", loginUser);
 router.get("/logout", logout);
 router.post("/password/forgot", forgotPassword);
 router.put("/password/reset/:token", resetPassword);
+router.put("/profile/activate/:token", activateAccount);
 
 // Authenticated Routes
 router.get("/me", isAuthenticated, getUserDetails);

@@ -26,6 +26,40 @@ export const registerUser = Catch(async (req, res, next) => {
 		avatar: { public_id: myCloud.public_id, url: myCloud.secure_url },
 	});
 
+	const activateToken = await user.generateEmailActivationToken();
+
+	await user.save({ validateBeforeSave: false });
+
+	const url = `${process.env.FRONTEND_URL}/profile/activate-profile/${activateToken}`;
+	const message = `Your Account Activation Token is :- ${url}`;
+
+	await sendEmail({
+		email: email,
+		subject: "E-Shoppy - Activate Your Account",
+		message: message,
+	});
+
+	await user.save();
+
+	res.status(200).json({ success: true, message: `Activation Link sent successfully to your email.` });
+});
+
+// Activate Account
+export const activateAccount = Catch(async (req, res, next) => {
+	const { token } = req.params;
+
+	const activatetoken = crypto.createHash("sha256").update(token).digest("hex");
+
+	const user = await User.findOne({ activateToken: activatetoken });
+
+	if (!user) {
+		return next(new ErrorHandler(400, "Activation URL is invalid."));
+	}
+	user.active = true;
+	user.activatetoken = undefined;
+
+	await user.save();
+
 	sendToken(user, 200, res);
 });
 
@@ -41,6 +75,10 @@ export const loginUser = Catch(async (req, res, next) => {
 
 	if (!user) {
 		return next(new ErrorHandler(401, "Invalid Email or Password."));
+	}
+
+	if (!user.active) {
+		return next(new ErrorHandler(401, "Your account isn't activated yet. Please check your mail and verify."));
 	}
 
 	const isPasswordCorrect = await user.comparePassword(password);
@@ -101,7 +139,7 @@ export const forgotPassword = Catch(async (req, res, next) => {
 export const resetPassword = Catch(async (req, res, next) => {
 	const { token } = req.params;
 	const { password, confirmPassword } = req.body;
-	console.log(req.body);
+
 	const resetPasswordToken = crypto.createHash("sha256").update(token).digest("hex");
 
 	const user = await User.findOne({ resetPasswordToken: resetPasswordToken });

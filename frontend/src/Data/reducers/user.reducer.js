@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { changePasswordService, forgotPasswordService, loadService, loginService, logoutService, registerService, resetPasswordService, updateProfileService } from "../services/user.service";
+import { activateAccountService, changePasswordService, forgotPasswordService, loadService, loginService, logoutService, registerService, resetPasswordService, updateProfileService } from "../services/user.service";
 
 const initialState = {
 	user: null,
@@ -24,6 +24,14 @@ export const register = createAsyncThunk("user/register", async (payload) => {
 	const response = await registerService(payload.email, payload.name, payload.avatar, payload.password);
 	if (response?.error) {
 		return { error: response.error };
+	}
+	return response;
+});
+
+export const activate = createAsyncThunk("user/activate", async (token) => {
+	const response = await activateAccountService(token);
+	if (response?.error) {
+		return { error: response?.error };
 	}
 	return response;
 });
@@ -113,6 +121,26 @@ export const userSlice = createSlice({
 			state.user = action.payload?.user;
 			state.cart = action.payload?.user?.cart;
 			state.isAuthenticated = action.payload?.success ? action.payload?.success : false;
+			state.active = action.payload?.user?.active;
+			state.loading = false;
+			state.isUpdated = action.payload?.success;
+			if (action.payload?.error) {
+				state.error = action.payload?.error;
+			} else {
+				state.success = action.payload?.message;
+			}
+		},
+		[activate.pending]: (state, action) => {
+			state.loading = true;
+			state.error = null;
+			state.success = null;
+			state.isUpdated = false;
+		},
+		[activate.fulfilled]: (state, action) => {
+			state.user = action.payload?.user;
+			state.cart = action.payload?.user?.cart;
+			state.isAuthenticated = action.payload?.success ? action.payload?.success : false;
+			state.active = action.payload?.user?.active;
 			state.loading = false;
 			state.isUpdated = action.payload?.success;
 			if (action.payload?.error) {
@@ -130,9 +158,7 @@ export const userSlice = createSlice({
 			state.isUpdated = false;
 		},
 		[register.fulfilled]: (state, action) => {
-			state.user = action.payload?.user;
-			state.cart = action.payload?.user?.cart;
-			state.isAuthenticated = action.payload?.success ? action.payload?.success : false;
+			state.active = action.payload?.user?.active;
 			state.loading = false;
 			state.isUpdated = action.payload?.success;
 			if (action.payload?.error) {

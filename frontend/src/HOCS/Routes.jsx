@@ -24,6 +24,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useSelector } from "react-redux";
 import OrderDetails from "../Containers/Order/OrderDetails";
+import ActivateAccount from "../Containers/Auth/ActivateAccount";
 
 const Routes = () => {
 	const { stripeAPIKey } = useSelector((state) => state.order);
@@ -40,6 +41,7 @@ const Routes = () => {
 				<Route exact path="/auth" component={Auth} />
 				<Route exact path="/profile/forgot-password" component={ForgotPassword} />
 				<Route exact path="/profile/password-reset/:token" component={ResetPassword} />
+				<Route exact path="/profile/activate-profile/:token" component={ActivateAccount} />
 
 				{/* Admin Routes */}
 				<ProtectedRoute exact path="/admin/dashboard" component={Dashboard} />

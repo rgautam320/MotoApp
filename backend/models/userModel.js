@@ -26,9 +26,10 @@ const userSchema = new mongoose.Schema({
 		select: false,
 	},
 	avatar: {
-		public_id: { type: String, required: true },
-		url: { type: String, required: true },
+		public_id: { type: String, required: true, default: "id" },
+		url: { type: String, required: true, default: "url" },
 	},
+	active: { type: Boolean, required: true, default: false },
 	role: { type: String, required: true, default: "user" },
 	address: {
 		street: { type: String, required: false },
@@ -48,6 +49,7 @@ const userSchema = new mongoose.Schema({
 		},
 	],
 	resetPasswordToken: String,
+	activateToken: String,
 	resetPasswordExpire: Date,
 	createdAt: { type: Date, default: Date.now },
 });
@@ -80,6 +82,14 @@ userSchema.methods.generatePasswordResetToken = function () {
 	this.resetPasswordExpire = Date.now() + 15 * 60 * 1000;
 
 	return resetToken;
+};
+
+// Generating email verification token
+userSchema.methods.generateEmailActivationToken = function () {
+	const activateToken = crypto.randomBytes(20).toString("hex");
+	this.activateToken = crypto.createHash("sha256").update(activateToken).digest("hex");
+
+	return activateToken;
 };
 
 export default mongoose.model("User", userSchema);
