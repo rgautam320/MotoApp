@@ -28,7 +28,7 @@ export const registerUser = Catch(async (req, res, next) => {
 	});
 
 	await Cart.create({
-		orderItems: [],
+		cartItems: [],
 		user: user._id,
 	});
 
@@ -208,7 +208,7 @@ export const updatePassword = Catch(async (req, res, next) => {
 // Update User Info
 export const updateUserDetails = Catch(async (req, res, next) => {
 	const { _id } = req.user;
-	const { name, email, address, cart } = req.body;
+	const { name, email, address } = req.body;
 	const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar.url, {
 		folder: "MotoApp/profile",
 		width: 150,
@@ -216,7 +216,7 @@ export const updateUserDetails = Catch(async (req, res, next) => {
 	});
 	const avatar = { public_id: myCloud.public_id, url: myCloud.secure_url };
 
-	const user = await User.findByIdAndUpdate(_id, { name, email, avatar, address, cart }, { new: true, runValidators: true, useFindAndModify: false });
+	const user = await User.findByIdAndUpdate(_id, { name, email, avatar, address }, { new: true, runValidators: true, useFindAndModify: false });
 
 	res.status(200).json({ success: true, message: "User Updated Successfully", user: user });
 });

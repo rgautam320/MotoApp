@@ -39,15 +39,6 @@ const userSchema = new mongoose.Schema({
 		country: { type: String, required: false, default: "India" },
 		phone: { type: String, required: false },
 	},
-	cart: [
-		{
-			product: { type: mongoose.Schema.ObjectId, required: false, ref: "Product" },
-			name: { type: String, required: false },
-			price: { type: String, required: false },
-			quantity: { type: Number, required: false },
-			image: { type: String, required: false },
-		},
-	],
 	resetPasswordToken: String,
 	activateToken: String,
 	resetPasswordExpire: Date,
