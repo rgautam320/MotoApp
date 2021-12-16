@@ -202,7 +202,13 @@ export const updatePassword = Catch(async (req, res, next) => {
 // Update User Info
 export const updateUserDetails = Catch(async (req, res, next) => {
 	const { _id } = req.user;
-	const { name, email, avatar, address, cart } = req.body;
+	const { name, email, address, cart } = req.body;
+	const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar.url, {
+		folder: "MotoApp/profile",
+		width: 150,
+		crop: "scale",
+	});
+	const avatar = { public_id: myCloud.public_id, url: myCloud.secure_url };
 
 	const user = await User.findByIdAndUpdate(_id, { name, email, avatar, address, cart }, { new: true, runValidators: true, useFindAndModify: false });
 

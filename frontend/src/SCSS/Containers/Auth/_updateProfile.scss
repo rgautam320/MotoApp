@@ -72,10 +72,10 @@
 		background-color: transparent;
 		border-radius: 0.8rem;
 		box-shadow: 0.2rem 0.2rem 0.5rem 0.2rem $grey;
-		@media (max-width: 768px) {
-			&__updateBox {
-				height: 68rem;
-			}
+	}
+	@media (max-width: 768px) {
+		&__box {
+			height: 62rem;
 		}
 	}
 	&__CountryState {

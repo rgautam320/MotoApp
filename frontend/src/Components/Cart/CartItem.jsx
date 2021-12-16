@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 import { userActions } from "../../Data/reducers/user.reducer";
 
 const CartItem = ({ cart, type }) => {
-	const disptach = useDispatch();
+	const dispatch = useDispatch();
 	const alert = useAlert();
 	const [quantity, setQuantity] = useState(cart?.quantity || 1);
 
@@ -22,7 +22,7 @@ const CartItem = ({ cart, type }) => {
 			quantity: quantity + 1 >= 6 ? 6 : quantity + 1,
 			image: cart?.image,
 		};
-		disptach(userActions.cart(payload));
+		dispatch(userActions.cart(payload));
 	};
 	const decreaseItem = () => {
 		if (quantity === 1) {
@@ -37,10 +37,10 @@ const CartItem = ({ cart, type }) => {
 			quantity: quantity - 1 >= 1 ? quantity - 1 : 1,
 			image: cart?.image,
 		};
-		disptach(userActions.cart(payload));
+		dispatch(userActions.cart(payload));
 	};
 	const onRemove = () => {
-		disptach(userActions.cartRemove(cart?.product));
+		dispatch(userActions.cartRemove(cart?.product));
 		alert.success("Product removed from cart.");
 	};
 	return (
