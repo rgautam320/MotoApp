@@ -37,6 +37,10 @@ export const logoutAPI = () => API.get("/auth/logout");
 export const getStripeKeyAPI = () => API.get("/payment/stripeapikey");
 export const makePaymentAPI = (amount) => API.post("/payment/process", { amount });
 
+// Cart
+export const updateCartAPI = (cartItems) => API.post("/cart/update-cart", { cartItems });
+export const getCartAPI = () => API.get("/cart/get-cart");
+
 // Order
 export const makeOrderAPI = (order) => API.post("/order/placeOrder", order);
 export const getMyOrdersAPI = () => API.get("/order/getAllMyOrders");

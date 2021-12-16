@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useAlert } from "react-alert";
 import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { userActions } from "../../Data/reducers/user.reducer";
+import { cartActions } from "../../Data/reducers/cart.reducer";
 
 const CartItem = ({ cart, type }) => {
 	const dispatch = useDispatch();
@@ -22,7 +22,7 @@ const CartItem = ({ cart, type }) => {
 			quantity: quantity + 1 >= 6 ? 6 : quantity + 1,
 			image: cart?.image,
 		};
-		dispatch(userActions.cart(payload));
+		dispatch(cartActions.cart(payload));
 	};
 	const decreaseItem = () => {
 		if (quantity === 1) {
@@ -37,10 +37,10 @@ const CartItem = ({ cart, type }) => {
 			quantity: quantity - 1 >= 1 ? quantity - 1 : 1,
 			image: cart?.image,
 		};
-		dispatch(userActions.cart(payload));
+		dispatch(cartActions.cart(payload));
 	};
 	const onRemove = () => {
-		dispatch(userActions.cartRemove(cart?.product));
+		dispatch(cartActions.cartRemove(cart?.product));
 		alert.success("Product removed from cart.");
 	};
 	return (

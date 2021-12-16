@@ -11,6 +11,7 @@ import Review from "../../Components/Product/Review";
 import { userActions } from "../../Data/reducers/user.reducer";
 import ReviewDialog from "../../Components/Product/ReviewDialog";
 import { getMyOrders } from "../../Data/reducers/order.reducer";
+import { cartActions } from "../../Data/reducers/cart.reducer";
 
 const responsive = {
 	desktop: {
@@ -98,7 +99,7 @@ const ProductDetails = ({ match }) => {
 			quantity: quantity,
 			image: singleProduct?.images[0]?.url,
 		};
-		dispatch(userActions.cart(payload));
+		dispatch(cartActions.cart(payload));
 		dispatch(userActions.reset());
 		alert.success("Product added to cart.");
 	};

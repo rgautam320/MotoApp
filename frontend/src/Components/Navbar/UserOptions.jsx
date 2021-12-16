@@ -11,7 +11,7 @@ const UserOptions = ({ user }) => {
 	const dispatch = useDispatch();
 
 	const [open, setOpen] = useState(false);
-	const { cart } = useSelector((state) => state.user);
+	const { cart } = useSelector((state) => state.cart);
 
 	const handleOpen = () => {
 		setOpen(true);
@@ -25,8 +25,8 @@ const UserOptions = ({ user }) => {
 		{ icon: <ListAlt />, name: "Orders", func: orders },
 		{ icon: <Person />, name: "Profile", func: account },
 		{
-			icon: cart?.length ? <ShoppingCart style={{ color: "tomato" }} /> : <RemoveShoppingCart />,
-			name: `Cart (${cart?.length})`,
+			icon: cart?.cartItems?.length ? <ShoppingCart style={{ color: "tomato" }} /> : <RemoveShoppingCart />,
+			name: `Cart (${cart?.cartItems?.length})`,
 			func: cartFunc,
 		},
 		{ icon: <ExitToApp />, name: "Logout", func: logoutUser },

@@ -2,8 +2,8 @@ import React from "react";
 import ReactRatings from "react-rating-stars-component";
 import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { userActions } from "../../Data/reducers/user.reducer";
 import { useAlert } from "react-alert";
+import { cartActions } from "../../Data/reducers/cart.reducer";
 
 const Card = ({ product, styles }) => {
 	const dispatch = useDispatch();
@@ -28,7 +28,7 @@ const Card = ({ product, styles }) => {
 			quantity: 1,
 			image: product?.images[0]?.url,
 		};
-		dispatch(userActions.cart(payload));
+		dispatch(cartActions.cart(payload));
 		alert.success("Product added to cart.");
 	};
 	return (

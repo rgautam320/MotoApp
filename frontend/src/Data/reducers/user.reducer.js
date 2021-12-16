@@ -3,7 +3,6 @@ import { activateAccountService, changePasswordService, forgotPasswordService, l
 
 const initialState = {
 	user: null,
-	cart: [],
 	isAuthenticated: null,
 	isUpdated: false,
 	loading: undefined,
@@ -94,20 +93,6 @@ export const userSlice = createSlice({
 			state.success = null;
 			state.error = null;
 		},
-		resetCartOnly: (state, action) => {
-			state.cart = [];
-		},
-		cart: (state, action) => {
-			const isExist = state.cart?.find((item) => item?.product === action.payload?.product);
-			if (isExist) {
-				state.cart = state.cart?.map((item) => (item.product === action.payload?.product ? action.payload : item));
-			} else {
-				state.cart = [...state.cart, action.payload];
-			}
-		},
-		cartRemove: (state, action) => {
-			state.cart = state.cart.filter((item) => item.product !== action.payload);
-		},
 	},
 	extraReducers: {
 		// Login
@@ -119,7 +104,6 @@ export const userSlice = createSlice({
 		},
 		[login.fulfilled]: (state, action) => {
 			state.user = action.payload?.user;
-			state.cart = action.payload?.user?.cart;
 			state.isAuthenticated = action.payload?.success ? action.payload?.success : false;
 			state.active = action.payload?.user?.active;
 			state.loading = false;
@@ -138,7 +122,6 @@ export const userSlice = createSlice({
 		},
 		[activate.fulfilled]: (state, action) => {
 			state.user = action.payload?.user;
-			state.cart = action.payload?.user?.cart;
 			state.isAuthenticated = action.payload?.success ? action.payload?.success : false;
 			state.active = action.payload?.user?.active;
 			state.loading = false;
@@ -177,7 +160,6 @@ export const userSlice = createSlice({
 		},
 		[load.fulfilled]: (state, action) => {
 			state.user = action.payload?.user;
-			state.cart = action.payload?.user?.cart;
 			state.isUpdated = action.payload?.success;
 			state.isAuthenticated = action.payload?.success ? action.payload?.success : false;
 			state.loading = false;
@@ -191,7 +173,6 @@ export const userSlice = createSlice({
 		},
 		[updateProfile.fulfilled]: (state, action) => {
 			state.user = action.payload?.user;
-			state.cart = action.payload?.user?.cart;
 			state.loading = false;
 			state.isUpdated = action.payload?.success;
 			if (action.payload?.error) {
