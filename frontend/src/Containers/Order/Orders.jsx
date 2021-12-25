@@ -11,7 +11,7 @@ import { SmallLoader } from "../../Utils/Loader";
 const Orders = () => {
 	const dispatch = useDispatch();
 	const alert = useAlert();
-	const { orders, loading, success, error } = useSelector((state) => state.order);
+	const { orders, loading, error } = useSelector((state) => state.order);
 	const { user } = useSelector((state) => state.user);
 
 	const columns = [
@@ -82,13 +82,11 @@ const Orders = () => {
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
-		if (success) {
-			alert.success(success);
-		} else if (error) {
+		if (error) {
 			alert.error(error);
 		}
 		dispatch(orderActions.reset());
-	}, [success, error, dispatch, alert]);
+	}, [error, dispatch, alert]);
 	useEffect(() => {
 		dispatch(getMyOrders());
 	}, [dispatch]);

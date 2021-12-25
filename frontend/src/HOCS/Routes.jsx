@@ -44,7 +44,7 @@ const Routes = () => {
 				<Route exact path="/profile/activate-profile/:token" component={ActivateAccount} />
 
 				{/* Admin Routes */}
-				<ProtectedRoute path="/admin/dashboard" component={AdminLayout} />
+				<ProtectedRoute path="/admin/dashboard" component={AdminLayout} isAdmin={true} />
 
 				{/* Authenticated Routes */}
 				<ProtectedRoute exact path="/cart" component={Cart} />
