@@ -1,6 +1,6 @@
-.dashboard {
-	min-height: 80vh;
+.adminDashboard {
 	&__dashboard {
+		min-height: 76.6vh;
 		padding-top: 2rem;
 	}
 	&__heading {
@@ -10,5 +10,50 @@
 		margin: 1.5rem auto;
 		padding-bottom: 1rem;
 		border-bottom: 0.15rem solid $light-shadow;
+	}
+	&__circles {
+		display: flex;
+		justify-content: space-between;
+		padding: 0 2rem;
+		&__links {
+			height: 12rem;
+			width: 12rem;
+			border-radius: 50%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			span {
+				display: block;
+				text-align: center;
+				font-size: 1.5rem;
+				color: $white;
+			}
+		}
+		&__link1 {
+			background-color: $tomato;
+		}
+		&__link2 {
+			background-color: $primary;
+		}
+		&__link3 {
+			background-color: $secondary;
+		}
+	}
+
+	// Media Query
+	@media (max-width: 768px) {
+		&__heading {
+			font-size: 2rem;
+		}
+		&__circles {
+			padding: 0;
+			&__links {
+				height: 6.5rem;
+				width: 6.5rem;
+				span {
+					font-size: 1.2rem;
+				}
+			}
+		}
 	}
 }

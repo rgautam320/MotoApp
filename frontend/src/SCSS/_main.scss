@@ -23,7 +23,15 @@
 @import "./Containers/Auth/updateProfile";
 @import "./Containers/Auth/activateAccount";
 @import "./Containers/Product/productDetails";
+
+// Importing Admin SCSS
 @import "./Containers/Admin/dashboard";
+@import "./Containers/Admin/products";
+@import "./Containers/Admin/orders";
+@import "./Containers/Admin/reviews";
+@import "./Containers/Admin/users";
+
+@import "./Components/Admin/sidebar";
 
 // Importing Components
 @import "./Components/Navbar/navbar";

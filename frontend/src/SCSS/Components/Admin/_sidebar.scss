@@ -1,0 +1,58 @@
+.sidebar {
+	&__sidebar {
+		min-height: 80vh;
+		border-right: 0.1rem solid $light-shadow;
+	}
+	&__logo {
+		width: 80%;
+		height: auto;
+		margin: auto;
+		img {
+			width: 100%;
+			height: auto;
+		}
+		&__text {
+			text-align: center;
+			letter-spacing: 0.1rem;
+			background-image: linear-gradient(90deg, #00ff0d, #ff0048);
+			background-size: 100%;
+			background-clip: border-box;
+			-webkit-background-clip: text;
+			-moz-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			-moz-text-fill-color: transparent;
+			font-size: 2rem;
+		}
+	}
+	&__linkBox {
+		margin: 1.8rem 0;
+		&__links {
+			line-height: 2.8rem;
+			color: $light-dark;
+			font-size: 1.4rem;
+			svg {
+				margin-right: 1rem;
+			}
+		}
+		&__active {
+			color: $dark-blue;
+			font-weight: bold;
+		}
+	}
+	@media (max-width: 768px) {
+		&__sidebar {
+			min-height: 60vh;
+			border-right: none;
+		}
+	}
+	@media (max-width: 1024px) {
+		&__linkBox {
+			&__links {
+				font-size: 1.2rem;
+				svg {
+					margin-right: 0.2rem;
+				}
+			}
+		}
+	}
+}
