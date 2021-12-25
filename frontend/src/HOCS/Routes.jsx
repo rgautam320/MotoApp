@@ -11,7 +11,6 @@ import ProductDetails from "../Containers/Product/ProductDetails";
 import Cart from "../Containers/Order/Cart";
 import Orders from "../Containers/Order/Orders";
 import Shipping from "../Containers/Order/Shipping";
-import Dashboard from "../Containers/Admin/Dashboard";
 import Profile from "../Containers/Auth/Profile";
 import UpdateProfile from "../Containers/Auth/UpdateProfile";
 import ChangePassword from "../Containers/Auth/ChangePassword";
@@ -25,6 +24,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { useSelector } from "react-redux";
 import OrderDetails from "../Containers/Order/OrderDetails";
 import ActivateAccount from "../Containers/Auth/ActivateAccount";
+import AdminLayout from "./AdminLayout";
 
 const Routes = () => {
 	const { stripeAPIKey } = useSelector((state) => state.order);
@@ -44,7 +44,7 @@ const Routes = () => {
 				<Route exact path="/profile/activate-profile/:token" component={ActivateAccount} />
 
 				{/* Admin Routes */}
-				<ProtectedRoute exact path="/admin/dashboard" component={Dashboard} />
+				<ProtectedRoute path="/admin/dashboard" component={AdminLayout} />
 
 				{/* Authenticated Routes */}
 				<ProtectedRoute exact path="/cart" component={Cart} />
