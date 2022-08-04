@@ -4,7 +4,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 export default function MotoBackdrop({ loading }) {
     return (
-        <Backdrop style={{ zIndex: "10" }} sx={{ color: "#fff" }} open={loading}>
+        <Backdrop style={{ zIndex: "1000" }} sx={{ color: "#fff" }} open={loading}>
             <CircularProgress color="inherit" />
         </Backdrop>
     );

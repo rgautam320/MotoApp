@@ -6,6 +6,7 @@ import {
     DialogContent,
     DialogContentText,
     DialogTitle,
+    FormLabel,
     MenuItem,
     Select,
     TextField,
@@ -86,6 +87,12 @@ const Products = () => {
             flex: 0.5,
         },
         {
+            field: "featured",
+            headerName: "Featured",
+            minWidth: 60,
+            flex: 0.5,
+        },
+        {
             field: "actions",
             flex: 0.3,
             headerName: "Actions",
@@ -117,6 +124,7 @@ const Products = () => {
                 rating: item?.rating,
                 stock: item?.stock,
                 category: item?.category,
+                featured: item?.featured,
             });
         });
 
@@ -198,17 +206,32 @@ const Products = () => {
                                 fullWidth
                             />
                         </Box>
-                        <Select
-                            value={editItem?.category}
-                            onChange={(e) => setEditItem({ ...editItem, category: e.target.value })}
-                            label="Status"
-                            fullWidth
-                        >
-                            <MenuItem value="Mobile">Mobile</MenuItem>
-                            <MenuItem value="Laptop">Laptop</MenuItem>
-                            <MenuItem value="Electronics">Electronics</MenuItem>
-                            <MenuItem value="Accessories">Accessories</MenuItem>
-                        </Select>
+                        <Box my={2}>
+                            <FormLabel>Featured</FormLabel>
+                            <Select
+                                value={editItem?.category}
+                                onChange={(e) => setEditItem({ ...editItem, category: e.target.value })}
+                                label="Status"
+                                fullWidth
+                            >
+                                <MenuItem value="Mobile">Mobile</MenuItem>
+                                <MenuItem value="Laptop">Laptop</MenuItem>
+                                <MenuItem value="Electronics">Electronics</MenuItem>
+                                <MenuItem value="Accessories">Accessories</MenuItem>
+                            </Select>
+                        </Box>
+                        <Box my={2}>
+                            <FormLabel>Featured</FormLabel>
+                            <Select
+                                value={editItem?.featured}
+                                onChange={(e) => setEditItem({ ...editItem, featured: e.target.value })}
+                                label="Featured"
+                                fullWidth
+                            >
+                                <MenuItem value="true">True</MenuItem>
+                                <MenuItem value="false">False</MenuItem>
+                            </Select>
+                        </Box>
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={handleClose}>Cancel</Button>

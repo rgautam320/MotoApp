@@ -13,7 +13,7 @@ import {
     Typography,
 } from "@material-ui/core";
 import { useDispatch } from "react-redux";
-import { createProduct, productActions } from "../../Data/reducers/product.reducer";
+import { createProduct, getAllProductsAdmin, productActions } from "../../Data/reducers/product.reducer";
 
 const AddProductModal = ({ open, handleClose }) => {
     const dispatch = useDispatch();
@@ -51,6 +51,7 @@ const AddProductModal = ({ open, handleClose }) => {
         const request = { ...data, images };
         await dispatch(createProduct(request));
         dispatch(productActions.reset());
+        dispatch(getAllProductsAdmin());
         onClose();
     };
 
@@ -98,7 +99,6 @@ const AddProductModal = ({ open, handleClose }) => {
                                 value={data?.category}
                                 onChange={(e) => setData({ ...data, category: e.target.value })}
                                 label="Status"
-                                defaultValue="Mobile"
                                 fullWidth
                             >
                                 <MenuItem value="Mobile">Mobile</MenuItem>
@@ -128,7 +128,7 @@ const AddProductModal = ({ open, handleClose }) => {
                                     type="file"
                                     multiple
                                     name="images"
-                                    accept=".jpg, .png"
+                                    accept=".jpg, .png, .webp"
                                     onChange={onImageSelect}
                                     hidden
                                 />
