@@ -6,28 +6,30 @@ import { useHistory } from "react-router";
 import { activate } from "../../Data/reducers/user.reducer";
 
 const ActivateAccount = ({ match }) => {
-	const { user } = useSelector((state) => state.user);
-	const { token } = match.params;
+    const { user } = useSelector((state) => state.user);
+    const { token } = match.params;
 
-	const history = useHistory();
-	const dispatch = useDispatch();
+    const history = useHistory();
+    const dispatch = useDispatch();
 
-	const alert = useAlert();
+    const alert = useAlert();
 
-	useEffect(() => {
-		dispatch(activate(token));
-	}, [dispatch, token]);
-	useEffect(() => {
-		if (user?.active) {
-			history.push("/auth");
-			alert.success("Account activated successfully.");
-		}
-	}, [user, history, alert]);
-	return (
-		<>
-			<div className="activateAccount__activateAccount"></div>
-		</>
-	);
+    useEffect(() => {
+        dispatch(activate(token));
+    }, [dispatch, token]);
+
+    useEffect(() => {
+        if (user?.active) {
+            history.push("/auth");
+            alert.success("Account activated successfully.");
+        }
+    }, [user, history, alert]);
+
+    return (
+        <>
+            <div className="activateAccount__activateAccount" />
+        </>
+    );
 };
 
 export default ActivateAccount;

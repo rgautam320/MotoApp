@@ -33,7 +33,6 @@ frontend
 |   |___Data
 |   |___HOCS
 |   |___SCSS
-|   |___Utils
 |   | App.js
 |   | index.js
 |   .env

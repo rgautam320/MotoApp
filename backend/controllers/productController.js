@@ -2,160 +2,193 @@ import Product from "../models/productModel.js";
 import ErrorHandler from "../middleware/error.js";
 import Catch from "../middleware/catch.js";
 import ProductFeature from "../features/productFeature.js";
+import cloudinary from "cloudinary";
 
 // Getting all products - Public
 export const getAllProducts = Catch(async (req, res) => {
-	const page = 6;
-	const productCount = await Product.countDocuments();
-	const Products = new ProductFeature(Product.find(), req.query).search().filter();
+    const page = 6;
+    const productCount = await Product.countDocuments();
+    const Products = new ProductFeature(Product.find(), req.query).search().filter();
 
-	let products = await Products.query;
-	const filteredProductCount = products.length;
-	Products.pagination(page);
-	products = await Products.query.clone();
+    let products = await Products.query;
+    const filteredProductCount = products.length;
+    Products.pagination(page);
+    products = await Products.query.clone();
 
-	res.status(200).json({ success: true, products: products, productsCount: productCount, page: page, filteredProductCount: filteredProductCount });
+    res.status(200).json({
+        success: true,
+        products: products,
+        productsCount: productCount,
+        page: page,
+        filteredProductCount: filteredProductCount,
+    });
+});
+
+export const getAllProductsAdmin = Catch(async (req, res) => {
+    const products = await Product.find();
+
+    res.status(200).json({
+        success: true,
+        products: products,
+    });
 });
 
 // Getting Featured Products - Public
 export const getFeaturedProducts = Catch(async (req, res) => {
-	const page = 6;
-	const products = await Product.find({ featured: true }).limit(page);
+    const page = 6;
+    const products = await Product.find({ featured: true }).limit(page);
 
-	res.status(200).json({ success: true, message: "Featured Product", featuredProducts: products });
+    res.status(200).json({ success: true, message: "Featured Product", featuredProducts: products });
 });
 
 // Creating a Product - Admin
 export const createProduct = Catch(async (req, res) => {
-	req.body.user = req.user.id;
-	const data = req.body;
+    req.body.user = req.user.id;
+    let data = req.body?.data;
 
-	const product = await Product.create(data);
-	res.status(201).json({ success: true, message: "Product Created Successfully.", product: product });
+    let images = [];
+
+    for (let i = 0; i < data?.images?.length; i++) {
+        const res = await cloudinary.v2.uploader.upload(data?.images[i], {
+            folder: "MotoApp/products",
+            width: 150,
+            crop: "scale",
+        });
+        images.push({ public_id: res.public_id, url: res.secure_url });
+    }
+
+    data = { ...data, images: images, user: req.user?._id };
+
+    const product = await Product.create(data);
+    res.status(201).json({ success: true, message: "Product Created Successfully.", product: product });
 });
 
 // Creating a Product - Admin
 export const updateProduct = Catch(async (req, res, next) => {
-	const { id } = req.params;
-	const data = req.body;
-	const product = await Product.findById(id);
+    const { id } = req.params;
+    const { data } = req.body;
+    const product = await Product.findById(id);
 
-	if (!product) {
-		return next(new ErrorHandler(404, "Product not found"));
-	}
+    if (!product) {
+        return next(new ErrorHandler(404, "Product not found"));
+    }
 
-	const updateProduct = await Product.findByIdAndUpdate(id, data, { new: true, runValidators: true, useFindAndModify: false });
-	res.status(200).json({ success: true, message: "Product Updated", product: updateProduct });
+    const updateProduct = await Product.findByIdAndUpdate(id, data, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false,
+    });
+    res.status(200).json({ success: true, message: "Product Updated", product: updateProduct });
 });
 
 // Creating a Product - Admin
 export const deleteProduct = Catch(async (req, res, next) => {
-	const { id } = req.params;
-	const product = await Product.findById(id);
+    const { id } = req.params;
+    const product = await Product.findById(id);
 
-	if (!product) {
-		return next(new ErrorHandler(404, "Product not found"));
-	}
+    if (!product) {
+        return next(new ErrorHandler(404, "Product not found"));
+    }
 
-	await Product.findByIdAndDelete(id);
-	res.status(200).json({ message: "Product Deleted Successfully." });
+    await Product.findByIdAndDelete(id);
+    res.status(200).json({ message: "Product Deleted Successfully." });
 });
 
 // Creating a Product - Public
 export const getSingleProduct = Catch(async (req, res, next) => {
-	const { id } = req.params;
-	const product = await Product.findById(id);
+    const { id } = req.params;
+    const product = await Product.findById(id);
 
-	if (!product) {
-		return next(new ErrorHandler(404, "Product not found"));
-	}
+    if (!product) {
+        return next(new ErrorHandler(404, "Product not found"));
+    }
 
-	res.status(200).json({ success: true, message: "Product Found.", product: product });
+    res.status(200).json({ success: true, message: "Product Found.", product: product });
 });
 
 // Create and Update Rating
 export const createUpdateReview = Catch(async (req, res, next) => {
-	const { _id, name } = req.user;
-	const { productId } = req.params;
-	const { comment, rating } = req.body;
+    const { _id, name } = req.user;
+    const { productId } = req.params;
+    const { comment, rating } = req.body;
 
-	if (!rating) {
-		return next(new ErrorHandler(404, "Rating is Required"));
-	}
-	if (!productId) {
-		return next(new ErrorHandler(404, "No Product Id Given"));
-	}
+    if (!rating) {
+        return next(new ErrorHandler(404, "Rating is Required"));
+    }
+    if (!productId) {
+        return next(new ErrorHandler(404, "No Product Id Given"));
+    }
 
-	let product = await Product.findById(productId);
+    let product = await Product.findById(productId);
 
-	if (!product) {
-		return next(new ErrorHandler(404, "No Product Found"));
-	}
+    if (!product) {
+        return next(new ErrorHandler(404, "No Product Found"));
+    }
 
-	const isReviewed = product.reviews?.find((rev) => rev.user?.toString() === _id.toString());
+    const isReviewed = product.reviews?.find((rev) => rev.user?.toString() === _id.toString());
 
-	if (isReviewed) {
-		product.reviews?.forEach((rev) => {
-			if (rev.user?.toString() === _id.toString()) {
-				rev.comment = comment;
-				rev.rating = rating;
-			}
-		});
-	} else {
-		product.reviews?.push({ user: _id, name, rating, comment });
-	}
+    if (isReviewed) {
+        product.reviews?.forEach((rev) => {
+            if (rev.user?.toString() === _id.toString()) {
+                rev.comment = comment;
+                rev.rating = rating;
+            }
+        });
+    } else {
+        product.reviews?.push({ user: _id, name, rating, comment });
+    }
 
-	let sum = 0;
-	product.reviews?.forEach((rev) => {
-		sum += rev.rating;
-	});
-	product.rating = sum / product.reviews?.length || 1;
+    let sum = 0;
+    product.reviews?.forEach((rev) => {
+        sum += rev.rating;
+    });
+    product.rating = sum / product.reviews?.length || 1;
 
-	await product.save({ validateBeforeSave: false });
+    await product.save({ validateBeforeSave: false });
 
-	res.status(200).json({ success: true, message: "Review Added/Modified" });
+    res.status(200).json({ success: true, message: "Review Added/Modified" });
 });
 
 // Get All Reviews
 export const getAllReviews = Catch(async (req, res, next) => {
-	const { productId } = req.params;
-	if (!productId) {
-		return next(new ErrorHandler(404, "No Product Id Given"));
-	}
+    const { productId } = req.params;
+    if (!productId) {
+        return next(new ErrorHandler(404, "No Product Id Given"));
+    }
 
-	let product = await Product.findById(productId);
+    let product = await Product.findById(productId);
 
-	if (!product) {
-		return next(new ErrorHandler(404, "No Product Found"));
-	}
+    if (!product) {
+        return next(new ErrorHandler(404, "No Product Found"));
+    }
 
-	res.status(200).json({ success: true, reviews: product.reviews, numOfReviews: product.reviews.length });
+    res.status(200).json({ success: true, reviews: product.reviews, numOfReviews: product.reviews.length });
 });
 
 // Delete a Review
 export const deleteReview = Catch(async (req, res, next) => {
-	const { id } = req.query;
-	const { productId } = req.params;
-	if (!productId) {
-		return next(new ErrorHandler(404, "No Product Id Given"));
-	}
+    const { id } = req.query;
+    const { productId } = req.params;
+    if (!productId) {
+        return next(new ErrorHandler(404, "No Product Id Given"));
+    }
 
-	let product = await Product.findById(productId);
+    let product = await Product.findById(productId);
 
-	if (!product) {
-		return next(new ErrorHandler(404, "No Product Found"));
-	}
+    if (!product) {
+        return next(new ErrorHandler(404, "No Product Found"));
+    }
 
-	const reviews = product.reviews?.filter((rev) => rev._id.toString() !== id.toString());
+    const reviews = product.reviews?.filter((rev) => rev._id.toString() !== id.toString());
 
-	let sum = 0;
-	reviews?.forEach((rev) => {
-		sum += rev.rating;
-	});
-	product.rating = sum / reviews?.length || 1;
-	product.reviews = reviews;
+    let sum = 0;
+    reviews?.forEach((rev) => {
+        sum += rev.rating;
+    });
+    product.rating = sum / reviews?.length || 1;
+    product.reviews = reviews;
 
-	await product.save();
+    await product.save();
 
-	res.status(200).json({ success: true, message: "Review Deleted", reviews: reviews, numOfReviews: reviews?.length });
+    res.status(200).json({ success: true, message: "Review Deleted", reviews: reviews, numOfReviews: reviews?.length });
 });

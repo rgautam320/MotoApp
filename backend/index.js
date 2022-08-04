@@ -16,6 +16,7 @@ import orderRoutes from "./routes/orderRoutes.js";
 import paymentRoutes from "./routes/paymentRoutes.js";
 import contactRoutes from "./routes/contactRoutes.js";
 import cartRoutes from "./routes/cartRoutes.js";
+import dashboardRoutes from "./routes/dashboardRoutes.js";
 
 const app = express();
 
@@ -24,10 +25,10 @@ dotenv.config();
 
 // Handling Uncaught Exception
 process.on("uncaughtException", (error) => {
-	console.log(`Error: ${error.mesage}`);
-	console.log(`Shutting down the server due to unhandled Promise Rejection`);
+    console.log(`Error: ${error.mesage}`);
+    console.log(`Shutting down the server due to unhandled Promise Rejection`);
 
-	process.exit(1);
+    process.exit(1);
 });
 
 // Using bodyParser, cors, cookieParser etc.
@@ -45,6 +46,7 @@ app.use("/api/order", orderRoutes);
 app.use("/api/payment", paymentRoutes);
 app.use("/api/contact", contactRoutes);
 app.use("/api/cart", cartRoutes);
+app.use("/api/dashboard", dashboardRoutes);
 
 // Using Error Middleware
 app.use(Handler);
@@ -54,9 +56,9 @@ databaseConnection();
 
 // Cloudinary
 cloudinary.config({
-	cloud_name: process.env.CLOUDINARY_NAME,
-	api_key: process.env.CLOUDINARY_API_KEY,
-	api_secret: process.env.CLOUDINARY_API_SECRET,
+    cloud_name: process.env.CLOUDINARY_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
 // Starting Server
@@ -64,8 +66,8 @@ const server = app.listen(process.env.PORT, () => console.log(`Server Running on
 
 // Handling Unhandled Promise Rejection
 process.on("unhandledRejection", (err) => {
-	console.log(`Error: ${err.message}`);
-	console.log(`Shutting down the server due to unhandled Promise Rejection`);
+    console.log(`Error: ${err.message}`);
+    console.log(`Shutting down the server due to unhandled Promise Rejection`);
 
-	server.close(() => process.exit(1));
+    server.close(() => process.exit(1));
 });
