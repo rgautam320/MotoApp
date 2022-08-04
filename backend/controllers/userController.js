@@ -37,7 +37,6 @@ export const registerUser = Catch(async (req, res, next) => {
     await user.save({ validateBeforeSave: false });
 
     const url = `${process.env.FRONTEND_URL}/profile/activate-profile/${activateToken}`;
-    console.log(url);
     const message = `Your Account Activation Token is :- ${url}`;
 
     await sendEmail({
