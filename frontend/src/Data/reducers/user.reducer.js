@@ -30,6 +30,7 @@ export const login = createAsyncThunk("user/login", async (payload) => {
     if (response?.error) {
         return { error: response.error };
     }
+    localStorage.setItem("TOKEN", response.token);
     return response;
 });
 
@@ -46,6 +47,8 @@ export const activate = createAsyncThunk("user/activate", async (token) => {
     if (response?.error) {
         return { error: response?.error };
     }
+
+    localStorage.setItem("TOKEN", response.token);
     return response;
 });
 
@@ -53,6 +56,10 @@ export const load = createAsyncThunk("user/load", async () => {
     const response = await loadService();
     if (response?.error) {
         return { error: response.error };
+    }
+
+    if (response.token) {
+        localStorage.setItem("TOKEN", response.token);
     }
     return response;
 });
@@ -70,6 +77,8 @@ export const changePassword = createAsyncThunk("user/changePassword", async (pay
     if (response?.error) {
         return { error: response.error };
     }
+
+    localStorage.setItem("TOKEN", response.token);
     return response;
 });
 
@@ -94,6 +103,8 @@ export const logout = createAsyncThunk("user/logout", async () => {
     if (response?.error) {
         return { error: response.error };
     }
+
+    localStorage.clear();
     return response;
 });
 

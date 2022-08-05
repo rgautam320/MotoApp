@@ -1,12 +1,12 @@
 import axios from "axios";
+import { REACT_APP_API } from "./config";
 
 // Setting Up API
-const API = axios.create({ baseURL: `/api` });
-const token = `Bearer ${localStorage.getItem("token")}`;
+const API = axios.create({ baseURL: `${REACT_APP_API}/api` });
 
 API.interceptors.request.use((req) => {
-    if (localStorage.getItem("token") !== "null") {
-        req.headers.Authorization = token;
+    if (localStorage.getItem("TOKEN")) {
+        req.headers.Authorization = `Bearer ${localStorage.getItem("TOKEN")}`;
     }
     return req;
 });

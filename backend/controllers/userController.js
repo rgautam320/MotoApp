@@ -64,7 +64,10 @@ export const activateAccount = Catch(async (req, res, next) => {
 
     await user.save({ validateBeforeSave: false });
 
-    sendToken(user, 200, res);
+    const accessToken = user.getJWTToken();
+
+    // sendToken(user, 200, res);
+    res.status(200).json({ success: true, message: "Account Activated Successfully.", user: user, token: accessToken });
 });
 
 // Login User
@@ -91,7 +94,10 @@ export const loginUser = Catch(async (req, res, next) => {
         return next(new ErrorHandler(401, "Invalid Email or Password. Here"));
     }
 
-    sendToken(user, 200, res);
+    const accessToken = user.getJWTToken();
+
+    // sendToken(user, 200, res);
+    res.status(200).json({ success: true, message: "Logged in Successfully.", user: user, token: accessToken });
 });
 
 // Logout User
@@ -162,7 +168,10 @@ export const resetPassword = Catch(async (req, res, next) => {
 
     await user.save();
 
-    sendToken(user, 200, res);
+    const accessToken = user.getJWTToken();
+
+    // sendToken(user, 200, res);
+    res.status(200).json({ success: true, message: "Password Reset Successfully.", user: user, token: accessToken });
 });
 
 // Get User Details
@@ -202,13 +211,15 @@ export const updatePassword = Catch(async (req, res, next) => {
 
     await user.save();
 
-    sendToken(user, 200, res);
+    const accessToken = user.getJWTToken();
+
+    // sendToken(user, 200, res);
+    res.status(200).json({ success: true, message: "Password Updated Successfully.", user: user, token: accessToken });
 });
 
 // Update User Info
 export const updateUserDetails = Catch(async (req, res, next) => {
     const { _id } = req.user;
-    let { name, email, address, cart } = req.body;
 
     if (req.body.avatar) {
         const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar?.url, {

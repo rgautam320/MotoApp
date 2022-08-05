@@ -4,24 +4,24 @@ import Catch from "./catch.js";
 import ErrorHandler from "./error.js";
 
 export const isAuthenticated = Catch(async (req, res, next) => {
-	const { token } = req.cookies;
+    const token = req.headers.authorization?.split(" ")[1];
 
-	if (!token) {
-		return next(new ErrorHandler(401, "Unauthorized: Please Login"));
-	}
+    if (!token) {
+        return next(new ErrorHandler(401, "Unauthorized: Please Login"));
+    }
 
-	const decodedData = jwt.verify(token, process.env.JWT_SECRET);
+    const decodedData = jwt.verify(token, process.env.JWT_SECRET);
 
-	req.user = await User.findById(decodedData.id);
+    req.user = await User.findById(decodedData.id);
 
-	next();
+    next();
 });
 
 export const isAdmin = () => {
-	return (req, res, next) => {
-		if (req.user.role === "user") {
-			return next(new ErrorHandler(401, "Unauthorized: You can't access this."));
-		}
-		next();
-	};
+    return (req, res, next) => {
+        if (req.user.role === "user") {
+            return next(new ErrorHandler(401, "Unauthorized: You can't access this."));
+        }
+        next();
+    };
 };
