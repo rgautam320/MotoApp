@@ -1,8 +1,9 @@
+import cloudinary from "cloudinary";
+
 import Product from "../models/productModel.js";
 import ErrorHandler from "../middleware/error.js";
 import Catch from "../middleware/catch.js";
 import ProductFeature from "../features/productFeature.js";
-import cloudinary from "cloudinary";
 
 // Getting all products - Public
 export const getAllProducts = Catch(async (req, res) => {

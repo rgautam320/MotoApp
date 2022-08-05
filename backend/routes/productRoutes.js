@@ -16,7 +16,7 @@ import { isAuthenticated, isAdmin } from "../middleware/auth.js";
 
 const router = express.Router();
 
-// User Routes
+// Public Routes
 router.get("/getAllProducts", getAllProducts);
 router.get("/getProduct/:id", getSingleProduct);
 router.get("/getProductReview/:productId", getAllReviews);
