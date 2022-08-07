@@ -138,7 +138,6 @@ export const getDashboardDetails = createAsyncThunk("dashboard/getDashboardDetai
     if (response?.error) {
         return { error: response.error };
     }
-    localStorage.clear();
     return response;
 });
 
