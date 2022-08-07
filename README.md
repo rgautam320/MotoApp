@@ -1,5 +1,25 @@
 # Moto App - MERN
 
+## Project Description
+
+This is an E-Commerce platform which is completely based on MERN stack (MongoDB, Express, React and Node).
+
+## Features
+
+So, the features we would be having in the application that we would be building are:-
+
+1.  Authentication using JSON Web Tokens (JWT).
+2.  Option to add, edit, view and delete all the items in our store.
+3.  Option to add items or remove items from the cart.
+4.  Display the total bill of the cart and update it as soon as the cart is updated by the user.
+5.  Using Local Storage to store the JWT so that we only allow logged-in users to buy items.
+6.  Option to pay and checkout thus creating order and emptying the cart.
+7.  Option to add or update review to the products you've brought.
+8.  Admin Panel where admin can manage products, users, orders etc.
+9.  Admin can also see the analytical dashboard.
+
+## [Live URL](https://moto-app.netlify.app)
+
 ## Folder Structure
 
 ```
