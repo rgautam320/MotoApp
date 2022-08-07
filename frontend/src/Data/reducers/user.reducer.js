@@ -129,7 +129,7 @@ export const getAllUsersAdmin = createAsyncThunk("user/getAllUsers", async () =>
     if (response?.error) {
         return { error: response.error };
     }
-    localStorage.clear();
+
     return response;
 });
 
